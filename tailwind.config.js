@@ -5,24 +5,24 @@ module.exports = {
   ],
   theme: {
     screens: {
-      sm: '320px',
-      md: '768px',
-      lg: '976px',
-      xl: '1440px',
+      sm: "320px",
+      md: "768px",
+      lg: "976px",
+      xl: "1440px",
     },
-    colors:{
+    colors: {
       white: "#ECEBEF",
       darkBlue: "#060608",
-      primary:"#232F3E",
-      otherBlue:"#37475A",
-      orange:"#F15603",
-      orange2:"#f08804",
+      primary: "#232F3E",
+      otherBlue: "#37475A",
+      orange: "#F15603",
+      orange2: "#f08804",
       grey: "#B6B1AD",
     },
     fontFamily: {
-      Roboto: ['Roboto', 'sans-serif'],
+      Poppins: ["Poppins", "sans-serif"],
     },
     extend: {},
   },
   plugins: [],
-}
+};
