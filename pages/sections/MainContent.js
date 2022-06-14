@@ -1,4 +1,17 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faLaptop,
+  faCouch,
+  faMobileAndroid,
+  faCamera,
+  faShirt,
+  faBicycle,
+  faHeadphonesSimple,
+  faGamepad,
+  faBook,
+} from "@fortawesome/free-solid-svg-icons";
+import CategoriesIcon from "../componets/CategoriesIcon";
 
 const MainContent = () => {
   return (
@@ -19,11 +32,28 @@ const MainContent = () => {
         </div>
       </article>
       {/* Categories */}
-      <article className="w-full mt-10 flex items-center justify-center ">
-        <div className=" w-11/12  ">
+      <article className="w-full mt-10 flex items-center justify-center flex-col ">
+        <div className=" w-[95%]">
           <h2 className="text-2xl font-[600]  text-otherBlue ">
             Popular Categories
           </h2>
+        </div>
+        <div className="w-[95%]  mt-5 flex items-center justify-between">
+          <CategoriesIcon icon={faLaptop} />
+          <CategoriesIcon icon={faCouch} />
+          <CategoriesIcon icon={faCamera} />
+          <CategoriesIcon icon={faShirt} />
+          <CategoriesIcon icon={faMobileAndroid} />
+          <CategoriesIcon icon={faBicycle} />
+          <CategoriesIcon icon={faHeadphonesSimple} />
+          <CategoriesIcon icon={faBook} />
+          <CategoriesIcon icon={faGamepad} />
+        </div>
+      </article>
+
+      <article className="w-full mt-10 flex items-center justify-center flex-col ">
+        <div className=" w-[95%]">
+          <h2 className="text-2xl font-[600] text-otherBlue mt-5">Hot Deals</h2>
         </div>
         <div></div>
       </article>
