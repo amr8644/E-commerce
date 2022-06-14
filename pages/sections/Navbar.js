@@ -9,7 +9,7 @@ import { faHeart, faBell } from "@fortawesome/free-regular-svg-icons";
 
 const Navbar = () => {
   return (
-    <section className="bg-darkBlue  w-full h-[90px] flex flex-row justify-between px-3 font-Poppins">
+    <section className="bg-darkBlue  w-full h-[90px] flex flex-row justify-between px-3">
       <div className="relative flex items-start justify-start w-1/6">
         <Image
           src="/LA.png"
@@ -30,7 +30,6 @@ const Navbar = () => {
         <FontAwesomeIcon
           icon={faMagnifyingGlass}
           className="bg-orange2 text-white py-[11px] px-3 w-[42px] rounded-r-md border-none cursor-pointer"
-          size={"12px"}
         />
       </div>
 

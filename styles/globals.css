@@ -2,4 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap');
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+@layer utilities {
+
+  .main{
+    width: calc(100vw - 260px);
+    left: 260px;
+    position: relative;
+  }
+    .scrollbar::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+    }
+  
+    .scrollbar::-webkit-scrollbar-track {
+      border-radius: 100vh;
+      background-color: transparent
+      
+    }
+  
+    .scrollbar::-webkit-scrollbar-thumb {
+      background:#232F3E;
+      border-radius: 100vh;
+    }
+  
+  }

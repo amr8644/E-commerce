@@ -12,7 +12,8 @@ module.exports = {
     },
     colors: {
       white: "#ECEBEF",
-      darkBlue: "#060608",
+      superwhite: "#ffffff",
+      darkBlue: "#131921",
       primary: "#232F3E",
       otherBlue: "#37475A",
       orange: "#F15603",
@@ -21,6 +22,7 @@ module.exports = {
     },
     fontFamily: {
       Poppins: ["Poppins", "sans-serif"],
+      PTSans: "PT Sans, sans-serif",
     },
     extend: {},
   },
