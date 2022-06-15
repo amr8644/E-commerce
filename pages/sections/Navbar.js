@@ -10,7 +10,7 @@ import { faHeart, faBell } from "@fortawesome/free-regular-svg-icons";
 const Navbar = () => {
   return (
     <section className="bg-darkBlue fixed z-10  w-full h-[90px] flex flex-row justify-between px-3">
-      <div className="relative flex items-center justify-center  ml-10">
+      <div className="relative flex items-center justify-center lg:ml-10">
         <Image
           src="/amazon-svgrepo-com (1).svg"
           alt="Logo"
@@ -20,7 +20,7 @@ const Navbar = () => {
         />
       </div>
 
-      <div className="h-full flex items-center justify-center  w-1/3">
+      <div className="sm:hidden h-full lg:flex items-center justify-center w-1/3 ">
         <input
           type="text"
           placeholder={"Search..."}
@@ -33,7 +33,7 @@ const Navbar = () => {
         />
       </div>
 
-      <div className="w-1/3 h-full flex items-center justify-end mr-4">
+      <div className="sm:hidden h-full lg:flex w-1/3  flex items-center justify-end mr-4">
         <FontAwesomeIcon
           icon={faHeart}
           className="text-white py-[11px] px-3 w-[40px] rounded-lg border-none cursor-pointer hover:bg-orange2 hover:text-darkBlue duration-500 mx-3"
