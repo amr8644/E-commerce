@@ -1,7 +1,20 @@
 import React from "react";
+import Image from "next/image";
 
 const Card = () => {
-  return <section></section>;
+  return (
+    <section className="mt-5">
+      <article>
+        <Image src="/Iphone.jpg" alt="Iphone" height={200} width={200} />
+      </article>
+      <article>
+        <div>
+          <h2>Iphone 12</h2>
+          <p>Apple</p>
+        </div>
+      </article>
+    </section>
+  );
 };
 
 export default Card;

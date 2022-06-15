@@ -21,8 +21,8 @@ const Sidebar = () => {
   };
 
   return (
-    <section className="scrollbar overflow-auto fixed bg-darkBlue left-0  w-[260px] h-full border-t-2 border-primary">
-      <div className="relative my-5">
+    <section className="sm:hidden lg:block scrollbar overflow-y-scroll fixed bg-darkBlue top-[90px] left-0  w-[260px] bottom-0 border-t-2 border-primary">
+      <div className="relative">
         <button
           onClick={changeShow}
           className="text-base text-white my-2 flex px-5 py-2 w-full rounded-lg cursor-pointer hover:bg-primary hover:text-orange2 duration-300"
@@ -46,13 +46,13 @@ const Sidebar = () => {
           <List name={"Gift Cards"} />
         </ul>
       </div>
-      <div className="my-5">
+      <div className="">
         <button className="text-base text-white my-2 flex px-5 py-2 w-full rounded-lg cursor-pointer hover:bg-primary hover:text-orange2 duration-300">
           <FontAwesomeIcon icon={faPercent} className="w-[16px] mx-3" />
           Sell on Amazon
         </button>
       </div>
-      <div className="my-5">
+      <div className="">
         <button className="text-base text-white my-2 flex px-5 py-2 w-full rounded-lg cursor-pointer hover:bg-primary hover:text-orange2 duration-300">
           <FontAwesomeIcon icon={faQuestionCircle} className="w-[16px] mx-3" />
           Help

@@ -10,8 +10,10 @@
 
   .main{
     width: calc(100vw - 260px);
-    left: 260px;
     position: relative;
+    left: 260px;
+    top:90px;
+
   }
     .scrollbar::-webkit-scrollbar {
       width: 10px;

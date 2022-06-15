@@ -9,13 +9,13 @@ import { faHeart, faBell } from "@fortawesome/free-regular-svg-icons";
 
 const Navbar = () => {
   return (
-    <section className="bg-darkBlue  w-full h-[90px] flex flex-row justify-between px-3">
-      <div className="relative flex items-start justify-start w-1/6">
+    <section className="bg-darkBlue fixed z-10  w-full h-[90px] flex flex-row justify-between px-3">
+      <div className="relative flex items-center justify-center  ml-10">
         <Image
-          src="/LA.png"
+          src="/amazon-svgrepo-com (1).svg"
           alt="Logo"
-          width={100}
-          height={100}
+          width={50}
+          height={50}
           layout="intrinsic"
         />
       </div>
