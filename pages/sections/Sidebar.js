@@ -21,7 +21,7 @@ const Sidebar = () => {
   };
 
   return (
-    <section className="sm:hidden lg:block scrollbar overflow-y-scroll fixed bg-darkBlue top-[90px] left-0  w-[260px] bottom-0 border-t-2 border-primary">
+    <section className="sm:hidden lg:block scrollbar overflow-y-scroll fixed bg-darkBlue top-[70px] left-0  w-[260px] bottom-0 border-t-2 border-primary">
       <div className="relative">
         <button
           onClick={changeShow}
@@ -52,7 +52,7 @@ const Sidebar = () => {
           Sell on Amazon
         </button>
       </div>
-      <div className="">
+      <div>
         <button className="text-base text-white my-2 flex px-5 py-2 w-full rounded-lg cursor-pointer hover:bg-primary hover:text-orange2 duration-300">
           <FontAwesomeIcon icon={faQuestionCircle} className="w-[16px] mx-3" />
           Help
