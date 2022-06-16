@@ -23,7 +23,9 @@ const Navbar = () => {
 
   return (
     <>
-      <section className="bg-darkBlue fixed z-10  w-full h-[70px] flex flex-row justify-between px-3">
+      <section
+        className={`bg-darkBlue fixed z-10  w-full h-[70px] flex flex-row justify-between px-3`}
+      >
         <div className="relative flex items-center justify-center lg:ml-10">
           <Image
             src="/amazon-svgrepo-com (1).svg"
@@ -56,17 +58,14 @@ const Navbar = () => {
           <FontAwesomeIcon
             icon={faHeart}
             className="text-white py-[11px] px-3 w-[40px] rounded-lg border-none cursor-pointer hover:bg-orange2 hover:text-darkBlue duration-500 mx-3"
-            size={"12px"}
           />
           <FontAwesomeIcon
             icon={faShoppingCart}
             className="text-white py-[11px] px-3 w-[40px] rounded-lg border-none cursor-pointer hover:bg-orange2 hover:text-darkBlue duration-500 mx-3"
-            size={"12px"}
           />
           <FontAwesomeIcon
             icon={faBell}
             className="text-white py-[11px] px-3 w-[40px] rounded-lg border-none cursor-pointer hover:bg-orange2 hover:text-darkBlue duration-500 mx-3"
-            size={"12px"}
           />
           <Image
             className="h-8 w-8 rounded-full cursor-pointer mx-3"
@@ -78,7 +77,7 @@ const Navbar = () => {
           />
         </div>
       </section>
-      {open && <SecondSidebar />}
+      <SecondSidebar open={open} />
     </>
   );
 };

@@ -1,5 +1,4 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Slider from "react-slick";
 import {
   faLaptop,
@@ -11,8 +10,6 @@ import {
   faHeadphonesSimple,
   faGamepad,
   faBook,
-  faArrowLeft,
-  faArrowRight,
 } from "@fortawesome/free-solid-svg-icons";
 import CategoriesIcon from "../componets/CategoriesIcon";
 import Card from "../componets/Card";
@@ -24,8 +21,6 @@ const MainContent = () => {
     speed: 500,
     slidesToShow: 8,
     slidesToScroll: 1,
-    nextArrow: <div></div>,
-    prevArrow: <div></div>,
     responsive: [
       {
         breakpoint: 1024,
@@ -44,10 +39,10 @@ const MainContent = () => {
     ],
   };
   return (
-    <section className="lg:main top-[70px]  font-PTSans ">
+    <section className="lg:main top-[70px] relative -z-30  font-PTSans ">
       {/* Banner */}
       <article className="w-full flex items-center justify-center h-auto md:h-[270px]">
-        <div className=" bg-orange2 rounded-2xl w-[95%] h-[95%] flex items-start justify-center flex-col px-8 py-2 mt-4">
+        <div className=" bg-orange2 rounded-2xl ml-4 md:w-[95%] h-[95%] flex items-start justify-center flex-col sm:px-8 py-2 mt-4">
           <h2 className="text-white text-6xl sm:my-5 md:my-3 font-semibold">
             Free Delivery!
           </h2>
