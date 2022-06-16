@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
 import {
   faMagnifyingGlass,
   faShoppingCart,
@@ -67,14 +68,24 @@ const Navbar = () => {
             icon={faBell}
             className="text-white py-[11px] px-3 w-[40px] rounded-lg border-none cursor-pointer hover:bg-orange2 hover:text-darkBlue duration-500 mx-3"
           />
-          <Image
-            className="h-8 w-8 rounded-full cursor-pointer mx-3"
-            src="/Logo.png"
-            alt="Avatar"
-            width={52}
-            height={52}
-            layout="intrinsic"
-          />
+
+          <div class="avatar">
+            <div class="w-10 h-10 rounded-full ring  ring-orange2 ring-offset-base-100  cursor-pointer mx-3">
+              <Image
+                className="h-10 w-10 rounded-full"
+                src="/Avatar.jpg"
+                alt="Avatar"
+                width={100}
+                height={100}
+                layout="intrinsic"
+              />
+            </div>
+          </div>
+        </div>
+        <div>
+          <Link href={"/sign"}>
+            <a>Signup</a>
+          </Link>
         </div>
       </section>
       <SecondSidebar open={open} />

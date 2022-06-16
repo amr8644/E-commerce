@@ -39,7 +39,7 @@ const MainContent = () => {
     ],
   };
   return (
-    <section className="lg:main top-[70px] relative -z-30  font-PTSans ">
+    <section className="lg:main top-[70px] relative font-PTSans ">
       {/* Banner */}
       <article className="w-full flex items-center justify-center h-auto md:h-[270px]">
         <div className=" bg-orange2 rounded-2xl ml-4 md:w-[95%] h-[95%] flex items-start justify-center flex-col sm:px-8 py-2 mt-4">

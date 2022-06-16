@@ -19,6 +19,8 @@ module.exports = {
       orange: "#F15603",
       orange2: "#f08804",
       grey: "#B6B1AD",
+      facebook: "#1877F2",
+      google: "#EA4335",
     },
     fontFamily: {
       Poppins: ["Poppins", "sans-serif"],
