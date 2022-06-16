@@ -25,7 +25,7 @@ const SecondSidebar = ({ open }) => {
     <>
       <section
         className={`${
-          open ? "translate-x-0" : "-translate-x-96"
+          open ? "translate-x-0" : "-translate-x-[1000px]"
         } scrollbar z-50 overflow-y-scroll fixed bg-darkBlue top-[70px] left-0 sm:w-[90%]  md:w-2/5 bottom-0 border-t-2 border-primary duration-300`}
       >
         <div className="flex items-center justify-center w-full my-4 px-1">
