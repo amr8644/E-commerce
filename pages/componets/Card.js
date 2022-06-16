@@ -5,7 +5,7 @@ const Card = () => {
   return (
     <section className="mt-5">
       <article>
-        <Image src="/Iphone.jpg" alt="Iphone" height={200} width={200} />
+        <Image src="/Iphone.jpg" alt="Iphone" height={100} width={100} />
       </article>
       <article>
         <div>
