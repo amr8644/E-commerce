@@ -1,4 +1,3 @@
-
 import Head from "next/head";
 import MainContent from "./sections/MainContent";
 import Navbar from "./sections/Navbar";

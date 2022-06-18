@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import List from "../componets/List";
+import List from "./List";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBorderAll,
