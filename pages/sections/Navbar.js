@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import {
   faMagnifyingGlass,
   faShoppingCart,
@@ -61,7 +61,7 @@ const Navbar = () => {
         {session && <Avatar />}
 
         {!session && !loading && (
-          <div className="w-1/3 flex items-center justify-end">
+          <div className="sm:hidden w-1/3 lg:flex items-center justify-end">
             <Link href={"/sign"}>
               <button className=" mx-2 font-PTSans font-semibold px-4 py-2 bg-orange2 text-superwhite rounded-lg hover:bg-superwhite hover:text-orange2 duration-300">
                 Sign up

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import List from "../componets/List";
+import { useSession, signOut } from "next-auth/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBorderAll,
@@ -10,6 +11,9 @@ import {
 
 const Sidebar = () => {
   const [show, setShow] = useState(true);
+  const { data: session, loading } = useSession();
+
+  // console.log(session.user.image);
 
   const changeShow = () => {
     if (show) {
@@ -58,10 +62,18 @@ const Sidebar = () => {
           Help
         </button>
       </div>
-      <button className="text-base text-white my-2 flex px-5 py-2 w-full rounded-lg cursor-pointer hover:bg-primary hover:text-orange2 duration-300">
-        <FontAwesomeIcon icon={faTimes} className="w-[16px] mx-3" />
-        Log Out
-      </button>
+      {session && (
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            signOut();
+          }}
+          className="text-base text-white my-2 flex px-5 py-2 w-full rounded-lg cursor-pointer hover:bg-primary hover:text-orange2 duration-300"
+        >
+          <FontAwesomeIcon icon={faTimes} className="w-[16px] mx-3" />
+          Log Out
+        </button>
+      )}
     </section>
   );
 };
