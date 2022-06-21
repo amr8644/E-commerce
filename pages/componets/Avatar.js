@@ -6,8 +6,7 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 
 const Avatar = () => {
-  // const { data: session } = useSession();
-
+  const { data: session } = useSession();
   return (
     <div className="sm:hidden h-full lg:flex w-1/3  flex items-center justify-end ">
       <FontAwesomeIcon
@@ -27,7 +26,7 @@ const Avatar = () => {
         <div class="w-10 h-10 rounded-full ring  ring-orange2 ring-offset-base-100  cursor-pointer mx-3">
           <Image
             className="h-10 w-10 rounded-full"
-            src="/Avatar.jpg"
+            src={session.user.image}
             alt="Avatar"
             width={100}
             height={100}

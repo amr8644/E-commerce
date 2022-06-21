@@ -10,6 +10,7 @@ import {
   faTimes,
   faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
+import Avatar2 from "./Avatar2";
 
 const SecondSidebar = ({ open }) => {
   const [show, setShow] = useState(true);
@@ -31,6 +32,7 @@ const SecondSidebar = ({ open }) => {
           open ? "translate-x-0" : "-translate-x-[1000px]"
         } scrollbar z-50 overflow-y-scroll fixed bg-darkBlue top-[70px] left-0 sm:w-[90%]  md:w-2/5 bottom-0 border-t-2 border-primary duration-300`}
       >
+        {session && <Avatar2 />}
         {!session && !loading && (
           <div className="w-full flex-col flex items-center justify-end">
             <Link href={"/sign"}>
@@ -45,7 +47,7 @@ const SecondSidebar = ({ open }) => {
             </Link>
           </div>
         )}
-        <div className="flex items-center justify-center w-full my-4 px-1">
+        <div className="flex items-center justify-center w-full my-4 px-1 border pt-4 border-t-otherBlue">
           <input
             type="text"
             placeholder={"Search..."}
