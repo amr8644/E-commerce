@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import List from "../componets/List";
+import List from "../../componets/List";
 import { useSession, signOut } from "next-auth/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -12,8 +12,6 @@ import {
 const Sidebar = () => {
   const [show, setShow] = useState(true);
   const { data: session, loading } = useSession();
-
-  // console.log(session.user.image);
 
   const changeShow = () => {
     if (show) {
