@@ -13,7 +13,7 @@ const Avatar2 = () => {
         <div class="w-12 h-12 rounded-full ring  ring-orange2 ring-offset-base-100  cursor-pointer mx-3">
           <Image
             className=" h-14 w-14 rounded-full"
-            src={session.user.image}
+            src={!session.user.image && "/public/Avatar.jpg"}
             alt="Avatar"
             width={100}
             height={100}
@@ -21,7 +21,7 @@ const Avatar2 = () => {
           />
         </div>
         <h2 className="text-white font-bold text-base mt-3">
-          {session.user.name}
+          {!session.user.name && "Name"}
         </h2>
       </div>
 
