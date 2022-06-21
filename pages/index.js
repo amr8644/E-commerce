@@ -1,7 +1,7 @@
 import Head from "next/head";
-import MainContent from "./sections/MainContent";
-import Navbar from "./sections/Navbar";
-import Sidebar from "./sections/Sidebar";
+import MainContent from "../sections/MainContent";
+import Navbar from "../sections/Navbar";
+import Sidebar from "../sections/Sidebar";
 
 export default function Home() {
   return (

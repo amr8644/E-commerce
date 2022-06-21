@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import List from "../../componets/List";
+import List from "../componets/List";
 import { useSession, signOut } from "next-auth/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {

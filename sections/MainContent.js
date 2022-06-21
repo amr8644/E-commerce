@@ -11,8 +11,8 @@ import {
   faGamepad,
   faBook,
 } from "@fortawesome/free-solid-svg-icons";
-import CategoriesIcon from "../../componets/CategoriesIcon";
-import Card from "../../componets/Card";
+import CategoriesIcon from "../componets/CategoriesIcon";
+import Card from "../componets/Card";
 
 const MainContent = () => {
   const settings = {

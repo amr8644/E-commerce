@@ -9,8 +9,8 @@ import {
   faBars,
 } from "@fortawesome/free-solid-svg-icons";
 import { faHeart, faBell } from "@fortawesome/free-regular-svg-icons";
-import SecondSidebar from "../../componets/SecondSidebar";
-import Avatar from "../../componets/Avatar";
+import SecondSidebar from "../componets/SecondSidebar";
+import Avatar from "../componets/Avatar";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
