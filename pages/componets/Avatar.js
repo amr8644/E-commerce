@@ -37,7 +37,7 @@ const Avatar = () => {
           ) : (
             <Image
               className=" h-14 w-14 rounded-full"
-              src="/public/Avatar.jpg"
+              src="/Avatar.jpg"
               alt="Avatar"
               width={100}
               height={100}
