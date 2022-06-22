@@ -18,7 +18,7 @@ const Avatar2 = () => {
           />
         </div>
         <h2 className="text-white font-bold text-base mt-3">
-          {session ? session.user.name : User}
+          {session ? session.user.name : "User"}
         </h2>
       </div>
     </div>
