@@ -25,7 +25,7 @@ const Avatar = () => {
 
       <div class="avatar">
         <div class="w-10 h-10 rounded-full ring  ring-orange2 ring-offset-base-100  cursor-pointer mx-3">
-          {session ? (
+          {session.user ? (
             <Image
               className=" h-14 w-14 rounded-full"
               src={session.user.image}
