@@ -11,7 +11,7 @@ import {
 
 const Sidebar = () => {
   const [show, setShow] = useState(true);
-  const { data: session, loading } = useSession();
+  const { data: session } = useSession();
 
   const changeShow = () => {
     if (show) {
@@ -23,7 +23,7 @@ const Sidebar = () => {
   };
 
   return (
-    <section className="sm:hidden lg:block scrollbar overflow-y-scroll fixed bg-darkBlue top-[70px] left-0  w-[260px] bottom-0 border-t-2 border-primary">
+    <section className="sm:hidden lg:block scrollbar overflow-y-scroll fixed bg-darkBlue top-[70px] left-0  w-[260px] bottom-0 border-t-2 border-primary2">
       <div className="relative">
         <button
           onClick={changeShow}
@@ -49,13 +49,13 @@ const Sidebar = () => {
         </ul>
       </div>
       <div className="">
-        <button className="text-base text-white my-2 flex px-5 py-2 w-full rounded-lg cursor-pointer hover:bg-primary hover:text-orange2 duration-300">
+        <button className="text-base text-white my-2 flex px-5 py-2 w-full rounded-lg cursor-pointer hover:bg-primary2 hover:text-orange2 duration-300">
           <FontAwesomeIcon icon={faPercent} className="w-[16px] mx-3" />
           Sell on Amazon
         </button>
       </div>
       <div>
-        <button className="text-base text-white my-2 flex px-5 py-2 w-full rounded-lg cursor-pointer hover:bg-primary hover:text-orange2 duration-300">
+        <button className="text-base text-white my-2 flex px-5 py-2 w-full rounded-lg cursor-pointer hover:bg-primary2 hover:text-orange2 duration-300">
           <FontAwesomeIcon icon={faQuestionCircle} className="w-[16px] mx-3" />
           Help
         </button>
@@ -66,7 +66,7 @@ const Sidebar = () => {
             e.preventDefault();
             signOut();
           }}
-          className="text-base text-white my-2 flex px-5 py-2 w-full rounded-lg cursor-pointer hover:bg-primary hover:text-orange2 duration-300"
+          className="text-base text-white my-2 flex px-5 py-2 w-full rounded-lg cursor-pointer hover:bg-primary2 hover:text-orange2 duration-300"
         >
           <FontAwesomeIcon icon={faTimes} className="w-[16px] mx-3" />
           Log Out

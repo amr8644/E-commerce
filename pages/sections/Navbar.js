@@ -50,7 +50,7 @@ const Navbar = () => {
           <input
             type="text"
             placeholder={"Search..."}
-            className="w-full bg-primary outline-0 text-white  placeholder-white  px-3 py-2 rounded-l-md border  border-otherBlue text-sm"
+            className="w-full bg-primary2 outline-0 text-white  placeholder-white  px-3 py-2 rounded-l-md border  border-otherBlue text-sm"
           />
           <FontAwesomeIcon
             icon={faMagnifyingGlass}

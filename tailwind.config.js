@@ -15,7 +15,7 @@ module.exports = {
       white: "#ECEBEF",
       superwhite: "#ffffff",
       darkBlue: "#131921",
-      primary: "#232F3E",
+      primary2: "#232F3E",
       otherBlue: "#37475A",
       orange: "#F15603",
       orange2: "#f08804",
@@ -29,5 +29,5 @@ module.exports = {
     },
     extend: {},
   },
-  plugins: [],
+  plugins: [require("daisyui")],
 };

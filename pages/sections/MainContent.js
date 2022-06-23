@@ -1,5 +1,7 @@
 import React from "react";
 import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import {
   faLaptop,
   faCouch,
@@ -39,7 +41,7 @@ const MainContent = () => {
     ],
   };
   return (
-    <section className="lg:main top-[70px] relative font-PTSans ">
+    <section className="lg:main top-[70px] relative font-PTSans bg-white ">
       {/* Banner */}
       <article className="w-full flex items-center justify-center h-auto md:h-[270px]">
         <div className=" bg-orange2 rounded-2xl ml-4 md:w-[95%] h-[95%] flex items-start justify-center flex-col sm:px-8 py-2 mt-4">
@@ -62,8 +64,7 @@ const MainContent = () => {
             Popular Categories
           </h2>
         </div>
-        {/* <div className="w-[95%] mx-0 my-auto bg-orange flex items-center justify-between"> */}
-        <Slider {...settings} className="w-[95%] flex flex-col  mt-5">
+        <Slider {...settings} className="w-[95%] flex mt-5">
           <CategoriesIcon icon={faLaptop} />
           <CategoriesIcon icon={faCouch} />
           <CategoriesIcon icon={faCamera} />
@@ -74,16 +75,18 @@ const MainContent = () => {
           <CategoriesIcon icon={faBook} />
           <CategoriesIcon icon={faGamepad} />
         </Slider>
-        {/* </div> */}
       </article>
 
-      <article className="w-full mt-10 flex items-center justify-center flex-col ">
+      <article className=" bg-white w-full mt-10 flex items-center justify-center flex-col ">
         <div className=" w-[95%]">
-          <h2 className="text-2xl font-[600] text-otherBlue mt-5">Hot Deals</h2>
+          <h2 className="text-4xl font-[600] text-otherBlue my-5">Hot Deals</h2>
         </div>
-        <div className=" w-[95%]">
+        {/* <div className="w-[95%] flex justify-between flex-wrap"> */}
+        <Slider {...settings} className="w-[95%] mt-5 flex ">
           <Card />
-        </div>
+          <Card />
+        </Slider>
+        {/* </div> */}
       </article>
     </section>
   );

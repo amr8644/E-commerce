@@ -30,7 +30,7 @@ const SecondSidebar = ({ open }) => {
       <section
         className={`${
           open ? "translate-x-0" : "-translate-x-[1000px]"
-        } scrollbar z-50 overflow-y-scroll fixed bg-darkBlue top-[70px] left-0 sm:w-[90%]  md:w-2/5 bottom-0 border-t-2 border-primary duration-300`}
+        } scrollbar z-50 overflow-y-scroll fixed bg-darkBlue top-[70px] left-0 sm:w-[90%]  md:w-2/5 bottom-0 border-t-2 border-primary2 duration-300`}
       >
         {session && <Avatar2 />}
         {!session && !loading && (
@@ -51,7 +51,7 @@ const SecondSidebar = ({ open }) => {
           <input
             type="text"
             placeholder={"Search..."}
-            className=" w-[90%] bg-primary outline-0 text-white  placeholder-white  px-3 py-2 rounded-l-md border  border-otherBlue text-sm"
+            className=" w-[90%] bg-primary2 outline-0 text-white  placeholder-white  px-3 py-2 rounded-l-md border  border-otherBlue text-sm"
           />
           <FontAwesomeIcon
             icon={faMagnifyingGlass}
@@ -62,7 +62,7 @@ const SecondSidebar = ({ open }) => {
           <button
             onClick={changeShow}
             className="\
-            text-base text-white my-2 flex px-5 py-2 w-full rounded-lg cursor-pointer hover:bg-primary hover:text-orange2 duration-300"
+            text-base text-white my-2 flex px-5 py-2 w-full rounded-lg cursor-pointer hover:bg-primary2 hover:text-orange2 duration-300"
           >
             <FontAwesomeIcon icon={faBorderAll} className="w-[16px] mx-3" />
             Categories
@@ -83,14 +83,14 @@ const SecondSidebar = ({ open }) => {
             <List name={"Gift Cards"} />
           </ul>
         </div>
-        <div className="">
-          <button className="text-base text-white my-2 flex px-5 py-2 w-full rounded-lg cursor-pointer hover:bg-primary hover:text-orange2 duration-300">
+        <div>
+          <button className="text-base text-white my-2 flex px-5 py-2 w-full rounded-lg cursor-pointer hover:bg-primary2 hover:text-orange2 duration-300">
             <FontAwesomeIcon icon={faPercent} className="w-[16px] mx-3" />
             Sell on Amazon
           </button>
         </div>
         <div className="">
-          <button className="text-base text-white my-2 flex px-5 py-2 w-full rounded-lg cursor-pointer hover:bg-primary hover:text-orange2 duration-300">
+          <button className="text-base text-white my-2 flex px-5 py-2 w-full rounded-lg cursor-pointer hover:bg-primary2 hover:text-orange2 duration-300">
             <FontAwesomeIcon
               icon={faQuestionCircle}
               className="w-[16px] mx-3"
@@ -104,7 +104,7 @@ const SecondSidebar = ({ open }) => {
               e.preventDefault();
               signOut();
             }}
-            className="text-base text-white my-2 flex px-5 py-2 w-full rounded-lg cursor-pointer hover:bg-primary hover:text-orange2 duration-300"
+            className="text-base text-white my-2 flex px-5 py-2 w-full rounded-lg cursor-pointer hover:bg-primary2 hover:text-orange2 duration-300"
           >
             <FontAwesomeIcon icon={faTimes} className="w-[16px] mx-3" />
             Log Out
