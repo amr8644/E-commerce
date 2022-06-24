@@ -41,10 +41,10 @@ const MainContent = () => {
     ],
   };
   return (
-    <section className="lg:main top-[70px] relative font-PTSans bg-white ">
+    <section className="lg:main sm:main2 top-[70px] relative font-PTSans bg-white ">
       {/* Banner */}
-      <article className="w-full flex items-center justify-center h-auto md:h-[270px]">
-        <div className=" bg-orange2 rounded-2xl ml-4 md:w-[95%] h-[95%] flex items-start justify-center flex-col sm:px-8 py-2 mt-4">
+      <article className=" bg-white w-full flex items-center justify-center h-auto md:h-[270px]">
+        <div className=" bg-orange2 rounded-2xl ml-4 sm:w-[95%] h-[95%] flex items-start justify-center flex-col sm:px-8 py-2 mt-4">
           <h2 className="text-white text-6xl sm:my-5 md:my-3 font-semibold">
             Free Delivery!
           </h2>
@@ -81,12 +81,9 @@ const MainContent = () => {
         <div className=" w-[95%]">
           <h2 className="text-4xl font-[600] text-otherBlue my-5">Hot Deals</h2>
         </div>
-        {/* <div className="w-[95%] flex justify-between flex-wrap"> */}
-        <Slider {...settings} className="w-[95%] mt-5 flex ">
+        <div className="w-[full] flex items-center justify-between overflow-x-scroll">
           <Card />
-          <Card />
-        </Slider>
-        {/* </div> */}
+        </div>
       </article>
     </section>
   );

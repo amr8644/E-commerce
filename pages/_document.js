@@ -46,7 +46,7 @@ class MyDocument extends Document {
           />
         </Head>
 
-        <body className=" font-PTSans bg-white overflow-x-hidden">
+        <body className=" w-full font-PTSans bg-white overflow-x-hidden">
           <Main />
           <NextScript />
         </body>
