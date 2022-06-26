@@ -27,7 +27,7 @@ const Sidebar = () => {
       <div className="relative">
         <button
           onClick={changeShow}
-          className="text-base text-white my-2 flex px-5 py-2 w-full rounded-lg cursor-pointer hover:bg-primary hover:text-orange2 duration-300"
+          className="text-base text-white my-2 flex px-5 py-2 w-full rounded-lg cursor-pointer hover:bg-primary2 hover:text-orange2 duration-300"
         >
           <FontAwesomeIcon icon={faBorderAll} className="w-[16px] mx-3" />
           Categories
