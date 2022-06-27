@@ -7,9 +7,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
 @layer utilities {
-
-
-
   .btn {
     width: 100%;
     padding: 12px;
@@ -28,13 +25,21 @@
     left: 260px;
     top:90px;
   } 
+  .main3{
+    width: calc(100vw - 290px);
+    position: relative;
+    left: 260px;
+ 
+  }
+  .card-container{
+    width: calc(100vw - 290px);
+    position: relative;
+  }
   .main2{
     width: 100%;
-    /* position: relative; */
     top:90px;
   }
     
-  
     .scrollbar::-webkit-scrollbar {
       width: 10px;
       height: 10px;
@@ -42,10 +47,9 @@
   
     .scrollbar::-webkit-scrollbar-track {
       border-radius: 100vh;
-      background-color: transparent
-      
+      background-color: transparent 
     }
-  
+
     .scrollbar::-webkit-scrollbar-thumb {
       background:#232F3E;
       border-radius: 100vh;

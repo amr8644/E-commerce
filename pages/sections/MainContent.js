@@ -16,6 +16,8 @@ import {
 import CategoriesIcon from "../componets/CategoriesIcon";
 import Card from "../componets/Card";
 
+import Card2 from "../componets/Card2";
+
 const MainContent = () => {
   const settings = {
     infinite: true,
@@ -64,6 +66,7 @@ const MainContent = () => {
             Popular Categories
           </h2>
         </div>
+
         <Slider {...settings} className="w-[95%] flex mt-5">
           <CategoriesIcon icon={faLaptop} />
           <CategoriesIcon icon={faCouch} />
@@ -77,13 +80,13 @@ const MainContent = () => {
         </Slider>
       </article>
 
-      <article className=" bg-white w-full mt-10 flex items-center justify-center flex-col ">
+      <article className=" bg-white  mt-10 flex items-center justify-center flex-col">
         <div className=" w-[95%]">
           <h2 className="text-4xl font-[600] text-otherBlue my-5">Hot Deals</h2>
         </div>
-        <div className="w-[full] flex items-center justify-between overflow-x-scroll">
-          <Card />
-        </div>
+        <Slider {...settings}>
+          <Card2 />
+        </Slider>
       </article>
     </section>
   );
