@@ -80,13 +80,11 @@ const MainContent = () => {
         </Slider>
       </article>
 
-      <article className=" bg-white  mt-10 flex items-center justify-center flex-col">
+      <article className=" bg-white  my-10 flex items-center justify-center flex-col">
         <div className=" w-[95%]">
           <h2 className="text-4xl font-[600] text-otherBlue my-5">Hot Deals</h2>
-        </div>
-        <Slider {...settings}>
           <Card2 />
-        </Slider>
+        </div>
       </article>
     </section>
   );

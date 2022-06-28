@@ -35,6 +35,25 @@
     width: calc(100vw - 290px);
     position: relative;
   }
+  .carousel2{
+    scroll-snap-type: x mandatory;
+    scroll-padding: 0 24px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    display: flex;
+    width:100%;
+    flex-direction: row;
+  }
+
+  .box{
+    scroll-snap-align: start;
+    height: 200px;
+    width: 200px;
+    margin-right: 5px;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+  }
+  
   .main2{
     width: 100%;
     top:90px;

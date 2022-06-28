@@ -1,10 +1,37 @@
 import React, { useEffect, useState } from "react";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const Card2 = () => {
+  const settings = {
+    infinite: true,
+    swipeToSlide: true,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 2,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 2,
+        },
+      },
+      {
+        breakpoint: 400,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
+
   const [data, setData] = useState([]);
 
   const fetchData = async () => {
-    const url = "https://fakestoreapi.com/products?limit=5";
+    const url = "https://fakestoreapi.com/products?limit=15";
     try {
       const resp = await fetch(url);
       const data = await resp.json();
@@ -28,11 +55,11 @@ const Card2 = () => {
   }, []);
 
   return (
-    <>
+    <Slider {...settings}>
       {data.map((e) => {
         const { id, title, price, description, image, category } = e;
         return (
-          <div class="max-w-sm bg-superwhite rounded-lg shadow-md">
+          <div className="w-[384px] h-[384px] mx-6 mt-4 bg-superwhite rounded-lg shadow-md">
             <div className="flex items-center justify-center">
               <img class=" p-8 w-1/2 rounded-t-lg" src={image} alt={title} />
             </div>
@@ -102,7 +129,7 @@ const Card2 = () => {
           </div>
         );
       })}
-    </>
+    </Slider>
   );
 };
 
