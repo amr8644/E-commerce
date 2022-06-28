@@ -47,7 +47,7 @@ const SecondSidebar = ({ open }) => {
             </Link>
           </div>
         )}
-        <div className="flex items-center justify-center w-full my-4 px-1 border pt-4 border-t-otherBlue">
+        <div className="flex items-center justify-center w-full my-4 px-1 border-t-2 pt-4 border-t-otherBlue">
           <input
             type="text"
             placeholder={"Search..."}

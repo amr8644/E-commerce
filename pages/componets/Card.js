@@ -73,7 +73,7 @@ const Card = () => {
                   class="mask mask-star-2 bg-warning"
                 />
               </div>
-              {/* <p>{description}</p> */}
+              <p>{description}</p>
               <div class="card-actions justify-end">
                 <div class="badge badge-outline capitalize">{category}</div>
               </div>
