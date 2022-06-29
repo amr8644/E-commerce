@@ -2,14 +2,10 @@ import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { getData } from "../api/auth/getdata";
 
 const Card2 = () => {
   const [data, setData] = useState([]);
-
-  const getData = (e) => {
-    return e.target.parentElement.parentElement.parentElement.id;
-  };
-
 
   const settings = {
     infinite: true,
@@ -96,7 +92,7 @@ const Card2 = () => {
               </div>
               <div class="card-actions justify-end my-2">
                 <button
-                  onClick={getData}
+                  onClick={() => getData(e)}
                   class="btn bg-orange2 text-superwhite"
                 >
                   View Item

@@ -1,22 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
+import { getData } from "../api/auth/getdata";
 
 const ViewItem = () => {
-  const [data, setData] = useState([]);
-  const fetchData = async () => {
-    const url = "https://fakestoreapi.com/products/1";
-    try {
-      const resp = await fetch(url);
-      const data = await resp.json();
-      setData(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-  return <div>ViewItem</div>;
+  return (
+    <div class="hero min-h-screen bg-base-200">
+      <div class="hero-content flex-col lg:flex-row">
+        <img
+          src="https://api.lorem.space/image/movie?w=260&h=400"
+          class="max-w-sm rounded-lg shadow-2xl"
+        />
+        <div>
+          <h1 class="text-5xl font-bold">Box Office News!</h1>
+          <p class="py-6">
+            Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
+            excepturi exercitationem quasi. In deleniti eaque aut repudiandae et
+            a id nisi.
+          </p>
+          <button class="btn btn-primary">Put in Cart</button>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default ViewItem;
