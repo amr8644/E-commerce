@@ -4,6 +4,13 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const Card2 = () => {
+  const [data, setData] = useState([]);
+
+  const getData = (e) => {
+    return e.target.parentElement.parentElement.parentElement.id;
+  };
+
+
   const settings = {
     infinite: true,
     swipeToSlide: true,
@@ -34,8 +41,6 @@ const Card2 = () => {
       },
     ],
   };
-
-  const [data, setData] = useState([]);
 
   const fetchData = async () => {
     const url = "https://fakestoreapi.com/products?limit=15";
@@ -68,6 +73,7 @@ const Card2 = () => {
         return (
           <div
             key={id}
+            id={id}
             className="w-[384px] h-[384px] mb-10 bg-superwhite rounded-lg shadow-md"
           >
             <div className="flex items-center justify-center h-2/5">
@@ -89,8 +95,11 @@ const Card2 = () => {
                 <div class="badge badge-outline capitalize">{category}</div>
               </div>
               <div class="card-actions justify-end my-2">
-                <button class="btn bg-orange2 text-superwhite">
-                  Put to cart
+                <button
+                  onClick={getData}
+                  class="btn bg-orange2 text-superwhite"
+                >
+                  View Item
                 </button>
               </div>
             </div>
