@@ -24,7 +24,7 @@
   }
 
 
-/*     
+    
     .scrollbar::-webkit-scrollbar {
       width: 10px;
       height: 10px;
@@ -38,6 +38,6 @@
     .scrollbar::-webkit-scrollbar-thumb {
       background:#232F3E;
       border-radius: 100vh;
-    } */
+    }
   
   }

@@ -15,7 +15,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import CategoriesIcon from "../componets/CategoriesIcon";
 import Card2 from "../componets/Card2";
-import ViewItem from "../componets/ViewItem";
 
 const MainContent = () => {
   const settings = {
@@ -85,7 +84,6 @@ const MainContent = () => {
         </div>
       </article>
       <Card2 />
-      <ViewItem />
     </section>
   );
 };

@@ -5,10 +5,9 @@ export const getData = async (e) => {
     try {
       const resp = await fetch(url);
       const data = await resp.json();
-      console.log(data);
       return data;
     } catch (error) {
-      console.log(error);
+      return error;
     }
   }
 };
