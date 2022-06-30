@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { getData } from "../api/auth/getdata";
 import Link from "next/link";
 
 const Card2 = () => {
@@ -92,11 +91,8 @@ const Card2 = () => {
                 <div class="badge badge-outline capitalize">{category}</div>
               </div>
               <div class="card-actions justify-end my-2">
-                <Link href={"/viewitem"}>
-                  <button
-                    onClick={() => getData(e)}
-                    class="btn bg-orange2 text-superwhite"
-                  >
+                <Link href={"/item/[id]"} as={`/item/${id}`}>
+                  <button class="btn bg-orange2 text-superwhite">
                     View Item
                   </button>
                 </Link>

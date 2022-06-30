@@ -21,10 +21,7 @@
   .card-container{
     width: calc(100vw - 290px);
     position: relative;
-  }
-
-
-    
+  }    
     .scrollbar::-webkit-scrollbar {
       width: 10px;
       height: 10px;
