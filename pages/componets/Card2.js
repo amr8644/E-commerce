@@ -3,6 +3,8 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Link from "next/link";
+import NextArrow from "./NextArrow";
+import PrevArrow from "./PrevArrow";
 
 const Card2 = () => {
   const [data, setData] = useState([]);
@@ -13,6 +15,8 @@ const Card2 = () => {
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 2,
+    prevArrow: <PrevArrow />,
+    nextArrow: <NextArrow />,
     responsive: [
       {
         breakpoint: 1024,
