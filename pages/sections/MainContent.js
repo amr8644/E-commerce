@@ -1,45 +1,8 @@
 import React from "react";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import {
-  faLaptop,
-  faCouch,
-  faMobileAndroid,
-  faCamera,
-  faShirt,
-  faBicycle,
-  faHeadphonesSimple,
-  faGamepad,
-  faBook,
-} from "@fortawesome/free-solid-svg-icons";
 import CategoriesIcon from "../componets/CategoriesIcon";
-import Card2 from "../componets/Card2";
+import ItemCard from "../componets/ItemCard";
 
 const MainContent = () => {
-  const settings = {
-    infinite: true,
-    swipeToSlide: true,
-    speed: 500,
-    slidesToShow: 8,
-    slidesToScroll: 1,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 6,
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 400,
-        settings: {
-          slidesToShow: 4,
-          slidesToScroll: 1,
-        },
-      },
-    ],
-  };
   return (
     <section className="top-[70px] relative font-PTSans bg-white sm:w-screen px-6 lg:w-4/5 lg:float-right ">
       {/* Banner */}
@@ -64,18 +27,7 @@ const MainContent = () => {
             Popular Categories
           </h2>
         </div>
-
-        <Slider {...settings} className="w-[95%] flex mt-5">
-          <CategoriesIcon icon={faLaptop} />
-          <CategoriesIcon icon={faCouch} />
-          <CategoriesIcon icon={faCamera} />
-          <CategoriesIcon icon={faShirt} />
-          <CategoriesIcon icon={faMobileAndroid} />
-          <CategoriesIcon icon={faBicycle} />
-          <CategoriesIcon icon={faHeadphonesSimple} />
-          <CategoriesIcon icon={faBook} />
-          <CategoriesIcon icon={faGamepad} />
-        </Slider>
+        <CategoriesIcon />
       </article>
 
       <article className=" mb-10 bg-white  flex items-center justify-center flex-col">
@@ -83,7 +35,7 @@ const MainContent = () => {
           <h2 className="text-4xl font-[600] text-otherBlue my-5">Hot Deals</h2>
         </div>
       </article>
-      <Card2 />
+      <ItemCard />
     </section>
   );
 };

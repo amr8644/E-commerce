@@ -23,7 +23,7 @@ const Sidebar = () => {
   };
 
   return (
-    <section className="sm:hidden lg:block scrollbar overflow-y-scroll fixed bg-darkBlue top-[70px] left-0  w-1/5  bottom-0 border-t-2 border-primary2">
+    <section className="sm:hidden border-r border-primary2 lg:block scrollbar overflow-y-scroll fixed bg-darkBlue top-[70px] left-0  w-1/5  bottom-0 border-t-2 ">
       <div className="relative">
         <button
           onClick={changeShow}

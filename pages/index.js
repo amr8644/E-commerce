@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Footer from "./sections/Footer";
 import MainContent from "./sections/MainContent";
 import Navbar from "./sections/Navbar";
 import Sidebar from "./sections/Sidebar";
@@ -14,6 +15,7 @@ export default function Home() {
       <Navbar />
       <Sidebar />
       <MainContent />
+      <Footer />
     </>
   );
 }

@@ -1,46 +1,16 @@
-import React, { useEffect, useState } from "react";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import React from "react";
 import Link from "next/link";
-import NextArrow from "./NextArrow";
-import PrevArrow from "./PrevArrow";
+import { useEffect, useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore, { Navigation } from "swiper";
+import "swiper/css";
+import "swiper/css/keyboard";
+import "swiper/css/navigation";
 
-const Card2 = () => {
+SwiperCore.use(Navigation);
+
+const ItemCard = () => {
   const [data, setData] = useState([]);
-
-  const settings = {
-    infinite: true,
-    swipeToSlide: true,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 2,
-    prevArrow: <PrevArrow />,
-    nextArrow: <NextArrow />,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 2,
-        },
-      },
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 500,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-    ],
-  };
 
   const fetchData = async () => {
     const url = "https://fakestoreapi.com/products?limit=15";
@@ -67,19 +37,44 @@ const Card2 = () => {
   }, []);
 
   return (
-    <Slider {...settings}>
+    <Swiper
+      navigation
+      spaceBetween={40}
+      slidesPerView={4}
+      scrollbar={{ draggable: true }}
+      onSlideChange={() => console.log("slide change")}
+      onSwiper={(swiper) => console.log(swiper)}
+      breakpoints={{
+        0: {
+          slidesPerView: 1,
+          spaceBetween: 10,
+        },
+        520: {
+          slidesPerView: 1,
+          spaceBetween: 5,
+        },
+        768: {
+          slidesPerView: 2,
+          spaceBetween: 30,
+        },
+        1024: {
+          slidesPerView: 4,
+          spaceBetween: 20,
+        },
+      }}
+    >
       {data.map((e) => {
         const { id, title, price, description, image, category } = e;
         return (
-          <div
+          <SwiperSlide
             key={id}
             id={id}
-            className="w-[384px] h-[384px] mb-10 bg-superwhite rounded-lg shadow-md"
+            className="w-[384px] min-h-[384px] mb-10 bg-superwhite rounded-lg shadow-md flex items-center flex-col justify-between"
           >
-            <div className="flex items-center justify-center h-2/5">
+            <div className="flex items-center justify-center h-1/2">
               <img class=" p-8 w-1/2 rounded-t-lg" src={image} alt={title} />
             </div>
-            <div class="h-3/5 px-5 flex flex-col justify-between">
+            <div class="h-1/2 px-5 flex flex-col ite justify-end">
               <a href="#">
                 <h5 class="text-xl font-semibold tracking-tight text-gray-900 text-primary2">
                   {truncateString(title, 20)}
@@ -102,11 +97,11 @@ const Card2 = () => {
                 </Link>
               </div>
             </div>
-          </div>
+          </SwiperSlide>
         );
       })}
-    </Slider>
+    </Swiper>
   );
 };
 
-export default Card2;
+export default ItemCard;

@@ -3,9 +3,8 @@ import Navbar from "../../sections/Navbar";
 import Sidebar from "../../sections/Sidebar";
 
 const item = ({ data }) => {
-  console.log(data);
-
   const { id, title, price, description, image, category } = data;
+
   return (
     <>
       <Navbar />
