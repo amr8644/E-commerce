@@ -2,27 +2,34 @@ import NextAuth from "next-auth/next";
 import GoogleProvider from "next-auth/providers/google";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import clientPromise from "../../../lib/connectDB";
-import Users from "../../../model/userSchema";
+import User from "../../../model/userSchema";
 import EmailProvider from "next-auth/providers/email";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
 
 export default NextAuth({
   providers: [
+    EmailProvider({
+      server: {
+        host: process.env.EMAIL_SERVER_HOST,
+        port: process.env.EMAIL_SERVER_PORT,
+        auth: {
+          user: process.env.EMAIL_SERVER_USER,
+          pass: process.env.EMAIL_SERVER_PASSWORD,
+        },
+      },
+      from: process.env.EMAIL_FROM,
+    }),
     CredentialsProvider({
       name: "Credentials",
-      // The credentials is used to generate a suitable form on the sign in page.
-      // You can specify whatever fields you are expecting to be submitted.
-      // e.g. domain, username, password, 2FA token, etc.
-      // You can pass any HTML attribute to the <input> tag through the object.
       credentials: {
-        username: { label: "Username", type: "text", placeholder: "jsmith" },
+        email: { label: "Email", type: "email", placeholder: "jsmith" },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
         const email = credentials.email;
         const password = credentials.password;
-        const user = await Users.findOne({ email });
+        const user = await User.findOne({ email });
         if (!user) {
           throw new Error("Email not found");
         }
@@ -38,6 +45,10 @@ export default NextAuth({
         "https://accounts.google.com/o/oauth2/v2/auth?prompt=consent&access_type=offline&response_type=code",
     }),
   ],
+  pages: {
+    signIn: "/api/auth/signin",
+  },
+
   jwt: {
     encryption: true,
   },
@@ -69,6 +80,6 @@ const signInUser = async ({ password, user }) => {
   if (!isMatch) {
     throw new Error("Password not much");
   }
-  
+
   return user;
 };

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { signIn } from "next-auth/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebookF, faGoogle } from "@fortawesome/free-brands-svg-icons";
+import { Router } from "next/router";
+import axios from "axios";
 
 const Sign = () => {
   const [username, setUsername] = useState("");
@@ -10,13 +12,12 @@ const Sign = () => {
   const [message, setMessage] = useState(null);
 
   const signInUser = async () => {
-    const res = await fetch("/sign", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ username, email, password }),
+    const res = await axios.post("/api/auth/signin", {
+      username,
+      email,
+      password,
     });
+
     let data = await res.json();
 
     if (data.message) {
@@ -32,6 +33,7 @@ const Sign = () => {
       }
       console.log(res);
       console.log(email, password);
+      Router.push("/");
     }
   };
 
