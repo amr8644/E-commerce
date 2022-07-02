@@ -1,10 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebookF, faGoogle } from "@fortawesome/free-brands-svg-icons";
-import Image from "next/dist/client/image";
 import { signIn } from "next-auth/react";
+import { Router } from "next/router";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState(null);
+
+  const logInUser = () => {
+    let options = { redirect: false, email, password };
+    const res = signIn("credentials", options);
+    setMessage(null);
+    if (res?.error) {
+      setMessage(res.error);
+    }
+    console.log(res);
+    console.log(email, password);
+  };
+
   return (
     <section class=" bg-darkBlue h-screen text-superwhite font-PTSans">
       <div class="w-full lg:w-4/12 px-4 mx-auto pt-6">
@@ -34,7 +49,7 @@ const Login = () => {
             <div class="text-blueGray-400 text-center mb-3 font-bold">
               <small>Or login with credentials</small>
             </div>
-            <form>
+            <form method="post" action="/login">
               <div class="relative w-full mb-3">
                 <label
                   class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -46,6 +61,9 @@ const Login = () => {
                   type="email"
                   class="border-0 px-3 py-3  text-blueGray-600  bg-otherBlue rounded text-sm shadow focus:outline-none focus:ring w-full focus:ring-orange2 ease-linear transition-all duration-150"
                   placeholder="Email"
+                  name="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div class="relative w-full mb-3">
@@ -59,6 +77,9 @@ const Login = () => {
                   type="password"
                   class="border-0 px-3 py-3  text-blueGray-600  bg-otherBlue rounded text-sm shadow focus:outline-none focus:ring w-full focus:ring-orange2 ease-linear transition-all duration-150"
                   placeholder="Password"
+                  name="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
               <div>
@@ -76,7 +97,8 @@ const Login = () => {
               <div class="text-center mt-6">
                 <button
                   class=" bg-orange2 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
-                  type="button"
+                  type="submit"
+                  onClick={(e) => logInUser()}
                 >
                   Login
                 </button>

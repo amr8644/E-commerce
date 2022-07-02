@@ -1,11 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 import { signIn } from "next-auth/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebookF, faGoogle } from "@fortawesome/free-brands-svg-icons";
-import Image from "next/image";
-import Link from "next/link";
 
 const Sign = () => {
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState(null);
+
+  const signInUser = async () => {
+    const res = await fetch("/sign", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username, email, password }),
+    });
+    let data = await res.json();
+
+    if (data.message) {
+      setMessage(data.message);
+    }
+
+    if (data.message === "Register successfully") {
+      let options = { redirect: false, email, password };
+      const res = signIn("credentials", options);
+      setMessage(null);
+      if (res?.error) {
+        setMessage(res.error);
+      }
+      console.log(res);
+      console.log(email, password);
+    }
+  };
+
   return (
     <section class=" bg-darkBlue sm:h-full md:h-screen text-superwhite font-PTSans">
       <div class="w-full lg:w-4/12 px-4 mx-auto h-full">
@@ -35,7 +64,7 @@ const Sign = () => {
             <div class="text-blueGray-400 text-center mb-3 font-bold">
               <small>Or sign in with credentials</small>
             </div>
-            <form>
+            <form method="post" action="/sign">
               <div class="relative w-full mb-3">
                 <label
                   class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -47,6 +76,9 @@ const Sign = () => {
                   type="text"
                   class="border-0 px-3 py-3  text-blueGray-600  bg-otherBlue rounded text-sm shadow focus:outline-none focus:ring w-full focus:ring-orange2 ease-linear transition-all duration-150"
                   placeholder="Username"
+                  name="username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                 />
               </div>
               <div class="relative w-full mb-3">
@@ -60,6 +92,9 @@ const Sign = () => {
                   type="email"
                   class="border-0 px-3 py-3  text-blueGray-600  bg-otherBlue rounded text-sm shadow focus:outline-none focus:ring w-full focus:ring-orange2 ease-linear transition-all duration-150"
                   placeholder="Email"
+                  name="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div class="relative w-full mb-3">
@@ -73,6 +108,9 @@ const Sign = () => {
                   type="password"
                   class="border-0 px-3 py-3  text-blueGray-600  bg-otherBlue rounded text-sm shadow focus:outline-none focus:ring w-full focus:ring-orange2 ease-linear transition-all duration-150"
                   placeholder="Password"
+                  name="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
               <div>
@@ -90,10 +128,10 @@ const Sign = () => {
               <div class="text-center mt-6">
                 <button
                   class=" bg-orange2 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
-                  type="button"
+                  type="submit"
+                  onClick={(e) => signInUser()}
                 >
-                  {" "}
-                  Sign In{" "}
+                  Sign In
                 </button>
               </div>
             </form>
