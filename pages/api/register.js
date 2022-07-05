@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import User from "../../model/userSchema";
-import jwt from "jsonwebtoken";
+import * as jwt from "next-auth/jwt"
 
 export default function handler(req, res) {
   const {username,email,password} = req.body;
@@ -35,8 +35,4 @@ export default function handler(req, res) {
 }
 
 
-const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET,{
-     expiresIn: "30d",
-  });
-};
+

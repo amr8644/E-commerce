@@ -2,40 +2,11 @@ import React, { useState } from "react";
 import { signIn } from "next-auth/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebookF, faGoogle } from "@fortawesome/free-brands-svg-icons";
-import { Router } from "next/router";
-import axios from "axios";
 
 const Sign = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState(null);
-
-  const signInUser = async () => {
-    const res = await axios.post("/api/auth/signin", {
-      username,
-      email,
-      password,
-    });
-
-    let data = await res.json();
-
-    if (data.message) {
-      setMessage(data.message);
-    }
-
-    if (data.message === "Register successfully") {
-      let options = { redirect: false, email, password };
-      const res = signIn("credentials", options);
-      setMessage(null);
-      if (res?.error) {
-        setMessage(res.error);
-      }
-      console.log(res);
-      console.log(email, password);
-      Router.push("/");
-    }
-  };
 
   return (
     <section class=" bg-darkBlue sm:h-full md:h-screen text-superwhite font-PTSans">
@@ -131,7 +102,6 @@ const Sign = () => {
                 <button
                   class=" bg-orange2 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                   type="submit"
-                  onClick={(e) => signInUser()}
                 >
                   Sign In
                 </button>

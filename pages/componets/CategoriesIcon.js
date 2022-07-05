@@ -24,8 +24,6 @@ const CategoriesIcon = () => {
       spaceBetween={40}
       slidesPerView={9}
       scrollbar={{ draggable: true }}
-      onSlideChange={() => console.log("slide change")}
-      onSwiper={(swiper) => console.log(swiper)}
       className=" w-full flex my-5"
       breakpoints={{
         0: {

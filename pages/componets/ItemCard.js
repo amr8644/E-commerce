@@ -42,8 +42,6 @@ const ItemCard = () => {
       spaceBetween={40}
       slidesPerView={4}
       scrollbar={{ draggable: true }}
-      onSlideChange={() => console.log("slide change")}
-      onSwiper={(swiper) => console.log(swiper)}
       breakpoints={{
         0: {
           slidesPerView: 1,
