@@ -4,9 +4,29 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebookF, faGoogle } from "@fortawesome/free-brands-svg-icons";
 
 const Sign = () => {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
+
+  const { username, email, password } = formData;
+
+  const handleChange = (e) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const userData = {
+      username,
+      email,
+      password,
+    };
+  };
 
   return (
     <section class=" bg-darkBlue sm:h-full md:h-screen text-superwhite font-PTSans">
@@ -37,7 +57,7 @@ const Sign = () => {
             <div class="text-blueGray-400 text-center mb-3 font-bold">
               <small>Or sign in with credentials</small>
             </div>
-            <form method="post" action="/sign">
+            <form method="post" action="/sign" onSubmit={handleSubmit}>
               <div class="relative w-full mb-3">
                 <label
                   class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -51,7 +71,7 @@ const Sign = () => {
                   placeholder="Username"
                   name="username"
                   value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  onChange={handleChange}
                 />
               </div>
               <div class="relative w-full mb-3">
@@ -67,7 +87,7 @@ const Sign = () => {
                   placeholder="Email"
                   name="email"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={handleChange}
                 />
               </div>
               <div class="relative w-full mb-3">
@@ -83,7 +103,7 @@ const Sign = () => {
                   placeholder="Password"
                   name="password"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={handleChange}
                 />
               </div>
               <div>
