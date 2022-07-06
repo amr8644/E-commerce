@@ -6,6 +6,7 @@ import User from "../../../model/userSchema";
 import EmailProvider from "next-auth/providers/email";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
+import { createTransport } from "nodemailer";
 
 export default NextAuth({
   adapter: MongoDBAdapter(clientPromise),

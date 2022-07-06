@@ -21,11 +21,12 @@ const Sign = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const userData = {
-      username,
-      email,
-      password,
-    };
+    // const userData = {
+    //   username,
+    //   email,
+    //   password,
+    // };
+    signIn("email", { username, email, password, redirect: false });
   };
 
   return (

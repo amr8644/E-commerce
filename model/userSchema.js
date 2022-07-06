@@ -1,5 +1,6 @@
 import { Schema } from "mongoose";
 import mongoose from "mongoose";
+const { ObjectId } = mongoose.Schema.Types;
 
 const userSchema = new Schema(
   {
@@ -14,6 +15,12 @@ const userSchema = new Schema(
     password: {
       type: String,
     },
+    products: [
+      {
+        type: ObjectId,
+        ref: "CartProduct",
+      },
+    ],
   },
   {
     timestamps: true,
