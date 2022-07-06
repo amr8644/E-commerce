@@ -11,9 +11,9 @@ const CartSchema = new Schema({
   products: [
     {
       type: ObjectId,
-      ref: "CartProduct",
+      ref: "Product",
     },
   ],
 });
 
-export default model("Cart", CartSchema);
+export default mongoose.model("Cart", CartSchema);

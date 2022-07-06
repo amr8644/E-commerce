@@ -2,7 +2,7 @@ import { Schema } from "mongoose";
 import mongoose from "mongoose";
 const { ObjectId } = mongoose.Schema.Types;
 
-const CartItemSchema = new Schema({
+const productSchema = new Schema({
   product: [
     {
       name: { type: String, required: true },
@@ -18,4 +18,4 @@ const CartItemSchema = new Schema({
   },
 });
 
-export default mongoose.model("CartItem", CartItemSchema);
+export default mongoose.model("Product", productSchema);

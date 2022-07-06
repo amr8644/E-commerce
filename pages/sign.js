@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { signIn } from "next-auth/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebookF, faGoogle } from "@fortawesome/free-brands-svg-icons";
+import { register } from "./api/register";
 
 const Sign = () => {
   const [formData, setFormData] = useState({
@@ -21,12 +22,13 @@ const Sign = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // const userData = {
-    //   username,
-    //   email,
-    //   password,
-    // };
-    signIn("email", { username, email, password, redirect: false });
+    const userData = {
+      username,
+      email,
+      password,
+    };
+    register(userData);
+    // signIn("email", { username, email, password, redirect: false });
   };
 
   return (

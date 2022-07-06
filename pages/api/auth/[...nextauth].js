@@ -5,7 +5,7 @@ import clientPromise from "../../../lib/connectDB";
 import User from "../../../model/userSchema";
 import EmailProvider from "next-auth/providers/email";
 import CredentialsProvider from "next-auth/providers/credentials";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import { createTransport } from "nodemailer";
 
 export default NextAuth({

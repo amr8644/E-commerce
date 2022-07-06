@@ -18,7 +18,7 @@ const userSchema = new Schema(
     products: [
       {
         type: ObjectId,
-        ref: "CartProduct",
+        ref: "Product",
       },
     ],
   },
@@ -26,5 +26,4 @@ const userSchema = new Schema(
     timestamps: true,
   }
 );
-
-export default mongoose.models.User || mongoose.model("User", userSchema);
+export default mongoose.model("User", userSchema);
