@@ -1,5 +1,6 @@
 import App from "next/app";
 import "../styles/globals.css";
+import { wrapper } from "../app/store/store";
 import { SessionProvider } from "next-auth/react";
 
 function MyApp({ Component, pageProps }) {
@@ -16,4 +17,4 @@ MyApp.getInitialProps = async (appContext) => {
   return { ...appProps };
 };
 
-export default MyApp;
+export default wrapper.withRedux(MyApp);

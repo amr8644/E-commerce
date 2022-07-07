@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import { signIn } from "next-auth/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebookF, faGoogle } from "@fortawesome/free-brands-svg-icons";
-import { register } from "./api/register";
+// import { register } from "./api/register";
+import axios from "axios";
+import { register } from "../app/store/slices/users";
+import { wrapper } from "../app/store/store";
+import { useSelector, useDispatch } from "react-redux";
 
 const Sign = () => {
   const [formData, setFormData] = useState({
@@ -10,6 +14,7 @@ const Sign = () => {
     email: "",
     password: "",
   });
+  const dispatch = useDispatch();
 
   const { username, email, password } = formData;
 
@@ -27,7 +32,8 @@ const Sign = () => {
       email,
       password,
     };
-    register(userData);
+
+    dispatch(register(userData));
     // signIn("email", { username, email, password, redirect: false });
   };
 
@@ -136,5 +142,22 @@ const Sign = () => {
     </section>
   );
 };
+
+export const getServerSideProps = wrapper.getServerSideProps(
+  (store, userData) => async () => {
+    const url = "http://localhost:3000/signin";
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userData),
+    };
+
+    const response = await fetch("http://localhost:3000/signin", options);
+    const { data } = await response.json();
+    store.dispatch(register(data));
+  }
+);
 
 export default Sign;

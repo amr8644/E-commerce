@@ -2,7 +2,7 @@ import { Schema } from "mongoose";
 import mongoose from "mongoose";
 const { ObjectId } = mongoose.Schema.Types;
 
-const userSchema = new Schema(
+const usersSchema = new Schema(
   {
     username: {
       type: String,
@@ -26,4 +26,6 @@ const userSchema = new Schema(
     timestamps: true,
   }
 );
-export default mongoose.model("User", userSchema);
+
+export const User =
+  mongoose.models?.User || mongoose.model("User", usersSchema);
