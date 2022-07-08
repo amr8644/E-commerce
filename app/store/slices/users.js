@@ -1,30 +1,65 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { HYDRATE } from "next-redux-wrapper";
+import authService from "../../../pages/api/auth/authService";
 
-export const UserSlice = createSlice({
-  name: "users",
-  initialState: {
-    username: null,
-    email: null,
-    password: null,
-  },
+// const user = JSON.parse(localStorage.getItem("user"));
+
+const initialState = {
+  // user: user ? user : null,
+  isError: false,
+  isLoading: false,
+  isSuccess: false,
+  message: "",
+};
+
+export const register = createAsyncThunk(
+  "auth/register",
+  async (user, thunkAPI) => {
+    try {
+      return await authService.register(user);
+    } catch (error) {
+      const message =
+        (error.respone && error.respone.data && error.respone.data.message) ||
+        error.message ||
+        error;
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const authSlice = createSlice({
+  name: "auth",
+  initialState,
   reducers: {
-    register: (state, action) => {
-      state.username = action.payload;
-      state.email = action.payload;
-      state.password = action.payload;
+    reset: (state) => {
+      state.isLoading = false;
+      state.isSuccess = false;
+      state.isError = false;
+      state.message = "";
     },
   },
-
-  extraReducers: {
-    [HYDRATE]: (state, action) => {
-      state.username = action.payload.user.username;
-      state.email = action.payload.user.email;
-      state.password = action.payload.user.password;
-    },
+  extraReducers: (builder) => {
+    builder
+      .addCase(register.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(register.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.user = action.payload;
+      })
+      .addCase(register.rejected, (state) => {
+        state.isLoading = false;
+        state.isError = true;
+        // state.message = action.payload;
+        state.user = null;
+      });
   },
 });
 
-export const { register } = UserSlice.actions;
+export const { reset } = authSlice.actions;
+export default authSlice.reducer;
 
-export default UserSlice.reducer;
+// export const { register } = UserSlice.actions;
+
+// export default UserSlice.reducer;
