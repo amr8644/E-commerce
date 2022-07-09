@@ -7,7 +7,7 @@ import "swiper/css";
 import "swiper/css/keyboard";
 import "swiper/css/navigation";
 
-SwiperCore.use(Navigation);
+// SwiperCore.use(Navigation);
 
 const ItemCard = () => {
   const [data, setData] = useState([]);
@@ -23,7 +23,7 @@ const ItemCard = () => {
     }
   };
 
-  function truncateString(str, num) {
+  function truncateString(str:any, num:any) {
     if (str.length > num) {
       let subStr = str.substring(0, num);
       return subStr + "...";
@@ -70,26 +70,26 @@ const ItemCard = () => {
             className="w-[384px] min-h-[384px] mb-10 bg-superwhite rounded-lg shadow-md flex items-center flex-col justify-between"
           >
             <div className="flex items-center justify-center h-1/2">
-              <img class=" p-8 w-1/2 rounded-t-lg" src={image} alt={title} />
+              <img className=" p-8 w-1/2 rounded-t-lg" src={image} alt={title} />
             </div>
-            <div class="h-1/2 px-5 flex flex-col ite justify-end">
+            <div className="h-1/2 px-5 flex flex-col ite justify-end">
               <a href="#">
-                <h5 class="text-xl font-semibold tracking-tight text-gray-900 text-primary2">
+                <h5 className="text-xl font-semibold tracking-tight text-gray-900 text-primary2">
                   {truncateString(title, 20)}
                 </h5>
               </a>
               <p>{truncateString(description, 50)}</p>
-              <div class="flex justify-between items-center">
-                <span class="text-3xl font-bold text-gray-900 dark:text-primary2">
+              <div className="flex justify-between items-center">
+                <span className="text-3xl font-bold text-gray-900 dark:text-primary2">
                   ${price}
                 </span>
               </div>
-              <div class="card-actions justify-end">
-                <div class="badge badge-outline capitalize">{category}</div>
+              <div className="card-actions justify-end">
+                <div className="badge badge-outline capitalize">{category}</div>
               </div>
-              <div class="card-actions justify-end my-2">
+              <div className="card-actions justify-end my-2">
                 <Link href={"/item/[id]"} as={`/item/${id}`}>
-                  <button class="btn bg-orange2 text-superwhite">
+                  <button className="btn bg-orange2 text-superwhite">
                     View Item
                   </button>
                 </Link>
