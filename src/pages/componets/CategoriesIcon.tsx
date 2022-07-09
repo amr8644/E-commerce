@@ -16,7 +16,7 @@ import {
 
 import "swiper/css/pagination";
 
-SwiperCore.use(Pagination);
+// SwiperCore.use(Pagination);
 
 const CategoriesIcon = () => {
   return (

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import List from "../componets/List";
-// import { useSession, signOut } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBorderAll,
@@ -10,32 +10,32 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const Sidebar = () => {
-  // const [show, setShow] = useState(true);
-  // const { data: session } = useSession();
+  const [show, setShow] = useState(true);
+  const { data: session } = useSession();
 
-  // const changeShow = () => {
-  //   if (show) {
-  //     setShow(false);
-  //   }
-  //   if (!show) {
-  //     setShow(true);
-  //   }
-  // };
+  const changeShow = () => {
+    if (show) {
+      setShow(false);
+    }
+    if (!show) {
+      setShow(true);
+    }
+  };
 
   return (
     <section className="sm:hidden border-r border-primary2 lg:block scrollbar overflow-y-scroll fixed bg-darkBlue top-[70px] left-0  w-1/5  bottom-0 border-t-2 ">
       <div className="relative">
         <button
-          // onClick={changeShow}
+          onClick={changeShow}
           className="text-base text-white my-2 flex px-5 py-2 w-full rounded-lg cursor-pointer hover:bg-primary2 hover:text-orange2 duration-300"
         >
           <FontAwesomeIcon icon={faBorderAll} className="w-[16px] mx-3" />
           Categories
         </button>
         <ul
-          // className={`text-white text-sm ${
-          //   show ? "translate-x-0" : "-translate-x-96  absolute"
-          // } duration-300`}
+          className={`text-white text-sm ${
+            show ? "translate-x-0" : "-translate-x-96  absolute"
+          } duration-300`}
         >
           <List name={"Echo and Alexa"} />
           <List name={"Kindle"} />
@@ -60,7 +60,7 @@ const Sidebar = () => {
           Help
         </button>
       </div>
-      {/* {session && (
+      {session && (
         <button
           onClick={(e) => {
             e.preventDefault();
@@ -71,7 +71,7 @@ const Sidebar = () => {
           <FontAwesomeIcon icon={faTimes} className="w-[16px] mx-3" />
           Log Out
         </button>
-      )} */}
+      )}
     </section>
   );
 };

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-// import { useSession, signOut } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import {
   faMagnifyingGlass,
   faShoppingCart,
@@ -14,7 +14,7 @@ import Avatar from "../componets/Avatar";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
-  // const { data: session, loading } = useSession();
+  const { data: session } = useSession();
 
   const changeOpen = () => {
     if (open) {
@@ -58,11 +58,11 @@ const Navbar = () => {
           />
         </div>
 
-        {/* {session && <Avatar />}
+        {session && <Avatar />}
 
-        {!session && !loading && (
+        {!session && (
           <div className="sm:hidden w-1/3 lg:flex items-center justify-end">
-            <Link href={"/sign"}>
+            <Link href={"/signIn"}>
               <button className=" mx-2 font-PTSans font-semibold px-4 py-2 bg-orange2 text-superwhite rounded-lg hover:bg-superwhite hover:text-orange2 duration-300">
                 Sign up
               </button>
@@ -73,7 +73,7 @@ const Navbar = () => {
               </button>
             </Link>
           </div>
-        )} */}
+        )}
       </section>
       <SecondSidebar open={open} />
     </>
