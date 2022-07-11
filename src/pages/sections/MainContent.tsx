@@ -1,7 +1,7 @@
 import React, { lazy, Suspense } from "react";
-import CategoriesIcon from "../componets/CategoriesIcon";
+import CategoriesIcon from "../components/CategoriesIcon";
 
-const ItemCard = lazy(() => import("../componets/ItemCard"));
+const ItemCard = lazy(() => import("../components/ItemCard"));
 
 const MainContent = () => {
   return (

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import dotenv from 'dotenv';
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
@@ -9,13 +10,13 @@ import {
   faBars,
 } from "@fortawesome/free-solid-svg-icons";
 import { faHeart, faBell } from "@fortawesome/free-regular-svg-icons";
-import SecondSidebar from "../componets/SecondSidebar";
-import Avatar from "../componets/Avatar";
+import SecondSidebar from "../components/SecondSidebar";
+import Avatar from "../components/Avatar";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
-  const { data: session } = useSession();
-
+  const { data: session } = useSession(); 
+  
   const changeOpen = () => {
     if (open) {
       setOpen(false);

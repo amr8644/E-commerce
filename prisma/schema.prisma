@@ -23,15 +23,19 @@ model Account {
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+  Products   Product[]
+  productsId String?
   @@unique([provider, providerAccountId])
 }
 
 model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique
+  id           String    @id @default(cuid())
+  sessionToken String    @unique
   userId       String
   expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  Products     Product[]
+  productsId   String?
 }
 
 model User {
@@ -40,8 +44,22 @@ model User {
   email         String?   @unique
   emailVerified DateTime?
   image         String?
+  products      Product[]
   accounts      Account[]
   sessions      Session[]
+  productsId    String
+}
+
+model Product {
+  id        Int      @id
+  name      String
+  user      User?    @relation(fields: [userId], references: [id])
+  quantity  Int
+  Account   Account? @relation(fields: [accountId], references: [id])
+  accountId String?
+  Session   Session? @relation(fields: [sessionId], references: [id])
+  sessionId String?
+  userId    String?
 }
 
 model VerificationToken {
