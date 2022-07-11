@@ -7,65 +7,79 @@ datasource db {
   url      = "file:./dev.db"
 }
 
-model Account {
-  id                String  @id @default(cuid())
-  userId            String
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String?
-  access_token      String?
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String?
-  session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  Products   Product[]
-  productsId String?
-  @@unique([provider, providerAccountId])
-}
-
-model Session {
-  id           String    @id @default(cuid())
-  sessionToken String    @unique
-  userId       String
-  expires      DateTime
-  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  Products     Product[]
-  productsId   String?
-}
-
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  products      Product[]
-  accounts      Account[]
-  sessions      Session[]
-  productsId    String
+  id       String    @id @default(cuid())
+  username String
+  email    String
+  password String
+  products Product[]
 }
 
 model Product {
-  id        Int      @id
-  name      String
-  user      User?    @relation(fields: [userId], references: [id])
-  quantity  Int
-  Account   Account? @relation(fields: [accountId], references: [id])
-  accountId String?
-  Session   Session? @relation(fields: [sessionId], references: [id])
-  sessionId String?
-  userId    String?
+  id          Int     @id @default(autoincrement())
+  name        String
+  description String
+  image       String
+  price       Int
+  User        User?   @relation(fields: [userId], references: [id])
+  userId      String?
 }
 
-model VerificationToken {
-  identifier String
-  token      String   @unique
-  expires    DateTime
+// model Account {
+//   id                String  @id @default(cuid())
+//   userId            String
+//   type              String
+//   provider          String
+//   providerAccountId String
+//   refresh_token     String?
+//   access_token      String?
+//   expires_at        Int?
+//   token_type        String?
+//   scope             String?
+//   id_token          String?
+//   session_state     String?
 
-  @@unique([identifier, token])
-}
+//   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+//   productsId String?
+//   @@unique([provider, providerAccountId])
+// }
+
+// model Session {
+//   id           String   @id @default(cuid())
+//   sessionToken String   @unique
+//   userId       String
+//   expires      DateTime
+//   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+// }
+
+// model User {
+//   id       String  @id @default(cuid())
+//   name     String?
+//   email    String? @unique
+//   password String?
+//   image    String?
+
+//   Account Account[]
+//   Session Session[]
+// }
+
+// // model Product {
+// //   id        Int      @id
+// //   name      String
+// //   user      User?    @relation(fields: [userId], references: [id])
+// //   quantity  Int
+// //   Account   Account? @relation(fields: [accountId], references: [id])
+// //   accountId String?
+// //   Session   Session? @relation(fields: [sessionId], references: [id])
+// //   sessionId String?
+// //   userId    String?
+// // }
+
+// model VerificationToken {
+//   identifier String
+//   token      String   @unique
+//   expires    DateTime
+
+//   @@unique([identifier, token])
+// }

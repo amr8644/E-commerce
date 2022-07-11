@@ -1,15 +1,18 @@
-
+import axios, {AxiosRequestConfig} from 'axios'
 import React, { useState } from "react";
-import { signIn } from "next-auth/react";
+import { getSession, GetSessionParams, signIn } from "next-auth/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebookF, faGoogle } from "@fortawesome/free-brands-svg-icons";
+import { Prisma, PrismaClient } from '@prisma/client';
 
 const Sign = () => {
+
   const [formData, setFormData] = useState({
     username: "",
     email: "",
     password: "",
   });
+
 
   const { username, email, password } = formData;
 
@@ -22,8 +25,19 @@ const Sign = () => {
 
   const handleSubmit = async (e:any) => {
     e.preventDefault();
-    console.log(e);
-    
+   const config:AxiosRequestConfig = {
+    url:"/signIn",
+    data: formData,
+    method:"post",
+    headers:{
+      "Content-Type":"application/json",
+    },
+   }
+   const res = await axios(config)
+  
+   console.log(res);
+  
+   return  res
   };
 
   return (
@@ -131,6 +145,28 @@ const Sign = () => {
     </section>
   );
 };
+
+export const getServerSideProps = async(context: GetSessionParams | undefined) => {
+  const prisma = new PrismaClient()
+  const session = await getSession(context)
+
+  if (!session) {
+    return{
+      props:{
+        session:null
+      }
+    }
+  }
+
+  // const profile = await prisma.user.findUnique({where:{email}})
+
+  return {
+    props:{
+      session,
+      // profile
+    }
+  }
+}
 
 
 export default Sign;
