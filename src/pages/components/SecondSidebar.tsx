@@ -35,7 +35,7 @@ const SecondSidebar = ({ open }:any) => {
         {session && <Avatar2 />}
         {!session && (
           <div className="w-full flex-col flex items-center justify-end">
-            <Link href={"/sign"}>
+            <Link href={"/signIn"}>
               <button className="my-3 w-3/4 font-PTSans font-semibold px-4 py-2 bg-orange2 text-superwhite rounded-lg hover:bg-superwhite hover:text-orange2 duration-300">
                 Sign up
               </button>

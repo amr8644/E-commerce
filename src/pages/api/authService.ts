@@ -1,26 +1,25 @@
-import { NextApiRequest,NextApiResponse } from "next"
-import { PrismaClient } from "@prisma/client"
-import bcrypt from "bcryptjs"
+import { NextApiRequest, NextApiResponse } from "next";
+import { PrismaClient } from "@prisma/client";
+import bcrypt from "bcryptjs";
 
+const prisma = new PrismaClient();
 
-const prisma = new PrismaClient()
-
-type UserType ={
-  username:string
-  email:string
-  password:string
-}
+type UserType = {
+  username: string;
+  email: string;
+  password: string;
+};
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default async function(req:NextApiRequest,res:NextApiResponse ) {
+export default async function (req: NextApiRequest, res: NextApiResponse) {
   try {
-    const {username,email,password} = req.body
+    const { username, email, password } = req.body;
 
-    // Check if user exists 
-  const userExists = await prisma.user.count({where:{email:email}})
+    // Check if user exists
+    const userExists = await prisma.user.count({ where: { email: email } });
 
-  if (userExists) {
-    return res.status(400).json("Already Exists")
+    if (userExists) {
+      return res.status(400).json("Already Exists");
     }
 
     // Hash Password
@@ -28,18 +27,16 @@ export default async function(req:NextApiRequest,res:NextApiResponse ) {
     const hashedPassword = await bcrypt.hash(password, salt);
 
     // Create User
-    const userData:UserType={
-      username:username,
-      email:email,
-      password:hashedPassword
-    }
-    const users = await prisma.user.create({data:userData})
+    const userData: UserType = {
+      username: username,
+      email: email,
+      password: hashedPassword,
+    };
+    const users = await prisma.user.create({ data: userData });
 
-    return res.status(201).json(users)
+    return res.status(201).json(users);
   } catch (error) {
     console.log(error);
-    return res.status(500).send(error)
-    
+    return res.status(500).send(error);
   }
 }
-

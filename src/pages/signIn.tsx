@@ -1,24 +1,26 @@
-import axios, {AxiosRequestConfig} from 'axios'
+import axios, { AxiosRequestConfig } from "axios";
 import React, { useState } from "react";
-import {  GetSessionParams, signIn } from "next-auth/react";
+import { GetSessionParams, signIn } from "next-auth/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebookF, faGoogle } from "@fortawesome/free-brands-svg-icons";
-import {  PrismaClient } from '@prisma/client';
+import { PrismaClient } from "@prisma/client";
+import { useRouter } from "next/router";
 
+const prisma = new PrismaClient();
 
-const prisma = new PrismaClient()
-
-export const getServerSideProps = async(context: GetSessionParams | undefined) => {
-    const users = await prisma.user.findMany()    
-    return{
-      props:{
-        users
-      }
-    }
- 
-}
+export const getServerSideProps = async (
+  context: GetSessionParams | undefined
+) => {
+  const users = await prisma.user.findMany();
+  return {
+    props: {
+      users,
+    },
+  };
+};
 
 const Sign = () => {
+  const route = useRouter();
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -27,26 +29,30 @@ const Sign = () => {
 
   const { username, email, password } = formData;
 
-  const handleChange = (e:any) => {
+  const handleChange = (e: any) => {
     setFormData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
   };
 
-  const handleSubmit = async (e:any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-   const config:AxiosRequestConfig = {
-    url:"/api/authService",
-    data: formData,
-    method:"post",
-    headers:{
-      "Content-Type":"application/json",
-    },
-   }
-   const res = await axios(config)
+    const config: AxiosRequestConfig = {
+      url: "/api/authService",
+      data: formData,
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const res = await axios(config);
 
-   return await res.config.data
+    if (!res) {
+      throw new Error("Error has occured");
+    }
+    route.push("/");
+    return await res.config.data;
   };
 
   return (
@@ -55,7 +61,9 @@ const Sign = () => {
         <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0">
           <div className="rounded-t mb-0 px-6 py-6">
             <div className="text-center mb-3">
-              <h6 className="text-blueGray-500 text-sm font-bold">Sign in with</h6>
+              <h6 className="text-blueGray-500 text-sm font-bold">
+                Sign in with
+              </h6>
             </div>
             <div className="btn-wrapper text-center">
               <button className="btn bg-facebook text-superwhite font-PTSans rounded-lg flex items-center justify-center">
@@ -65,7 +73,7 @@ const Sign = () => {
               <button
                 onClick={(e) => {
                   e.preventDefault();
-                  signIn("google")
+                  signIn("google");
                 }}
                 className="btn bg-google text-superwhite font-PTSans rounded-lg flex items-center justify-center"
               >
@@ -154,6 +162,5 @@ const Sign = () => {
     </section>
   );
 };
-
 
 export default Sign;

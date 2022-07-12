@@ -1,9 +1,22 @@
 import React, { lazy, Suspense } from "react";
 import CategoriesIcon from "../components/CategoriesIcon";
+import { PrismaClient } from "@prisma/client";
 
 const ItemCard = lazy(() => import("../components/ItemCard"));
+const prisma = new PrismaClient();
 
-const MainContent = () => {
+export const getServerSideProps = async () => {
+  const products = await prisma.product.findFirst();
+  return {
+    props: {
+      products: [products],
+    },
+  };
+};
+
+const MainContent = ({ products }: any) => {
+  console.log(products);
+
   return (
     <>
       <section className="top-[70px] relative font-PTSans bg-white sm:w-screen px-6 lg:w-4/5 lg:float-right ">
@@ -46,5 +59,4 @@ const MainContent = () => {
     </>
   );
 };
-
 export default MainContent;

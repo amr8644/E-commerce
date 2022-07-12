@@ -21,6 +21,7 @@ model Product {
   description String
   image       String
   price       Int
+  quantity    Int
   users       User[]
 }
 
@@ -52,28 +53,6 @@ model Product {
 //   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 // }
 
-// model User {
-//   id       String  @id @default(cuid())
-//   name     String?
-//   email    String? @unique
-//   password String?
-//   image    String?
-
-//   Account Account[]
-//   Session Session[]
-// }
-
-// // model Product {
-// //   id        Int      @id
-// //   name      String
-// //   user      User?    @relation(fields: [userId], references: [id])
-// //   quantity  Int
-// //   Account   Account? @relation(fields: [accountId], references: [id])
-// //   accountId String?
-// //   Session   Session? @relation(fields: [sessionId], references: [id])
-// //   sessionId String?
-// //   userId    String?
-// // }
 
 // model VerificationToken {
 //   identifier String
