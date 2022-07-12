@@ -1,18 +1,29 @@
 import axios, {AxiosRequestConfig} from 'axios'
 import React, { useState } from "react";
-import { getSession, GetSessionParams, signIn } from "next-auth/react";
+import {  GetSessionParams, signIn } from "next-auth/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebookF, faGoogle } from "@fortawesome/free-brands-svg-icons";
-import { Prisma, PrismaClient } from '@prisma/client';
+import {  PrismaClient } from '@prisma/client';
+
+
+const prisma = new PrismaClient()
+
+export const getServerSideProps = async(context: GetSessionParams | undefined) => {
+    const users = await prisma.user.findMany()    
+    return{
+      props:{
+        users
+      }
+    }
+ 
+}
 
 const Sign = () => {
-
   const [formData, setFormData] = useState({
     username: "",
     email: "",
     password: "",
   });
-
 
   const { username, email, password } = formData;
 
@@ -26,7 +37,7 @@ const Sign = () => {
   const handleSubmit = async (e:any) => {
     e.preventDefault();
    const config:AxiosRequestConfig = {
-    url:"/signIn",
+    url:"/api/authService",
     data: formData,
     method:"post",
     headers:{
@@ -34,10 +45,8 @@ const Sign = () => {
     },
    }
    const res = await axios(config)
-  
-   console.log(res);
-  
-   return  res
+
+   return await res.config.data
   };
 
   return (
@@ -145,28 +154,6 @@ const Sign = () => {
     </section>
   );
 };
-
-export const getServerSideProps = async(context: GetSessionParams | undefined) => {
-  const prisma = new PrismaClient()
-  const session = await getSession(context)
-
-  if (!session) {
-    return{
-      props:{
-        session:null
-      }
-    }
-  }
-
-  // const profile = await prisma.user.findUnique({where:{email}})
-
-  return {
-    props:{
-      session,
-      // profile
-    }
-  }
-}
 
 
 export default Sign;

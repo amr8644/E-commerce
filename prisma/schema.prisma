@@ -16,13 +16,12 @@ model User {
 }
 
 model Product {
-  id          Int     @id @default(autoincrement())
+  id          Int    @id @default(autoincrement())
   name        String
   description String
   image       String
   price       Int
-  User        User?   @relation(fields: [userId], references: [id])
-  userId      String?
+  users       User[]
 }
 
 // model Account {
