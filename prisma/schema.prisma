@@ -20,9 +20,10 @@ model Product {
   name        String
   description String
   image       String
-  price       Int
+  price       Float
   quantity    Int
   users       User[]
+ 
 }
 
 // model Account {

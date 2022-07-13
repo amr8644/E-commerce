@@ -1,16 +1,37 @@
+import { User } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from "next";
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "../../../lib/prisma";
 
-const prisma = new PrismaClient();
+type ProductsType = {
+  id: number;
+  name: string;
+  description: string;
+  image: string;
+  quantity: number;
+  price: number;
+};
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   try {
-    const products = await prisma.product.findMany();
-    if (req.method == "get") {
-      return res.status(200).json(products);
-    }
+    const { name, description, image, quantity, price } = req.body;
+
+    const products = await prisma.product.create({
+      data: {
+        name,
+        description,
+        image,
+        quantity,
+        price,
+      },
+      select: {
+        users: true,
+      },
+    });
+
+    return res.status(201).json(products);
   } catch (error) {
     console.log(error);
+    return res.status(400).send(error);
   }
 }

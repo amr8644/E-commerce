@@ -1,23 +1,9 @@
 import axios, { AxiosRequestConfig } from "axios";
 import React, { useState } from "react";
-import { GetSessionParams, signIn } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebookF, faGoogle } from "@fortawesome/free-brands-svg-icons";
-import { PrismaClient } from "@prisma/client";
 import { useRouter } from "next/router";
-
-const prisma = new PrismaClient();
-
-export const getServerSideProps = async (
-  context: GetSessionParams | undefined
-) => {
-  const users = await prisma.user.findMany();
-  return {
-    props: {
-      users,
-    },
-  };
-};
 
 const Sign = () => {
   const route = useRouter();

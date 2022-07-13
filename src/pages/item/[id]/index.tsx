@@ -4,6 +4,7 @@ import Navbar from "../../sections/Navbar";
 import Sidebar from "../../sections/Sidebar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDown, faArrowUp } from "@fortawesome/free-solid-svg-icons";
+import axios, { AxiosRequestConfig } from "axios";
 
 const item = ({ data }: any) => {
   const { id, title, price, description, image, category } = data;
@@ -35,7 +36,35 @@ const item = ({ data }: any) => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    const config: AxiosRequestConfig = {
+      url: "/api/productsService",
+      data: productsData,
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const res = await axios(config);
+
+    if (!res) {
+      throw new Error("Error has occured");
+    }
+
+    return await res.config.data;
   };
+
+  // const getData = async () => {
+  //   const res = await axios.get("/api/productsService");
+
+  //   if (!res) {
+  //     throw new Error("Error has occured");
+  //   }
+  //   console.log(res.config.data);
+
+  //   return await res.config.data;
+  // };
+
+  // getData();
 
   return (
     <>
@@ -81,7 +110,11 @@ const item = ({ data }: any) => {
                 </button>
               </div>
             </div>
-            <button type="submit" className="btn bg-orange2 text-superwhite">
+            <button
+              onClick={handleSubmit}
+              type="submit"
+              className="btn bg-orange2 text-superwhite"
+            >
               Put in Cart
             </button>
           </div>

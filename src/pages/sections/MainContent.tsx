@@ -1,19 +1,18 @@
 import React, { lazy, Suspense } from "react";
 import CategoriesIcon from "../components/CategoriesIcon";
-import { PrismaClient } from "@prisma/client";
+import { GetServerSideProps } from "next";
+import { prisma } from "../../../lib/prisma";
 
-const ItemCard = lazy(() => import("../components/ItemCard"));
-const prisma = new PrismaClient();
-
-export const getServerSideProps = async () => {
-  const products = await prisma.product.findFirst();
+export const getServerSideProps: GetServerSideProps = async () => {
+  const products = await prisma.product.findMany();
   return {
     props: {
-      products: [products],
+      products,
     },
   };
 };
 
+const ItemCard = lazy(() => import("../components/ItemCard"));
 const MainContent = ({ products }: any) => {
   console.log(products);
 
