@@ -59,7 +59,7 @@ const Sign = () => {
               <button
                 onClick={(e) => {
                   e.preventDefault();
-                  signIn("google");
+                  signIn("google", { callbackUrl: "/" });
                 }}
                 className="btn bg-google text-superwhite font-PTSans rounded-lg flex items-center justify-center"
               >

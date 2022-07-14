@@ -14,6 +14,10 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
 
+  // session: {
+  //   jwt: true,
+  // },
+
   debug: true,
   secret: process.env.NEXTAUTH_SECRET,
 };

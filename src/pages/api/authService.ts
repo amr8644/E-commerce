@@ -12,6 +12,7 @@ type UserType = {
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   try {
     const { username, email, password } = req.body;
+    console.log(req.body);
 
     // Check if user exists
     const userExists = await prisma.user.count({ where: { email: email } });
@@ -25,12 +26,14 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     const hashedPassword = await bcrypt.hash(password, salt);
 
     // Create User
-    const userData: UserType = {
-      username: username,
-      email: email,
-      password: hashedPassword,
-    };
-    const users = await prisma.user.create({ data: userData });
+    // const userData: UserType = {
+    //   username: username,
+    //   email: email,
+    //   password: hashedPassword,
+    // };
+    const users = await prisma.user.create({
+      data: { name: username, email: email, password: password },
+    });
 
     return res.status(201).json(users);
   } catch (error) {

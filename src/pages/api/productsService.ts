@@ -1,4 +1,3 @@
-import { User } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "../../../lib/prisma";
 
@@ -24,9 +23,6 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
         image,
         quantity,
         price,
-      },
-      select: {
-        users: true,
       },
     });
 
