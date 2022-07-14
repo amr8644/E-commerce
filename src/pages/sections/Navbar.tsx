@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import dotenv from 'dotenv';
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import { useSession, signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import {
   faMagnifyingGlass,
   faShoppingCart,
@@ -13,10 +12,10 @@ import { faHeart, faBell } from "@fortawesome/free-regular-svg-icons";
 import SecondSidebar from "../components/SecondSidebar";
 import Avatar from "../components/Avatar";
 
-const Navbar = () => {
+const Navbar = ({ product }: any) => {
   const [open, setOpen] = useState(false);
-  const { data: session } = useSession(); 
-  
+  const { data: session } = useSession();
+
   const changeOpen = () => {
     if (open) {
       setOpen(false);

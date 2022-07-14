@@ -53,19 +53,6 @@ const item = ({ data }: any) => {
     return await res.config.data;
   };
 
-  // const getData = async () => {
-  //   const res = await axios.get("/api/productsService");
-
-  //   if (!res) {
-  //     throw new Error("Error has occured");
-  //   }
-  //   console.log(res.config.data);
-
-  //   return await res.config.data;
-  // };
-
-  // getData();
-
   return (
     <>
       <Navbar />

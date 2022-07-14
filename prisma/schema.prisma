@@ -8,11 +8,19 @@ datasource db {
 }
 
 model User {
-  id       String    @id @default(cuid())
-  username String
-  email    String
-  password String
-  products Product[]
+  id        String    @id @default(cuid())
+  username  String
+  email     String
+  password  String
+  image     String
+  createdAt DateTime  @default(now()) @map(name: "created_at")
+  updatedAt DateTime  @updatedAt @map(name: "updated_at")
+  products  Product[]
+  sessions  Session[]
+
+  @@map(name: "users")
+  Account   Account? @relation(fields: [accountId], references: [id])
+  accountId String?
 }
 
 model Product {
@@ -23,42 +31,44 @@ model Product {
   price       Float
   quantity    Int
   users       User[]
- 
 }
 
-// model Account {
-//   id                String  @id @default(cuid())
-//   userId            String
-//   type              String
-//   provider          String
-//   providerAccountId String
-//   refresh_token     String?
-//   access_token      String?
-//   expires_at        Int?
-//   token_type        String?
-//   scope             String?
-//   id_token          String?
-//   session_state     String?
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique @map("session_token")
+  userId       String   @map("user_id")
+  expires      DateTime
+  users        User[]
 
-//   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@map("sessions")
+}
 
-//   productsId String?
-//   @@unique([provider, providerAccountId])
-// }
+model Account {
+  id                 String  @id @default(cuid())
+  userId             String  @map("user_id")
+  type               String
+  provider           String
+  providerAccountId  String  @map("provider_account_id")
+  refresh_token      String?
+  access_token       String?
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?
+  session_state      String?
+  oauth_token_secret String?
+  oauth_token        String?
+  users              User[]
 
-// model Session {
-//   id           String   @id @default(cuid())
-//   sessionToken String   @unique
-//   userId       String
-//   expires      DateTime
-//   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-// }
+  @@unique([provider, providerAccountId])
 
+}
 
-// model VerificationToken {
-//   identifier String
-//   token      String   @unique
-//   expires    DateTime
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
 
-//   @@unique([identifier, token])
-// }
+  @@unique([identifier, token])
+  @@map("verificationtokens")
+}

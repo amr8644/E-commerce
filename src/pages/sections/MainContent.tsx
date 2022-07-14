@@ -1,21 +1,8 @@
-import React, { lazy, Suspense } from "react";
+import React, { lazy, Suspense, useState } from "react";
 import CategoriesIcon from "../components/CategoriesIcon";
-import { GetServerSideProps } from "next";
-import { prisma } from "../../../lib/prisma";
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  const products = await prisma.product.findMany();
-  return {
-    props: {
-      products,
-    },
-  };
-};
 
 const ItemCard = lazy(() => import("../components/ItemCard"));
-const MainContent = ({ products }: any) => {
-  console.log(products);
-
+const MainContent = () => {
   return (
     <>
       <section className="top-[70px] relative font-PTSans bg-white sm:w-screen px-6 lg:w-4/5 lg:float-right ">
@@ -58,4 +45,12 @@ const MainContent = ({ products }: any) => {
     </>
   );
 };
+
+// export const getStaticProps: GetStaticProps = async () => {
+//   const feed = await prisma.user.findMany();
+//   return {
+//     props: { feed },
+//   };
+// };
+
 export default MainContent;
