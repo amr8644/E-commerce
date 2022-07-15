@@ -22,6 +22,8 @@ module.exports = {
       grey: "#B6B1AD",
       facebook: "#1877F2",
       google: "#EA4335",
+      otherBlue: "#1F2937",
+      gray: "#6B7280",
     },
     fontFamily: {
       Poppins: ["Poppins", "sans-serif"],

@@ -3,18 +3,12 @@ import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-import {
-  faMagnifyingGlass,
-  faShoppingCart,
-  faBars,
-} from "@fortawesome/free-solid-svg-icons";
-import { faHeart, faBell } from "@fortawesome/free-regular-svg-icons";
+import { faMagnifyingGlass, faBars } from "@fortawesome/free-solid-svg-icons";
 import SecondSidebar from "../components/SecondSidebar";
 import Avatar from "../components/Avatar";
 
 const Navbar = ({ product }: any) => {
   const [open, setOpen] = useState(false);
-  const { data } = useSession();
   const { data: session, status } = useSession();
 
   const changeOpen = () => {
