@@ -3,15 +3,16 @@ import { prisma } from "../../../lib/prisma";
 import bcrypt from "bcryptjs";
 
 type UserType = {
-  username: string;
+  name: string;
   email: string;
   password: string;
+  image: string;
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   try {
-    const { username, email, password } = req.body;
+    const { name, email, password, image } = req.body;
     console.log(req.body);
 
     // Check if user exists
@@ -26,13 +27,14 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     const hashedPassword = await bcrypt.hash(password, salt);
 
     // Create User
-    // const userData: UserType = {
-    //   username: username,
-    //   email: email,
-    //   password: hashedPassword,
-    // };
+    const userData: UserType = {
+      name: name,
+      email: email,
+      password: hashedPassword,
+      image: image,
+    };
     const users = await prisma.user.create({
-      data: { name: username, email: email, password: password },
+      data: userData,
     });
 
     return res.status(201).json(users);

@@ -14,7 +14,8 @@ import Avatar from "../components/Avatar";
 
 const Navbar = ({ product }: any) => {
   const [open, setOpen] = useState(false);
-  const { data: session } = useSession();
+  const { data } = useSession();
+  const { data: session, status } = useSession();
 
   const changeOpen = () => {
     if (open) {

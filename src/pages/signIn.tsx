@@ -8,12 +8,13 @@ import { useRouter } from "next/router";
 const Sign = () => {
   const route = useRouter();
   const [formData, setFormData] = useState({
-    username: "",
+    name: "",
     email: "",
     password: "",
+    image: "",
   });
 
-  const { username, email, password } = formData;
+  const { name, email, password, image } = formData;
 
   const handleChange = (e: any) => {
     setFormData((prevState) => ({
@@ -84,8 +85,8 @@ const Sign = () => {
                   type="text"
                   className="border-0 px-3 py-3  text-blueGray-600  bg-otherBlue rounded text-sm shadow focus:outline-none focus:ring w-full focus:ring-orange2 ease-linear transition-all duration-150"
                   placeholder="Username"
-                  name="username"
-                  value={username}
+                  name="name"
+                  value={name}
                   onChange={handleChange}
                 />
               </div>
@@ -118,6 +119,22 @@ const Sign = () => {
                   placeholder="Password"
                   name="password"
                   value={password}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="relative w-full mb-3">
+                <label
+                  className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                  htmlFor="grid-password"
+                >
+                  Image
+                </label>
+                <input
+                  type="text"
+                  className="border-0 px-3 py-3  text-blueGray-600  bg-otherBlue rounded text-sm shadow focus:outline-none focus:ring w-full focus:ring-orange2 ease-linear transition-all duration-150"
+                  placeholder="Image"
+                  name="image"
+                  value={image}
                   onChange={handleChange}
                 />
               </div>

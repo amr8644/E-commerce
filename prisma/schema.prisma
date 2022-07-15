@@ -8,19 +8,20 @@ datasource db {
 }
 
 model User {
-  id        String    @id @default(cuid())
-  username  String
-  email     String
-  password  String
-  image     String
-  createdAt DateTime  @default(now()) @map(name: "created_at")
-  updatedAt DateTime  @updatedAt @map(name: "updated_at")
-  products  Product[]
-  sessions  Session[]
+  id            String    @id @default(cuid())
+  name          String
+  email         String    @unique
+  password      String?
+  emailVerified DateTime? @map("email_verified")
+  image         String?
+  createdAt     DateTime  @default(now()) @map(name: "created_at")
+  updatedAt     DateTime  @updatedAt @map(name: "updated_at")
+  products      Product[]
+  sessions      Session[]
 
   Account   Account? @relation(fields: [accountId], references: [id])
   accountId String?
-  @@map(name: "users")
+  @@map(name: "user")
 }
 
 model Product {
@@ -30,7 +31,7 @@ model Product {
   image       String
   price       Float
   quantity    Int
-  users       User[]
+  users        User[]
 }
 
 model Session {
@@ -38,7 +39,7 @@ model Session {
   sessionToken String   @unique @map("session_token")
   userId       String   @map("user_id")
   expires      DateTime
-  users        User[]
+  user         User[]
 
   @@map("sessions")
 }
@@ -63,7 +64,6 @@ model Account {
   @@unique([provider, providerAccountId])
   @@map("accounts")
 }
-
 
 model VerificationToken {
   identifier String

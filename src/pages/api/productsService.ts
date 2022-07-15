@@ -1,20 +1,12 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "../../../lib/prisma";
-
-type ProductsType = {
-  id: number;
-  name: string;
-  description: string;
-  image: string;
-  quantity: number;
-  price: number;
-};
+import { getSession } from "next-auth/react";
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   try {
     const { name, description, image, quantity, price } = req.body;
-
+    const session = await getSession({ req });
     // Create Products
     const products = await prisma.product.create({
       data: {
@@ -23,6 +15,10 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
         image,
         quantity,
         price,
+        users: { connect: { email: session?.user?.email } },
+      },
+      include: {
+        users: true,
       },
     });
 
