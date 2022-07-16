@@ -1,13 +1,14 @@
 import React, { useState } from "react";
+import axios, { AxiosRequestConfig } from "axios";
 import Image from "next/image";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import { useSession } from "next-auth/react";
-import { faMagnifyingGlass, faBars } from "@fortawesome/free-solid-svg-icons";
 import SecondSidebar from "../components/SecondSidebar";
 import Avatar from "../components/Avatar";
+import { useSession } from "next-auth/react";
+import { faMagnifyingGlass, faBars } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const Navbar = ({ product }: any) => {
+const Navbar = () => {
   const [open, setOpen] = useState(false);
   const { data: session, status } = useSession();
 
