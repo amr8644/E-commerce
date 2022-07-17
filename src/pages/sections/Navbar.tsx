@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios, { AxiosRequestConfig } from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import SecondSidebar from "../components/SecondSidebar";
@@ -8,9 +7,10 @@ import { useSession } from "next-auth/react";
 import { faMagnifyingGlass, faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const Navbar = () => {
+const Navbar = ({ user, session }: any) => {
   const [open, setOpen] = useState(false);
-  const { data: session, status } = useSession();
+  // const { data: session, status } = useSession();
+  console.log(user, session);
 
   const changeOpen = () => {
     if (open) {

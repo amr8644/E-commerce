@@ -4,6 +4,8 @@ import GoogleProvider from "next-auth/providers/google";
 import FacebookProvider from "next-auth/providers/facebook";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { PrismaClient } from "@prisma/client";
+// import { UserCredentialsConfig } from "next-auth/client";
+
 const prisma = new PrismaClient();
 
 export const authOptions: NextAuthOptions = {
@@ -14,19 +16,14 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.GOOGLE_SECRET as string,
     }),
     CredentialsProvider({
-      // The name to display on the sign in form (e.g. "Sign in with...")
       name: "Credentials",
-      // The credentials is used to generate a suitable form on the sign in page.
-      // You can specify whatever fields you are expecting to be submitted.
-      // e.g. domain, username, password, 2FA token, etc.
-      // You can pass any HTML attribute to the <input> tag through the object.
       credentials: {
-        username: { label: "email", type: "email", placeholder: "Email" },
+        email: { label: "email", type: "email", placeholder: "Email" },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
         // Add logic here to look up the user from the credentials supplied
-        const user = { id: 1, name: "J Smith", email: "jsmith@example.com" };
+        const user = await prisma.user.findMany();
 
         if (user) {
           // Any object returned will be saved in `user` property of the JWT
