@@ -9,7 +9,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Navbar = ({ user, session }: any) => {
   const [open, setOpen] = useState(false);
-  // const { data: session, status } = useSession();
   console.log(user, session);
 
   const changeOpen = () => {
