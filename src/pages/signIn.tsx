@@ -38,6 +38,7 @@ const Sign = () => {
     if (!res) {
       throw new Error("Error has occured");
     }
+    localStorage.setItem("user", JSON.stringify(res.config.data));
     route.push("/");
     return await res.config.data;
   };
@@ -130,7 +131,7 @@ const Sign = () => {
                   Image
                 </label>
                 <input
-                  type="text"
+                  type={"file"}
                   className="border-0 px-3 py-3  text-blueGray-600  bg-otherBlue rounded text-sm shadow focus:outline-none focus:ring w-full focus:ring-orange2 ease-linear transition-all duration-150"
                   placeholder="Image"
                   name="image"
