@@ -4,9 +4,12 @@ import { signIn } from "next-auth/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebookF, faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { useRouter } from "next/router";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Sign = () => {
   const route = useRouter();
+  const notify = () => toast("Success! Login to your account");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -38,13 +41,14 @@ const Sign = () => {
     if (!res) {
       throw new Error("Error has occured");
     }
-    localStorage.setItem("user", JSON.stringify(res.config.data));
-    route.push("/");
+    route.push("/login");
+
     return await res.config.data;
   };
 
   return (
     <section className=" bg-darkBlue sm:h-full md:h-screen text-superwhite font-PTSans">
+      <ToastContainer />
       <div className="w-full lg:w-4/12 px-4 mx-auto h-full">
         <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0">
           <div className="rounded-t mb-0 px-6 py-6">
@@ -144,6 +148,7 @@ const Sign = () => {
                 <button
                   className=" bg-orange2 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                   type="submit"
+                  onClick={notify}
                 >
                   Sign In
                 </button>

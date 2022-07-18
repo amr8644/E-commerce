@@ -1,7 +1,7 @@
+import FacebookProvider from "next-auth/providers/facebook";
 import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
-import FacebookProvider from "next-auth/providers/facebook";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
@@ -21,12 +21,12 @@ export const authOptions: NextAuthOptions = {
         email: { label: "email", type: "email", placeholder: "Email" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials, req) {
+      async authorize(credentials) {
         const password =
           credentials?.password !== undefined ? credentials?.password : ""!;
 
         // Check if user exists
-        const userData = await prisma.user.findUnique({
+        const userData = await prisma.user.findFirstOrThrow({
           where: { email: credentials?.email },
         });
 
@@ -41,6 +41,7 @@ export const authOptions: NextAuthOptions = {
             image: userData.image,
           };
         } else {
+          console.log("ERROR");
           return null;
         }
       },
@@ -50,6 +51,9 @@ export const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
     maxAge: 30 * 24 * 60 * 60,
+  },
+  pages: {
+    signIn: "/",
   },
 
   callbacks: {

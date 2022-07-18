@@ -14,6 +14,10 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   try {
     const { name, email, password, image } = req.body;
 
+    if (!name || !email || !password || !image) {
+      return res.status(400).json("Please provide the info needed");
+    }
+
     // Check if user exists
     const userExists = await prisma.user.count({ where: { email: email } });
 

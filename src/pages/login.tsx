@@ -1,12 +1,10 @@
 import React, { useState } from "react";
-import axios, { AxiosRequestConfig } from "axios";
+import { getCsrfToken, getSession } from "next-auth/react";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebookF, faGoogle } from "@fortawesome/free-brands-svg-icons";
 
-const Login = () => {
-  const route = useRouter();
+const Login = ({ csrfToken }: any) => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -19,28 +17,6 @@ const Login = () => {
       ...prevState,
       [e.target.name]: e.target.value,
     }));
-  };
-
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
-    const config: AxiosRequestConfig = {
-      url: "/api/loginService",
-      data: formData,
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    const res = await axios(config);
-
-    if (!res) {
-      throw new Error("Error has occured");
-    }
-
-    localStorage.setItem("user", JSON.stringify(res.data));
-
-    route.push("/");
-    return await res.config.data;
   };
 
   return (
@@ -74,7 +50,8 @@ const Login = () => {
             <div className="text-blueGray-400 text-center mb-3 font-bold">
               <small>Or login with credentials</small>
             </div>
-            <form method="post" action="/login" onSubmit={handleSubmit}>
+            <form method="post" action="/api/auth/callback/credentials">
+              <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
               <div className="relative w-full mb-3">
                 <label
                   className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -112,10 +89,10 @@ const Login = () => {
                 <button
                   className=" bg-orange2 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                   type="submit"
-                  // onClick={(e) => {
-                  //   e.preventDefault();
-                  //   signIn("credentials", { callbackUrl: "/" });
-                  // }}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    signIn();
+                  }}
                 >
                   Login
                 </button>
@@ -126,6 +103,25 @@ const Login = () => {
       </div>
     </section>
   );
+};
+
+Login.getInitialProps = async (context: any) => {
+  const { req, res } = context;
+  const session = await getSession({ req });
+
+  if (session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    session,
+    csrfToken: await getCsrfToken(context),
+  };
 };
 
 export default Login;
