@@ -7,6 +7,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   try {
     const session = await getSession({ req });
     const { name, description, image, quantity, price } = req.body;
+
     // Create Products
     const products = await prisma.product.create({
       data: {

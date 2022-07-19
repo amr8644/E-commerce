@@ -37,7 +37,7 @@ const Login = ({ csrfToken }: any) => {
               <button
                 onClick={(e) => {
                   e.preventDefault();
-                  signIn();
+                  signIn("google");
                 }}
                 className="btn bg-google text-superwhite font-PTSans rounded-lg flex items-center justify-center"
               >
@@ -91,7 +91,7 @@ const Login = ({ csrfToken }: any) => {
                   type="submit"
                   onClick={(e) => {
                     e.preventDefault();
-                    signIn();
+                    signIn("credentials", { callbackUrl: "/" });
                   }}
                 >
                   Login

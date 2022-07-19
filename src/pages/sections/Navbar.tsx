@@ -6,10 +6,12 @@ import Avatar from "../components/Avatar";
 import { useSession } from "next-auth/react";
 import { faMagnifyingGlass, faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Loader from "../components/Loader";
 
-const Navbar = ({ user, session }: any) => {
+const Navbar = () => {
   const [open, setOpen] = useState(false);
-  // console.log(user, session);
+  const { data: session, status } = useSession();
+  console.log(status, session);
 
   const changeOpen = () => {
     if (open) {
@@ -19,6 +21,10 @@ const Navbar = ({ user, session }: any) => {
       setOpen(true);
     }
   };
+
+  if (status == "loading") {
+    return <Loader />;
+  }
 
   return (
     <>
@@ -62,7 +68,7 @@ const Navbar = ({ user, session }: any) => {
                 Sign up
               </button>
             </Link>
-            <Link href={"/login"}>
+            <Link href={"/api/auth/signin"}>
               <button className="mx-2 font-PTSans font-semibold px-4 py-2 bg-orange2 text-superwhite rounded-lg hover:bg-superwhite hover:text-orange2 duration-300">
                 Login
               </button>

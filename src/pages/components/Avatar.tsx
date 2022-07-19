@@ -4,6 +4,7 @@ import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart, faBell } from "@fortawesome/free-regular-svg-icons";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
+import Link from "next/link";
 
 const Avatar = (user: any) => {
   const { data: session } = useSession();
@@ -18,14 +19,13 @@ const Avatar = (user: any) => {
         icon={faHeart}
         className="text-white py-[11px] px-3 w-[40px] rounded-lg border-none cursor-pointer hover:bg-orange2 hover:text-darkBlue duration-500 mx-3"
       />
-      <FontAwesomeIcon
-        icon={faShoppingCart}
-        className="text-white py-[11px] px-3 w-[40px] rounded-lg border-none cursor-pointer hover:bg-orange2 hover:text-darkBlue duration-500 mx-3"
-      />
-      <FontAwesomeIcon
-        icon={faBell}
-        className="text-white py-[11px] px-3 w-[40px] rounded-lg border-none cursor-pointer hover:bg-orange2 hover:text-darkBlue duration-500 mx-3"
-      />
+
+      <Link href={"/checkout"}>
+        <FontAwesomeIcon
+          icon={faShoppingCart}
+          className="text-white py-[11px] px-3 w-[40px] rounded-lg border-none cursor-pointer hover:bg-orange2 hover:text-darkBlue duration-500 mx-3"
+        />
+      </Link>
 
       <div className="avatar">
         <div className="w-10 h-10 rounded-full ring  ring-orange2 ring-offset-base-100  cursor-pointer mx-3">

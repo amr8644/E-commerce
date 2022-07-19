@@ -38,7 +38,7 @@ const item = ({ data }: any) => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     const config: AxiosRequestConfig = {
-      url: "/api/productsService",
+      url: "/api/productService",
       data: productsData,
       method: "post",
       headers: {
