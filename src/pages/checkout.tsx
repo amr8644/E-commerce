@@ -1,25 +1,44 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React from "react";
+import React, { useReducer, useState } from "react";
 import Navbar from "./sections/Navbar";
 import Sidebar from "./sections/Sidebar";
-import { useSession, getSession } from "next-auth/react";
+import { getSession } from "next-auth/react";
 import { GetServerSideProps } from "next";
 import { prisma } from "../../lib/prisma";
 import { Product } from "@prisma/client";
 import Link from "next/link";
-import VISA from "./components/VISA";
 import CreditForm from "./components/CreditForm";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowDown, faArrowUp } from "@fortawesome/free-solid-svg-icons";
 
 const ShopingCart: React.FC<Props> = (props) => {
-  const { data: session, status } = useSession();
-  // console.log(props.product);
+  const [cart, setCart] = useState(props.product);
+  let subTotal = 0;
+
+  const increment = (product_id: any) => {
+    setCart((cart: any) =>
+      cart.map((item: any) =>
+        product_id === item.id ? { ...item, quantity: item.quantity + 1 } : item
+      )
+    );
+  };
+
+  const decrement = (product_id: any) => {
+    setCart((cart: any) =>
+      cart.map((item: any) =>
+        product_id === item.id
+          ? { ...item, quantity: item.quantity - (item.quantity > 1 ? 1 : 0) }
+          : item
+      )
+    );
+  };
 
   return (
     <>
       <Navbar />
       <Sidebar />
-      <div className="lg:h-screen sm:h-auto sm:top-[70px] relative font-PTSans bg-superwhite sm:w-screen px-6 lg:w-4/5 lg:float-right flex items-center justify-center">
+      <div className="lg:h-auto sm:h-auto sm:top-[70px] relative font-PTSans bg-superwhite sm:w-screen px-6 lg:w-4/5 lg:float-right flex items-center justify-center">
         <div className="py-12">
           <div className="max-w-md mx-auto bg-gray-100 shadow-lg rounded-lg  md:max-w-5xl">
             <div className="md:flex ">
@@ -30,11 +49,12 @@ const ShopingCart: React.FC<Props> = (props) => {
                       Shopping Cart
                     </h1>
 
-                    {props.product.map((e: any) => {
+                    {cart.map((e: any) => {
+                      subTotal += e.price * e.quantity;
                       return (
                         <div
                           key={e.id}
-                          className="flex justify-between items-center mt-6 pt-6"
+                          className="text-darkBlue flex justify-between items-center mt-6 pt-6"
                         >
                           <div className="flex  items-center">
                             <img
@@ -47,19 +67,38 @@ const ShopingCart: React.FC<Props> = (props) => {
                               <span className="md:text-md font-medium">
                                 {e.name}
                               </span>
-                              <span className="text-xs font-light text-gray-400">
-                                {e.id}
+                              <span className="text-sm font-light text-gray-400">
+                                #{e.id}
                               </span>
                             </div>
                           </div>
+
                           <div className="flex justify-center items-center">
+                            <div className="flex h-full items-center justify-center">
+                              <button
+                                onClick={() => increment(e.id)}
+                                className="btn-sm rounded-md mx-2 bg-orange2 text-superwhite"
+                              >
+                                <FontAwesomeIcon icon={faArrowUp} />
+                              </button>
+                              <span className="font-mono text-2xl text-darkBlue">
+                                <span>{e.quantity}</span>
+                              </span>
+                              <button
+                                onClick={() => decrement(e.id)}
+                                className="btn-sm  bg-orange2 text-superwhite rounded-md mx-2"
+                              >
+                                <FontAwesomeIcon icon={faArrowDown} />
+                              </button>
+                            </div>
                             <div className="pr-8 ">
-                              <span className="text-xs font-medium">
-                                ${e.price}
+                              <span className="text-sm font-medium">
+                                ${Number((e.price * e.quantity).toFixed(2))}
                               </span>
                             </div>
+
                             <div>
-                              <i className="fa fa-close text-xs font-medium"></i>
+                              <i className="fa fa-close text-sm font-medium"></i>
                             </div>
                           </div>
                         </div>
@@ -80,8 +119,7 @@ const ShopingCart: React.FC<Props> = (props) => {
                           Subtotal:
                         </span>
                         <span className="text-lg font-bold text-gray-800 ">
-                          {" "}
-                          $24.90
+                          ${Number(subTotal.toFixed(2))}
                         </span>
                       </div>
                     </div>

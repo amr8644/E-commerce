@@ -3,7 +3,7 @@ import VISA from "./VISA";
 
 const CreditForm = () => {
   return (
-    <div className=" p-5 bg-gray-800 rounded overflow-visible bg-otherBlue text-superwhite">
+    <div className="h-[500px] p-5 bg-gray-800 rounded overflow-visible bg-otherBlue text-superwhite">
       <span className="text-xl font-medium text-gray-100 block pb-3">
         Card Details
       </span>

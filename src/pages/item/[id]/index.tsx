@@ -18,22 +18,8 @@ const item = ({ data }: any) => {
     description: description,
     image: image,
     quantity: quantity,
-    price: price * quantity,
+    price: price,
   });
-
-  const increment = (e: any) => {
-    setQuantity((index: any) => {
-      let newIndex = index + 1;
-      return newIndex;
-    });
-  };
-
-  const decrement = () => {
-    setQuantity((index: any) => {
-      let newIndex = index - 1;
-      return newIndex;
-    });
-  };
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -80,23 +66,6 @@ const item = ({ data }: any) => {
             </div>
             <div className="card-actions flex justify-between px-3 my-3 w-full flex-row">
               <div className="badge badge-outline capitalize">{category}</div>
-              <div className="flex h-full items-center justify-center">
-                <button
-                  onClick={increment}
-                  className="btn-sm rounded-md mx-2 bg-orange2 text-superwhite"
-                >
-                  <FontAwesomeIcon icon={faArrowUp} />
-                </button>
-                <span className="font-mono text-2xl text-darkBlue">
-                  <span>{quantity}</span>
-                </span>
-                <button
-                  onClick={decrement}
-                  className="btn-sm  bg-orange2 text-superwhite rounded-md mx-2"
-                >
-                  <FontAwesomeIcon icon={faArrowDown} />
-                </button>
-              </div>
             </div>
             <button
               onClick={handleSubmit}

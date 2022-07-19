@@ -11,7 +11,6 @@ import Loader from "../components/Loader";
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const { data: session, status } = useSession();
-  console.log(status, session);
 
   const changeOpen = () => {
     if (open) {

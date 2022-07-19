@@ -1,17 +1,13 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
-import { faHeart, faBell } from "@fortawesome/free-regular-svg-icons";
+import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 
 const Avatar = (user: any) => {
   const { data: session } = useSession();
-  console.log(user);
-
-  const userData = session || user;
-  console.log(userData);
 
   return (
     <div className="sm:hidden h-full lg:flex w-1/3  flex items-center justify-end ">
