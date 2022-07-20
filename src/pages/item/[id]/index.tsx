@@ -3,12 +3,14 @@
 import React, { useState } from "react";
 import Navbar from "../../sections/Navbar";
 import Sidebar from "../../sections/Sidebar";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowDown, faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import axios, { AxiosRequestConfig } from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const item = ({ data }: any) => {
   const { id, title, price, description, image, category } = data;
+  const success = () => toast.success(`Item was added to your cart`);
+  const error = () => toast.error(`Item is already in the cart`);
 
   const [quantity, setQuantity] = useState(1);
 
@@ -34,8 +36,11 @@ const item = ({ data }: any) => {
     const res = await axios(config);
 
     if (!res) {
+      error();
       throw new Error("Error has occured");
     }
+
+    success();
 
     return await res.config.data;
   };
@@ -48,6 +53,7 @@ const item = ({ data }: any) => {
         key={id}
         className="lg:h-screen sm:h-auto sm:top-[70px] relative font-PTSans bg-superwhite sm:w-screen px-6 lg:w-4/5 lg:float-right flex items-center justify-center"
       >
+        <ToastContainer />
         <div className="hero-content  flex-col lg:flex-row">
           <img
             src={image}

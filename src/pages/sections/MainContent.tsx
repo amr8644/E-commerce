@@ -46,11 +46,4 @@ const MainContent = () => {
   );
 };
 
-// export const getStaticProps: GetStaticProps = async () => {
-//   const feed = await prisma.user.findMany();
-//   return {
-//     props: { feed },
-//   };
-// };
-
 export default MainContent;

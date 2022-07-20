@@ -1,16 +1,17 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useReducer, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "./sections/Navbar";
 import Sidebar from "./sections/Sidebar";
+import CreditForm from "./components/CreditForm";
+import Link from "next/link";
 import { getSession } from "next-auth/react";
 import { GetServerSideProps } from "next";
 import { prisma } from "../../lib/prisma";
 import { Product } from "@prisma/client";
-import Link from "next/link";
-import CreditForm from "./components/CreditForm";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDown, faArrowUp } from "@fortawesome/free-solid-svg-icons";
+import axios, { AxiosRequestConfig } from "axios";
 
 const ShopingCart: React.FC<Props> = (props) => {
   const [cart, setCart] = useState(props.product);
@@ -33,6 +34,27 @@ const ShopingCart: React.FC<Props> = (props) => {
       )
     );
   };
+
+  useEffect(() => {
+    const handleUpdate = async () => {
+      const config: AxiosRequestConfig = {
+        url: "/api/updateProductService",
+        data: JSON.stringify(cart),
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      const res = await axios(config);
+
+      if (!res) {
+        throw new Error("Error has occured");
+      }
+
+      return await res.config.data;
+    };
+    handleUpdate();
+  }, [cart]);
 
   return (
     <>
@@ -163,7 +185,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
 };
 
 type Props = {
-  products: Product[];
+  product: Product[];
 };
 
 export default ShopingCart;

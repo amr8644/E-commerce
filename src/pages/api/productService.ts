@@ -8,6 +8,13 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     const session = await getSession({ req });
     const { name, description, image, quantity, price } = req.body;
 
+    // Check if product is in the cart
+    const productExists = await prisma.product.count({ where: { name: name } });
+
+    if (productExists) {
+      return res.status(401).send("Already Exists");
+    }
+
     // Create Products
     const products = await prisma.product.create({
       data: {
@@ -29,7 +36,6 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
 
     return res.status(201).json(products);
   } catch (error) {
-    console.log(error);
     return res.status(400).send(error);
   }
 }
