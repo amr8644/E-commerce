@@ -91,7 +91,12 @@ const Login = ({ csrfToken }: any) => {
                   type="submit"
                   onClick={(e) => {
                     e.preventDefault();
-                    signIn("credentials", { callbackUrl: "/" });
+                    signIn("credentials", {
+                      redirect: true,
+                      email,
+                      password,
+                      callbackUrl: "/",
+                    });
                   }}
                 >
                   Login

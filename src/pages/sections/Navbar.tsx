@@ -41,15 +41,15 @@ const Navbar = () => {
             layout="intrinsic"
           />
         </div>
-        <div className=" flex">
-          <div className="indicator lg:hidden sm:block flex mx-4 mt-2 mr-4 ">
-            <span className="indicator-item  indicator-middle  indicator-start badge badge-error  text-superwhite">
+        <div className="flex items-center justify-center">
+          <div className="indicator  relative mr-6">
+            <span className="indicator-item indicator-middle indicator-center badge badge-error absolute top-0 left-0 text-superwhite">
               8
             </span>
             <Link href={"/checkout"}>
               <FontAwesomeIcon
                 icon={faShoppingCart}
-                className="grid  place-items-center text-white py-[11px] w-[30px] rounded-lg border-none cursor-pointer hover:bg-orange2 hover:text-darkBlue duration-500 "
+                className="text-white px-3 h-[40px] w-[40px] rounded-lg border-none cursor-pointer hover:bg-orange2 hover:text-darkBlue duration-500 "
               />
             </Link>
           </div>

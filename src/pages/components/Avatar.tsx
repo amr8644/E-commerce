@@ -24,7 +24,7 @@ const Avatar = () => {
         <Link href={"/checkout"}>
           <FontAwesomeIcon
             icon={faShoppingCart}
-            className="grid  place-items-center text-white py-[11px] w-[40px] rounded-lg border-none cursor-pointer hover:bg-orange2 hover:text-darkBlue duration-500 "
+            className="text-white px-3 py-[11px] w-[40px] rounded-lg border-none cursor-pointer hover:bg-orange2 hover:text-darkBlue duration-500 "
           />
         </Link>
       </div>

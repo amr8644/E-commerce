@@ -2,6 +2,7 @@
 import React, { lazy, Suspense, useState } from "react";
 import CategoriesIcon from "../components/CategoriesIcon";
 import Hero from "../components/Hero";
+import Title from "../components/Title";
 
 const ItemCard = lazy(() => import("../components/ItemCard"));
 const MainContent = () => {
@@ -13,36 +14,45 @@ const MainContent = () => {
           <Hero />
         </article>
         {/* Categories */}
-        <article className="w-full mt-10 flex items-center justify-center flex-col px-6 ">
-          <div className=" w-[95%]">
-            <h2 className="text-4xl  font-[600]  text-otherBlue ">
-              Popular Categories
-            </h2>
-          </div>
+        <article className="w-[95%] mb-10  px-6 ">
+          <Title title={"Popular Categories"} />
           <CategoriesIcon />
         </article>
 
+        {/* Items */}
+
         <article className="w-[95%] px-6 mb-10">
-          <h2 className="text-4xl font-[600] text-otherBlue my-5">Hot Deals</h2>
-          <ItemCard itemsLink={"https://fakestoreapi.com/products?limit=15"} />
-          {/* <h2 className="text-4xl font-[600] text-otherBlue my-5">Jewelery</h2>
-          <ItemCard
-            itemsLink={"https://fakestoreapi.com/products/category/jewelery"}
-          />
-          <h2 className="text-4xl font-[600] text-otherBlue my-5">
-            Electronics
-          </h2>
+          <Title title={"Hot Deals"} />
+          <ItemCard itemsLink={"https://fakestoreapi.com/products?limit=20"} />
+        </article>
+
+        <article className="w-[95%] px-6 mb-10">
+          <Title title={"Electronics"} />
           <ItemCard
             itemsLink={"https://fakestoreapi.com/products/category/electronics"}
           />
-          <h2 className="text-4xl font-[600] text-otherBlue my-5">
-            Men's Clothing
-          </h2>
+        </article>
+        <article className="w-[95%] px-6 mb-10">
+          <Title title={"Men's Clothing"} />
           <ItemCard
             itemsLink={
               "https://fakestoreapi.com/products/category/men's clothing"
             }
-          /> */}
+          />
+        </article>
+        <article className="w-[95%] px-6 mb-10">
+          <Title title={"Jewelery"} />
+          <ItemCard
+            itemsLink={"https://fakestoreapi.com/products/category/jewelery"}
+          />
+        </article>
+        <article className="w-[95%] px-6 mb-10">
+          <Title title={"Women's clothing"} />
+          <ItemCard
+            itemsLink={
+              "https://fakestoreapi.com/products/category/women's clothing"
+            }
+          />
         </article>
       </section>
     </>

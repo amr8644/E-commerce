@@ -1,13 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import Image from "next/image";
 import SwiperCore, { Navigation } from "swiper";
 import "swiper/css";
 import "swiper/css/keyboard";
 import "swiper/css/navigation";
 
-// SwiperCore.use(Navigation);
+SwiperCore.use(Navigation);
 
 const Hero = () => {
   const images = [
@@ -28,12 +27,7 @@ const Hero = () => {
 
   return (
     <>
-      <Swiper
-        //   navigation
-        // spaceBetween={}
-        slidesPerView={1}
-        //   scrollbar={{ draggable: true }}
-      >
+      <Swiper navigation slidesPerView={1}>
         {images.map((e) => {
           const { image, key } = e;
           return (

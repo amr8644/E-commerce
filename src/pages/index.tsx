@@ -18,7 +18,7 @@ const Home: NextPage = () => {
       <Navbar />
       <Sidebar />
       <MainContent />
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };

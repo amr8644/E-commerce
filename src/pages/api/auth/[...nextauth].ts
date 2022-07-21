@@ -26,14 +26,12 @@ export const authOptions: NextAuthOptions = {
           credentials?.password !== undefined ? credentials?.password : ""!;
 
         // Check if user exists
-        const userData = await prisma.user.findFirstOrThrow({
-          where: { email: credentials?.email, password: credentials?.password },
+        const userData = await prisma.user.findFirst({
+          where: { email: credentials?.email },
         });
 
         // Compare Password
         if (userData && (await bcrypt.compare(password, userData.password!))) {
-          console.log(userData);
-
           return {
             id: userData.id,
             name: userData.name,
@@ -52,9 +50,6 @@ export const authOptions: NextAuthOptions = {
     strategy: "jwt",
     maxAge: 30 * 24 * 60 * 60,
   },
-  // pages: {
-  //   signIn: "/",
-  // // },
 
   callbacks: {
     session: async ({ session, token }: any) => {
