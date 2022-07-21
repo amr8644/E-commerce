@@ -29,10 +29,10 @@ const Hero = () => {
   return (
     <>
       <Swiper
-        navigation
+        //   navigation
         // spaceBetween={}
         slidesPerView={1}
-        scrollbar={{ draggable: true }}
+        //   scrollbar={{ draggable: true }}
       >
         {images.map((e) => {
           const { image, key } = e;

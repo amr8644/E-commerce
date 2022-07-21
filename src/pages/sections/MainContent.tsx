@@ -22,11 +22,10 @@ const MainContent = () => {
           <CategoriesIcon />
         </article>
 
-        {/* <article className="mb-10 bg-white  flex items-center justify-center flex-col px-6 "> */}
-        <div className="w-[95%] px-6 mb-10">
+        <article className="w-[95%] px-6 mb-10">
           <h2 className="text-4xl font-[600] text-otherBlue my-5">Hot Deals</h2>
           <ItemCard itemsLink={"https://fakestoreapi.com/products?limit=15"} />
-          <h2 className="text-4xl font-[600] text-otherBlue my-5">Jewelery</h2>
+          {/* <h2 className="text-4xl font-[600] text-otherBlue my-5">Jewelery</h2>
           <ItemCard
             itemsLink={"https://fakestoreapi.com/products/category/jewelery"}
           />
@@ -43,9 +42,8 @@ const MainContent = () => {
             itemsLink={
               "https://fakestoreapi.com/products/category/men's clothing"
             }
-          />
-        </div>
-        {/* </article> */}
+          /> */}
+        </article>
       </section>
     </>
   );

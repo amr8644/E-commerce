@@ -8,6 +8,8 @@ import { faMagnifyingGlass, faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Loader from "../components/Loader";
 
+import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const { data: session, status } = useSession();
@@ -39,12 +41,25 @@ const Navbar = () => {
             layout="intrinsic"
           />
         </div>
-        <button onClick={changeOpen} className="lg:hidden sm:block">
-          <FontAwesomeIcon
-            icon={faBars}
-            className=" text-superwhite w-[22px]"
-          />
-        </button>
+        <div className=" flex">
+          <div className="indicator lg:hidden sm:block flex mx-4 mt-2 mr-4 ">
+            <span className="indicator-item  indicator-middle  indicator-start badge badge-error  text-superwhite">
+              8
+            </span>
+            <Link href={"/checkout"}>
+              <FontAwesomeIcon
+                icon={faShoppingCart}
+                className="grid  place-items-center text-white py-[11px] w-[30px] rounded-lg border-none cursor-pointer hover:bg-orange2 hover:text-darkBlue duration-500 "
+              />
+            </Link>
+          </div>
+          <button onClick={changeOpen} className="lg:hidden sm:block">
+            <FontAwesomeIcon
+              icon={faBars}
+              className=" text-superwhite w-[22px]"
+            />
+          </button>
+        </div>
 
         <div className="sm:hidden h-full lg:flex items-center justify-center w-1/3 ">
           <input
