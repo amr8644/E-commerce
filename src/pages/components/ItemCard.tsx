@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React from "react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -9,21 +10,10 @@ import "swiper/css/navigation";
 
 // SwiperCore.use(Navigation);
 
-const ItemCard = () => {
+const ItemCard = ({ itemsLink }: any) => {
   const [data, setData] = useState([]);
 
-  const fetchData = async () => {
-    const url = "https://fakestoreapi.com/products?limit=15";
-    try {
-      const resp = await fetch(url);
-      const data = await resp.json();
-      setData(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  function truncateString(str:any, num:any) {
+  function truncateString(str: any, num: any) {
     if (str.length > num) {
       let subStr = str.substring(0, num);
       return subStr + "...";
@@ -33,8 +23,18 @@ const ItemCard = () => {
   }
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const resp = await fetch(itemsLink);
+        const data = await resp.json();
+        setData(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
     fetchData();
-  }, []);
+  }, [itemsLink]);
 
   return (
     <Swiper
@@ -70,7 +70,11 @@ const ItemCard = () => {
             className="w-[384px] min-h-[384px] mb-10 bg-superwhite rounded-lg shadow-md flex items-center flex-col justify-between"
           >
             <div className="flex items-center justify-center h-1/2">
-              <img className=" p-8 w-1/2 rounded-t-lg" src={image} alt={title} />
+              <img
+                className=" p-8 w-1/2 rounded-t-lg"
+                src={image}
+                alt={title}
+              />
             </div>
             <div className="h-1/2 px-5 flex flex-col ite justify-end">
               <a href="#">

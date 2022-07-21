@@ -39,8 +39,8 @@ const ShopingCart: React.FC<Props> = (props) => {
     const handleUpdate = async () => {
       const config: AxiosRequestConfig = {
         url: "/api/updateProductService",
-        data: JSON.stringify(cart),
-        method: "post",
+        data: cart,
+        method: "put",
         headers: {
           "Content-Type": "application/json",
         },
