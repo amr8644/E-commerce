@@ -10,22 +10,75 @@ import { GetServerSideProps } from "next";
 import { prisma } from "../../lib/prisma";
 import { Product } from "@prisma/client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowDown, faArrowUp } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowDown,
+  faArrowUp,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
 import axios, { AxiosRequestConfig } from "axios";
 
 const ShopingCart: React.FC<Props> = (props) => {
   const [cart, setCart] = useState(props.product);
+
   let subTotal = 0;
 
-  const increment = (product_id: any) => {
+  const handleDelete = async (e: any) => {
+    const id =
+      e.target.parentElement.parentElement.parentElement.parentElement
+        .parentElement.id;
+
+    const config: AxiosRequestConfig = {
+      url: "/api/deleteProductService",
+      data: id,
+      method: "delete",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const res = await axios(config);
+
+    if (!res) {
+      throw new Error("Error has occured");
+    }
+
+    return await res.config.data;
+  };
+
+  function truncateString(str: any, num: any) {
+    if (str.length > num) {
+      let subStr = str.substring(0, num);
+      return subStr + "...";
+    } else {
+      return str;
+    }
+  }
+  const handleUpdate = async (e: any, price: any, quantity: any) => {
+    const config: AxiosRequestConfig = {
+      url: "/api/updateProductService",
+      data: { e, price, quantity },
+      method: "put",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const res = await axios(config);
+
+    if (!res) {
+      throw new Error("Error has occured");
+    }
+
+    return await res.config.data;
+  };
+  const increment = (product_id: any, price: any, quantity: any) => {
     setCart((cart: any) =>
       cart.map((item: any) =>
         product_id === item.id ? { ...item, quantity: item.quantity + 1 } : item
       )
     );
+    handleUpdate(product_id, price, quantity);
   };
 
-  const decrement = (product_id: any) => {
+  const decrement = (product_id: any, price: any, quantity: any) => {
     setCart((cart: any) =>
       cart.map((item: any) =>
         product_id === item.id
@@ -33,28 +86,28 @@ const ShopingCart: React.FC<Props> = (props) => {
           : item
       )
     );
+    handleUpdate(product_id, price, quantity);
   };
 
-  useEffect(() => {
-    const handleUpdate = async () => {
-      const config: AxiosRequestConfig = {
-        url: "/api/updateProductService",
-        data: cart,
-        method: "put",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
-      const res = await axios(config);
+  // useEffect(() => {
+  //   const handleUpdate = async () => {
+  //     const config: AxiosRequestConfig = {
+  //       url: "/api/updateProductService",
+  //       data: cart,
+  //       method: "put",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     };
+  //     const res = await axios(config);
 
-      if (!res) {
-        throw new Error("Error has occured");
-      }
+  //     if (!res) {
+  //       throw new Error("Error has occured");
+  //     }
 
-      return await res.config.data;
-    };
-    handleUpdate();
-  }, [cart]);
+  //     return await res.config.data;
+  //   };
+  // }, [cart]);
 
   return (
     <>
@@ -63,7 +116,7 @@ const ShopingCart: React.FC<Props> = (props) => {
       <div className="lg:h-auto sm:h-auto sm:top-[70px] relative font-PTSans bg-superwhite sm:w-screen px-6 lg:w-4/5 lg:float-right flex items-center justify-center">
         <div className="py-12">
           <div className="max-w-md mx-auto bg-gray-100 shadow-lg rounded-lg  md:max-w-5xl">
-            <div className="md:flex ">
+            <div className="md:flex">
               <div className="w-full p-4 px-5 py-5">
                 <div className="md:grid md:grid-cols-3 gap-2 ">
                   <div className="col-span-2 p-5">
@@ -76,6 +129,7 @@ const ShopingCart: React.FC<Props> = (props) => {
                       return (
                         <div
                           key={e.id}
+                          id={e.id}
                           className="text-darkBlue flex justify-between items-center mt-6 pt-6"
                         >
                           <div className="flex  items-center">
@@ -87,19 +141,22 @@ const ShopingCart: React.FC<Props> = (props) => {
 
                             <div className="flex flex-col ml-3">
                               <span className="md:text-md font-medium">
-                                {e.name}
+                                {truncateString(e.name, 25)}
                               </span>
-                              <span className="text-sm font-light text-gray-400">
-                                #{e.id}
+                              <span className="text-md font-semibold  text-primary2">
+                                $
+                                {`${Number((e.price * e.quantity).toFixed(2))}`}
                               </span>
                             </div>
                           </div>
 
-                          <div className="flex justify-center items-center">
-                            <div className="flex h-full items-center justify-center">
+                          <div className="flex  items-center justify-between">
+                            <div className=" flex h-full items-center justify-center">
                               <button
-                                onClick={() => increment(e.id)}
-                                className="btn-sm rounded-md mx-2 bg-orange2 text-superwhite"
+                                onClick={() =>
+                                  increment(e.id, e.price, e.quantity)
+                                }
+                                className="btn-sm rounded-lg mx-2 bg-orange2 text-superwhite"
                               >
                                 <FontAwesomeIcon icon={faArrowUp} />
                               </button>
@@ -107,16 +164,19 @@ const ShopingCart: React.FC<Props> = (props) => {
                                 <span>{e.quantity}</span>
                               </span>
                               <button
-                                onClick={() => decrement(e.id)}
-                                className="btn-sm  bg-orange2 text-superwhite rounded-md mx-2"
+                                onClick={() =>
+                                  decrement(e.id, e.price, e.quantity)
+                                }
+                                className="btn-sm  bg-orange2 text-superwhite rounded-lg mx-2"
                               >
                                 <FontAwesomeIcon icon={faArrowDown} />
                               </button>
-                            </div>
-                            <div className="pr-8 ">
-                              <span className="text-sm font-medium">
-                                ${Number((e.price * e.quantity).toFixed(2))}
-                              </span>
+                              <button
+                                onClick={handleDelete}
+                                className="btn-sm btn-error rounded-lg mx-3"
+                              >
+                                <FontAwesomeIcon icon={faTrash} />
+                              </button>
                             </div>
 
                             <div>

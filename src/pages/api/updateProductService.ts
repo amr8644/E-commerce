@@ -8,22 +8,25 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     let price1: any, id1: any, quantity1: any;
     // Update Products
     console.log(req.body);
+    const { id, price, quantity } = req.body;
 
     // req.body.map(async (e: any) => {
-    //   const { price, id, quantity } = e;
+    // //   const { price, id, quantity } = e;
     //   price1 = price;
     //   id1 = id;
     //   quantity1 = quantity;
     // });
-    // const products = await prisma.product.update({
-    //   where: { id: id1 },
-    //   data: {
-    //     price: price1 * quantity1,
-    //     quantity: quantity1,
-    //   },
-    // });
+    const products = await prisma.product.update({
+      where: { id: id },
+      data: {
+        price: price * quantity,
+        quantity: quantity,
+      },
+    });
 
-    return res.status(201);
+    console.log(products);
+
+    return res.status(201).json(products);
   } catch (error) {
     console.log(error);
 
