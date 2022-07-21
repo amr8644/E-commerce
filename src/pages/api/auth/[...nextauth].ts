@@ -28,6 +28,13 @@ export const authOptions: NextAuthOptions = {
         // Check if user exists
         const userData = await prisma.user.findFirst({
           where: { email: credentials?.email },
+          select: {
+            id: true,
+            password: true,
+            name: true,
+            email: true,
+            image: true,
+          },
         });
 
         // Compare Password
