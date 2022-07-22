@@ -1,10 +1,10 @@
 /* eslint-disable react/no-unescaped-entities */
-import React, { lazy, Suspense, useState } from "react";
+import React from "react";
 import CategoriesIcon from "../components/CategoriesIcon";
 import Hero from "../components/Hero";
 import Title from "../components/Title";
+import ItemCard from "../components/ItemCard";
 
-const ItemCard = lazy(() => import("../components/ItemCard"));
 const MainContent = () => {
   return (
     <>
