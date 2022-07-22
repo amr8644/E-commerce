@@ -89,26 +89,6 @@ const ShopingCart: React.FC<Props> = (props) => {
     handleUpdate(product_id, price, quantity);
   };
 
-  // useEffect(() => {
-  //   const handleUpdate = async () => {
-  //     const config: AxiosRequestConfig = {
-  //       url: "/api/updateProductService",
-  //       data: cart,
-  //       method: "put",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //     };
-  //     const res = await axios(config);
-
-  //     if (!res) {
-  //       throw new Error("Error has occured");
-  //     }
-
-  //     return await res.config.data;
-  //   };
-  // }, [cart]);
-
   return (
     <>
       <Navbar />

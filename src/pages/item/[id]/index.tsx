@@ -6,6 +6,9 @@ import Sidebar from "../../sections/Sidebar";
 import axios, { AxiosRequestConfig } from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 const item = ({ data }: any) => {
   const { id, title, price, description, image, category } = data;
@@ -54,7 +57,15 @@ const item = ({ data }: any) => {
         className="lg:h-screen sm:h-auto sm:top-[70px] relative font-PTSans bg-superwhite sm:w-screen px-6 lg:w-4/5 lg:float-right flex items-center justify-center"
       >
         <ToastContainer />
-        <div className="hero-content  flex-col lg:flex-row">
+        <div className="w-14 top-0 absolute left-0  m-4 z-20">
+          <Link href={"/"}>
+            <button className="btn  btn-square btn-outline bg-orange2 text-superwhite">
+              {" "}
+              <FontAwesomeIcon icon={faArrowLeft} />
+            </button>
+          </Link>
+        </div>
+        <div className="hero-content  flex-col lg:flex-row relative">
           <img
             src={image}
             alt={title}

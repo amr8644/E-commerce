@@ -8,7 +8,7 @@ import "swiper/css";
 import "swiper/css/keyboard";
 import "swiper/css/navigation";
 
-// SwiperCore.use(Navigation);
+SwiperCore.use(Navigation);
 
 const ItemCard = ({ itemsLink }: any) => {
   const [data, setData] = useState([]);

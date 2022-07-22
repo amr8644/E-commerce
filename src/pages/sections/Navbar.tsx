@@ -41,22 +41,22 @@ const Navbar = () => {
             layout="intrinsic"
           />
         </div>
-        <div className="flex items-center justify-center">
-          <div className="indicator  relative mr-6">
+        <div className=" lg:hidden  sm:flex  items-center justify-center   w-[150px]">
+          <div className=" indicator mr-6 ">
             <span className="indicator-item indicator-middle indicator-center badge badge-error absolute top-0 left-0 text-superwhite">
               8
             </span>
             <Link href={"/checkout"}>
               <FontAwesomeIcon
                 icon={faShoppingCart}
-                className="text-white px-3 h-[40px] w-[40px] rounded-lg border-none cursor-pointer hover:bg-orange2 hover:text-darkBlue duration-500 "
+                className="text-white px-3 h-[22px] w-[22px] rounded-lg border-none cursor-pointer hover:bg-orange2 hover:text-darkBlue duration-500 "
               />
             </Link>
           </div>
-          <button onClick={changeOpen} className="lg:hidden sm:block">
+          <button onClick={changeOpen}>
             <FontAwesomeIcon
               icon={faBars}
-              className=" text-superwhite w-[22px]"
+              className=" text-superwhite w-[22px] h-[22px] "
             />
           </button>
         </div>

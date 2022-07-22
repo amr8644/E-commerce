@@ -5,26 +5,17 @@ import { getSession } from "next-auth/react";
 // eslint-disable-next-line import/no-anonymous-default-export
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   try {
-    let price1: any, id1: any, quantity1: any;
     // Update Products
     console.log(req.body);
-    const { id, price, quantity } = req.body;
+    const { e, price, quantity } = req.body;
 
-    // req.body.map(async (e: any) => {
-    // //   const { price, id, quantity } = e;
-    //   price1 = price;
-    //   id1 = id;
-    //   quantity1 = quantity;
-    // });
     const products = await prisma.product.update({
-      where: { id: id },
+      where: { id: e },
       data: {
         price: price * quantity,
         quantity: quantity,
       },
     });
-
-    console.log(products);
 
     return res.status(201).json(products);
   } catch (error) {
