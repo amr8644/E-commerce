@@ -3,12 +3,9 @@ import React from "react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Navigation } from "swiper";
 import "swiper/css";
 import "swiper/css/keyboard";
 import "swiper/css/navigation";
-
-SwiperCore.use(Navigation);
 
 const ItemCard = ({ itemsLink }: any) => {
   const [data, setData] = useState([]);
@@ -38,7 +35,6 @@ const ItemCard = ({ itemsLink }: any) => {
 
   return (
     <Swiper
-      navigation
       spaceBetween={40}
       slidesPerView={4}
       scrollbar={{ draggable: true }}

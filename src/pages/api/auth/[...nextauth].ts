@@ -46,10 +46,7 @@ export const authOptions: NextAuthOptions = {
           ))
         ) {
           return {
-            id: userData.id,
-            name: userData.name,
-            email: userData.email,
-            image: userData.image,
+            userData,
           };
         } else {
           console.log("ERROR");

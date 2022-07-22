@@ -1,7 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Pagination } from "swiper";
 import {
   faLaptop,
   faCouch,
@@ -15,8 +14,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import "swiper/css/pagination";
-
-// SwiperCore.use(Pagination);
 
 const CategoriesIcon = () => {
   return (
