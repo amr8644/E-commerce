@@ -26,12 +26,18 @@ export const authOptions: NextAuthOptions = {
           credentials?.password !== undefined ? credentials?.password : ""!;
 
         // Check if user exists
-        const userData = await prisma.user.findUnique({
+        const userData = await prisma.user.findUniqueOrThrow({
           where: { email: credentials?.email },
         });
 
         // Compare Password
-        if (userData && (await bcrypt.compare(password, userData.password!))) {
+        if (
+          userData &&
+          (await bcrypt.compare(
+            password,
+            userData.password !== null ? userData.password : ""!
+          ))
+        ) {
           return {
             id: userData.id,
             name: userData.name,
