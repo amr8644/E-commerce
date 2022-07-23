@@ -4,11 +4,13 @@ import Link from "next/link";
 import SecondSidebar from "../components/SecondSidebar";
 import Avatar from "../components/Avatar";
 import { useSession } from "next-auth/react";
-import { faMagnifyingGlass, faBars } from "@fortawesome/free-solid-svg-icons";
+import {
+  faMagnifyingGlass,
+  faBars,
+  faShoppingCart,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Loader from "../components/Loader";
-
-import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -49,7 +51,7 @@ const Navbar = () => {
             <Link href={"/checkout"}>
               <FontAwesomeIcon
                 icon={faShoppingCart}
-                className="text-white px-3 h-[22px] w-[22px] rounded-lg border-none cursor-pointer hover:bg-orange2 hover:text-darkBlue duration-500 "
+                className="text-white px-3 h-[42px] w-[42px] rounded-lg border-none cursor-pointer hover:bg-orange2 hover:text-darkBlue duration-500 "
               />
             </Link>
           </div>

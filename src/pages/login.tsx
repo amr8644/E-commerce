@@ -1,10 +1,13 @@
 import React, { useState } from "react";
-import { getCsrfToken, getSession } from "next-auth/react";
+import { getCsrfToken, getSession, useSession } from "next-auth/react";
 import { signIn } from "next-auth/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebookF, faGoogle } from "@fortawesome/free-brands-svg-icons";
+import Loader from "./components/Loader";
+import Router from "next/router";
 
 const Login = ({ csrfToken }: any) => {
+  const { status } = useSession();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -18,6 +21,14 @@ const Login = ({ csrfToken }: any) => {
       [e.target.name]: e.target.value,
     }));
   };
+
+  if (status === "loading") {
+    return <Loader />;
+  }
+
+  if (status === "authenticated") {
+    Router.push("/");
+  }
 
   return (
     <section className=" bg-darkBlue h-screen text-superwhite font-PTSans">

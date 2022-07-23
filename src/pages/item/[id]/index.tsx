@@ -8,12 +8,14 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useRouter } from "next/router";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 const item = ({ data }: any) => {
+  const route = useRouter();
   const { id, title, price, description, image, category } = data;
   const success = () => toast.success(`Item was added to your cart`);
-  const error = () => toast.error(`Item is already in the cart`);
+  const error = (msg: any) => toast.error(msg);
 
   const [quantity, setQuantity] = useState(1);
 
@@ -39,11 +41,26 @@ const item = ({ data }: any) => {
     const res = await axios(config);
 
     if (!res) {
-      error();
       throw new Error("Error has occured");
     }
 
-    success();
+    switch (res.status) {
+      case 201:
+        success();
+        break;
+      case 401:
+        error("Item is found in the cart");
+        break;
+      case 402:
+        error("Please login to your account");
+        route.push("/login");
+        break;
+      case 500:
+        error("Error has occured");
+        break;
+      default:
+        break;
+    }
 
     return await res.config.data;
   };

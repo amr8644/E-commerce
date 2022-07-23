@@ -5,11 +5,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebookF, faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { useRouter } from "next/router";
 import { ToastContainer, toast } from "react-toastify";
+import { useSession } from "next-auth/react";
 import "react-toastify/dist/ReactToastify.css";
 
 const Sign = () => {
   const route = useRouter();
-  const notify = () => toast("Success! Login to your account");
+
+  const success = () => toast.success("Success! Login to your account");
+  const error = (msg: any) => toast.error(msg);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -38,10 +41,23 @@ const Sign = () => {
     };
     const res = await axios(config);
 
-    if (!res) {
-      throw new Error("Error has occured");
+    switch (res.status) {
+      case 201:
+        success();
+        route.push("/login");
+        break;
+      case 400:
+        console.log("Hello");
+        error("Account already exist");
+        route.push("/login");
+        break;
+      case 500:
+        error("Error has occured");
+        break;
+      default:
+        error("Error has occured");
+        break;
     }
-    route.push("/login");
 
     return await res.config.data;
   };
@@ -148,7 +164,6 @@ const Sign = () => {
                 <button
                   className=" bg-orange2 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                   type="submit"
-                  onClick={notify}
                 >
                   Sign In
                 </button>

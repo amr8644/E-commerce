@@ -4,8 +4,12 @@ import CategoriesIcon from "../components/CategoriesIcon";
 import Hero from "../components/Hero";
 import Title from "../components/Title";
 import ItemCard from "../components/ItemCard";
+import { useSession } from "next-auth/react";
 
 const MainContent = () => {
+  const { data: session } = useSession();
+  console.log(session);
+
   return (
     <>
       <section className="top-[70px] relative font-PTSans bg-white sm:w-screen lg:w-4/5 lg:float-right ">

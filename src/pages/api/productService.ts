@@ -41,6 +41,6 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
 
     return res.status(201).json(products);
   } catch (error) {
-    return res.status(400).send(error);
+    return res.status(500).send(error);
   }
 }

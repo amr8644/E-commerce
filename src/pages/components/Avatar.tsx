@@ -17,7 +17,7 @@ const Avatar = () => {
         className="text-white py-[11px] px-3 w-[40px] rounded-lg border-none cursor-pointer hover:bg-orange2 hover:text-darkBlue duration-500 mx-3"
       />
 
-      <div className="indicator  relative">
+      <div className="indicator relative">
         <span className="indicator-item indicator-middle indicator-center badge badge-error absolute top-0 left-0 text-superwhite">
           8
         </span>
