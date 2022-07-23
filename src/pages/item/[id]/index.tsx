@@ -59,7 +59,7 @@ const item = ({ data }: any) => {
         <ToastContainer />
         <div className="w-14 top-0 absolute left-0  m-4 z-20">
           <Link href={"/"}>
-            <button className="btn  btn-square btn-outline bg-orange2 text-superwhite">
+            <button className="btn w-[22px] btn-square btn-outline bg-orange2 text-superwhite">
               {" "}
               <FontAwesomeIcon icon={faArrowLeft} />
             </button>

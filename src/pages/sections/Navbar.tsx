@@ -82,7 +82,7 @@ const Navbar = () => {
                 Sign up
               </button>
             </Link>
-            <Link href={"/api/auth/signin"}>
+            <Link href={"/login"}>
               <button className="mx-2 font-PTSans font-semibold px-4 py-2 bg-orange2 text-superwhite rounded-lg hover:bg-superwhite hover:text-orange2 duration-300">
                 Login
               </button>
