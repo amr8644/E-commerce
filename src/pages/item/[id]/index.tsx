@@ -48,7 +48,7 @@ const item = ({ data }: any) => {
           break;
         case "You need to login first":
           error("You need to login first");
-          route.push("/");
+          route.push("/login");
           break;
         default:
           success();
