@@ -29,40 +29,36 @@ const item = ({ data }: any) => {
   });
 
   const handleSubmit = async (e: any) => {
-    e.preventDefault();
-    const config: AxiosRequestConfig = {
-      url: "/api/productService",
-      data: productsData,
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    const res = await axios(config);
+    try {
+      e.preventDefault();
+      const config: AxiosRequestConfig = {
+        url: "/api/productService",
+        data: productsData,
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
 
-    if (!res) {
-      throw new Error("Error has occured");
+      const res = await axios(config);
+
+      switch (res.data) {
+        case "Already Exists":
+          error("Item is already in the cart");
+          break;
+        case "You need to login first":
+          error("You need to login first");
+          route.push("/");
+          break;
+        default:
+          success();
+          break;
+      }
+
+      return res.config.data;
+    } catch (error) {
+      console.log("Hello");
     }
-
-    switch (res.status) {
-      case 201:
-        success();
-        break;
-      case 401:
-        error("Item is found in the cart");
-        break;
-      case 402:
-        error("Please login to your account");
-        route.push("/login");
-        break;
-      case 500:
-        error("Error has occured");
-        break;
-      default:
-        error("Error has occured");
-    }
-
-    return await res.config.data;
   };
 
   return (
@@ -101,7 +97,7 @@ const item = ({ data }: any) => {
             <div className="card-actions flex justify-between px-3 my-3 w-full flex-row">
               <div className="badge badge-outline capitalize">{category}</div>
             </div>
-            <form action="POST" onSubmit={handleSubmit}>
+            <form onSubmit={(e) => handleSubmit(e)}>
               <button type="submit" className="btn bg-orange2 text-superwhite">
                 Put in Cart
               </button>

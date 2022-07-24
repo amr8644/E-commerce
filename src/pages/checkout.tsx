@@ -16,9 +16,13 @@ import {
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import axios, { AxiosRequestConfig } from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 const ShopingCart: React.FC<Props> = (props) => {
   const [cart, setCart] = useState(props.product);
+  const success = (msg: any) => toast.success(msg);
 
   let subTotal = 0;
 
@@ -31,15 +35,29 @@ const ShopingCart: React.FC<Props> = (props) => {
     }
   }
 
-  const handleDelete = async (e: any) => {
-    const id =
-      e.target.parentElement.parentElement.parentElement.parentElement
-        .parentElement.id;
+  // const handleDeleteAll = async () => {
+  //   const config: AxiosRequestConfig = {
+  //     url: "/api/deleteAllProductService",
+  //     method: "delete",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   };
+  //   const res = await axios(config);
+  //   success("All products has been deleted");
+
+  //   if (!res) {
+  //     throw new Error("Error has occured");
+  //   }
+  //   return await res.config.data;
+  // };
+
+  const handleDelete = async (e: any, product_id: any) => {
     const thispro = e.currentTarget;
 
     const config: AxiosRequestConfig = {
       url: "/api/deleteProductService",
-      data: id,
+      data: product_id,
       method: "delete",
       headers: {
         "Content-Type": "application/json",
@@ -47,11 +65,11 @@ const ShopingCart: React.FC<Props> = (props) => {
     };
     const res = await axios(config);
     thispro.closest("article").remove();
+    success(`Item no. ${product_id} has been removed`);
 
     if (!res) {
       throw new Error("Error has occured");
     }
-
     return await res.config.data;
   };
 
@@ -96,6 +114,7 @@ const ShopingCart: React.FC<Props> = (props) => {
     <>
       <Navbar />
       <Sidebar />
+      <ToastContainer />
       <div className="lg:h-auto sm:h-auto sm:top-[70px] relative font-PTSans bg-superwhite sm:w-screen px-6 lg:w-4/5 lg:float-right flex items-center justify-center">
         <div className="py-12">
           <div className="max-w-md mx-auto bg-gray-100 shadow-lg rounded-lg  md:max-w-5xl">
@@ -107,28 +126,30 @@ const ShopingCart: React.FC<Props> = (props) => {
                       Shopping Cart
                     </h1>
 
-                    {cart.map((e: any) => {
-                      subTotal += e.price * e.quantity;
+                    {cart.map((item: any) => {
+                      subTotal += item.price * item.quantity;
                       return (
                         <article
-                          key={e.id}
-                          id={e.id}
+                          key={item.id}
+                          id={item.id}
                           className="text-darkBlue flex justify-between items-center mt-6 pt-6"
                         >
                           <div className="flex  items-center">
                             <img
-                              src={e.image}
+                              src={item.image}
                               width="60"
                               className="rounded-full "
                             />
 
                             <div className="flex flex-col ml-3">
                               <span className="md:text-md font-medium">
-                                {truncateString(e.name, 25)}
+                                {truncateString(item.name, 25)}
                               </span>
                               <span className="text-md font-semibold  text-primary2">
                                 $
-                                {`${Number((e.price * e.quantity).toFixed(2))}`}
+                                {`${Number(
+                                  (item.price * item.quantity).toFixed(2)
+                                )}`}
                               </span>
                             </div>
                           </div>
@@ -137,25 +158,25 @@ const ShopingCart: React.FC<Props> = (props) => {
                             <div className=" flex h-full items-center justify-center">
                               <button
                                 onClick={() =>
-                                  increment(e.id, e.price, e.quantity)
+                                  increment(item.id, item.price, item.quantity)
                                 }
                                 className="btn-sm rounded-lg mx-2 bg-orange2 text-superwhite"
                               >
                                 <FontAwesomeIcon icon={faArrowUp} />
                               </button>
                               <span className="font-mono text-2xl text-darkBlue">
-                                <span>{e.quantity}</span>
+                                <span>{item.quantity}</span>
                               </span>
                               <button
                                 onClick={() =>
-                                  decrement(e.id, e.price, e.quantity)
+                                  decrement(item.id, item.price, item.quantity)
                                 }
                                 className="btn-sm  bg-orange2 text-superwhite rounded-lg mx-2"
                               >
                                 <FontAwesomeIcon icon={faArrowDown} />
                               </button>
                               <button
-                                onClick={(e: any) => handleDelete(e)}
+                                onClick={(e: any) => handleDelete(e, item.id)}
                                 className="btn-sm btn-error rounded-lg mx-3"
                               >
                                 <FontAwesomeIcon icon={faTrash} />
@@ -169,6 +190,17 @@ const ShopingCart: React.FC<Props> = (props) => {
                         </article>
                       );
                     })}
+
+                    {/* {cart.length != 0 ? (
+                      <button
+                        onClick={handleDeleteAll}
+                        className="btn btn-error"
+                      >
+                        Remove all items
+                      </button>
+                    ) : (
+                      ""
+                    )} */}
 
                     <div className="flex justify-between items-center mt-6 pt-6 border-t">
                       <div className="flex items-center">

@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebookF, faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { useRouter } from "next/router";
 import { ToastContainer, toast } from "react-toastify";
-import { useSession } from "next-auth/react";
 import "react-toastify/dist/ReactToastify.css";
 
 const Sign = () => {

@@ -10,14 +10,14 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
 
     // Check if user is logged in
     if (!session) {
-      return res.status(402).send("You need to login first");
+      return res.send("You need to login first");
     }
 
     // Check if product is in the cart
     const productExists = await prisma.product.count({ where: { name: name } });
 
     if (productExists) {
-      return res.status(401).send("Already Exists");
+      return res.send("Already Exists");
     }
 
     // Create Products
