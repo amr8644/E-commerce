@@ -22,10 +22,20 @@ const ShopingCart: React.FC<Props> = (props) => {
 
   let subTotal = 0;
 
+  function truncateString(str: any, num: any) {
+    if (str.length > num) {
+      let subStr = str.substring(0, num);
+      return subStr + "...";
+    } else {
+      return str;
+    }
+  }
+
   const handleDelete = async (e: any) => {
     const id =
       e.target.parentElement.parentElement.parentElement.parentElement
         .parentElement.id;
+    const thispro = e.currentTarget;
 
     const config: AxiosRequestConfig = {
       url: "/api/deleteProductService",
@@ -36,6 +46,7 @@ const ShopingCart: React.FC<Props> = (props) => {
       },
     };
     const res = await axios(config);
+    thispro.closest("article").remove();
 
     if (!res) {
       throw new Error("Error has occured");
@@ -44,14 +55,6 @@ const ShopingCart: React.FC<Props> = (props) => {
     return await res.config.data;
   };
 
-  function truncateString(str: any, num: any) {
-    if (str.length > num) {
-      let subStr = str.substring(0, num);
-      return subStr + "...";
-    } else {
-      return str;
-    }
-  }
   const handleUpdate = async (e: any, price: any, quantity: any) => {
     const config: AxiosRequestConfig = {
       url: "/api/updateProductService",
@@ -107,7 +110,7 @@ const ShopingCart: React.FC<Props> = (props) => {
                     {cart.map((e: any) => {
                       subTotal += e.price * e.quantity;
                       return (
-                        <div
+                        <article
                           key={e.id}
                           id={e.id}
                           className="text-darkBlue flex justify-between items-center mt-6 pt-6"
@@ -152,7 +155,7 @@ const ShopingCart: React.FC<Props> = (props) => {
                                 <FontAwesomeIcon icon={faArrowDown} />
                               </button>
                               <button
-                                onClick={handleDelete}
+                                onClick={(e: any) => handleDelete(e)}
                                 className="btn-sm btn-error rounded-lg mx-3"
                               >
                                 <FontAwesomeIcon icon={faTrash} />
@@ -163,7 +166,7 @@ const ShopingCart: React.FC<Props> = (props) => {
                               <i className="fa fa-close text-sm font-medium"></i>
                             </div>
                           </div>
-                        </div>
+                        </article>
                       );
                     })}
 
@@ -229,3 +232,6 @@ type Props = {
 };
 
 export default ShopingCart;
+function handleDelete(e: any, product_id: any): void {
+  throw new Error("Function not implemented.");
+}

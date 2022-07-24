@@ -15,18 +15,20 @@ export const authOptions: NextAuthOptions = {
       clientId: process.env.GOOGLE_ID as string,
       clientSecret: process.env.GOOGLE_SECRET as string,
     }),
+
     CredentialsProvider({
       name: "Credentials",
       credentials: {
         email: { label: "Email", type: "email", placeholder: "Email" },
         password: { label: "Password", type: "password" },
       },
+
       async authorize(credentials) {
         const password =
           credentials?.password !== undefined ? credentials?.password : ""!;
 
         // Check if user exists
-        const userData = await prisma.user.findUniqueOrThrow({
+        const userData = await prisma.user.findFirst({
           where: { email: credentials?.email },
           select: {
             password: true,
@@ -46,7 +48,9 @@ export const authOptions: NextAuthOptions = {
           ))
         ) {
           return {
-            userData,
+            name: userData.name,
+            email: userData.email,
+            image: userData.image,
           };
         } else {
           console.log("ERROR");

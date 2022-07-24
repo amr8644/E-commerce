@@ -5,10 +5,16 @@ import Hero from "../components/Hero";
 import Title from "../components/Title";
 import ItemCard from "../components/ItemCard";
 import { useSession } from "next-auth/react";
+import Loader from "../components/Loader";
 
 const MainContent = () => {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
+
   console.log(session);
+
+  if (status === "loading") {
+    return <Loader />;
+  }
 
   return (
     <>

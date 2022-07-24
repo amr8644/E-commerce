@@ -11,11 +11,11 @@ datasource db {
 
 model User {
   id            String    @id @default(cuid())
-  name          String
+  name          String     @db.Text()
   email         String    @unique
   password      String?
   emailVerified DateTime? @map("email_verified")
-  image         String?
+  image         String?    @db.Text()
   createdAt     DateTime  @default(now()) @map(name: "created_at")
   updatedAt     DateTime  @updatedAt @map(name: "updated_at")
   products      Product[]
@@ -29,7 +29,7 @@ model User {
 model Product {
   id          Int    @id @default(autoincrement())
   name        String
-  description String
+  description String @db.Text()
   image       String
   price       Float
   quantity    Int
@@ -41,7 +41,7 @@ model Session {
   sessionToken String   @unique @map("session_token")
   userId       String   @map("user_id")
   expires      DateTime
-  user         User[]
+  user         User[] 
 
   @@map("sessions")
 }
@@ -49,10 +49,10 @@ model Session {
 model Account {
   id                 String  @id @default(cuid())
   userId             String  @map("users_id")
-  type               String
+  type               String 
   provider           String
   providerAccountId  String  @map("provider_account_id")
-  refresh_token      String?
+  refresh_token      String?  
   access_token       String?
   expires_at         Int?
   token_type         String?

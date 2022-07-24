@@ -8,6 +8,8 @@ import Router from "next/router";
 
 const Login = ({ csrfToken }: any) => {
   const { status } = useSession();
+
+  
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -103,10 +105,8 @@ const Login = ({ csrfToken }: any) => {
                   onClick={(e) => {
                     e.preventDefault();
                     signIn("credentials", {
-                      redirect: true,
                       email,
                       password,
-                      callbackUrl: "/",
                     });
                   }}
                 >

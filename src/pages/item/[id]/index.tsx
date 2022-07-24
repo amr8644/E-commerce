@@ -59,7 +59,7 @@ const item = ({ data }: any) => {
         error("Error has occured");
         break;
       default:
-        break;
+        error("Error has occured");
     }
 
     return await res.config.data;
@@ -101,13 +101,11 @@ const item = ({ data }: any) => {
             <div className="card-actions flex justify-between px-3 my-3 w-full flex-row">
               <div className="badge badge-outline capitalize">{category}</div>
             </div>
-            <button
-              onClick={handleSubmit}
-              type="submit"
-              className="btn bg-orange2 text-superwhite"
-            >
-              Put in Cart
-            </button>
+            <form action="POST" onSubmit={handleSubmit}>
+              <button type="submit" className="btn bg-orange2 text-superwhite">
+                Put in Cart
+              </button>
+            </form>
           </div>
         </div>
       </div>
