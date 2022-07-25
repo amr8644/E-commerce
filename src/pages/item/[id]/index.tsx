@@ -54,7 +54,6 @@ const item = ({ data }: any) => {
           success();
           break;
       }
-
       return res.config.data;
     } catch (error) {
       console.log("Hello");

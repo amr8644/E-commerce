@@ -46,7 +46,6 @@ const Sign = () => {
         route.push("/login");
         break;
       case 400:
-        console.log("Hello");
         error("Account already exist");
         route.push("/login");
         break;

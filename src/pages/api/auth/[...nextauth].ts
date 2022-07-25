@@ -6,7 +6,9 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({
+  datasources: { db: { url: process.env.DATABASE_URL } },
+});
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -53,7 +55,6 @@ export const authOptions: NextAuthOptions = {
             image: userData.image,
           };
         } else {
-          console.log("ERROR");
           return null;
         }
       },
@@ -78,6 +79,10 @@ export const authOptions: NextAuthOptions = {
       }
       return token;
     },
+  },
+
+  pages: {
+    error: "/error",
   },
 
   debug: true,
