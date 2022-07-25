@@ -19,8 +19,8 @@ import axios, { AxiosRequestConfig } from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const ShopingCart: React.FC<Props> = (props) => {
-  const [cart, setCart] = useState(props.product);
+const ShopingCart: React.FC<Props> = ({ product }: any) => {
+  const [cart, setCart] = useState(product);
   const success = (msg: any) => toast.success(msg);
 
   let subTotal = 0;
@@ -94,7 +94,7 @@ const ShopingCart: React.FC<Props> = (props) => {
 
   return (
     <>
-      <Navbar />
+      <Navbar product={cart} />
       <Sidebar />
       <ToastContainer />
       <div className="lg:h-auto sm:h-auto sm:top-[70px] relative font-PTSans bg-superwhite sm:w-screen px-6 lg:w-4/5 lg:float-right flex items-center justify-center">

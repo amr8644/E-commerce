@@ -10,12 +10,17 @@ import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+// import { GetServerSideProps } from "next";
+import { getSession } from "next-auth/react";
+import { Product } from "@prisma/client";
+import { prisma } from "../../../../lib/prisma";
 
-const item = ({ data }: any) => {
+const item = (data: any) => {
   const route = useRouter();
-  const { id, title, price, description, image, category } = data;
   const success = () => toast.success(`Item was added to your cart`);
   const error = (msg: any) => toast.error(msg);
+
+  const { id, title, price, description, image, category } = data.data;
 
   const [quantity, setQuantity] = useState(1);
 
@@ -56,13 +61,13 @@ const item = ({ data }: any) => {
       }
       return res.config.data;
     } catch (error) {
-      console.log("Hello");
+      console.log(error);
     }
   };
 
   return (
     <>
-      <Navbar />
+      <Navbar product={data.product} />
       <Sidebar />
       <div
         key={id}
@@ -109,15 +114,33 @@ const item = ({ data }: any) => {
 };
 export const getServerSideProps = async (context: any) => {
   const url = `https://fakestoreapi.com/products/${context.params.id}`;
+  const session = await getSession(context.req);
+
+  const product = await prisma.product.findMany({
+    where: {
+      users: {
+        every: {
+          email: session?.user?.email !== null ? session?.user?.email : "",
+        },
+      },
+    },
+    include: {
+      users: {
+        select: { email: true },
+      },
+    },
+  });
 
   const resp = await fetch(url);
   const data = await resp.json();
 
   return {
-    props: {
-      data,
-    },
+    props: { data, product },
   };
+};
+
+type Props = {
+  product: Product[];
 };
 
 export default item;

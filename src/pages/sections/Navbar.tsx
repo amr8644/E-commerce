@@ -4,15 +4,16 @@ import Link from "next/link";
 import SecondSidebar from "../components/SecondSidebar";
 import Avatar from "../components/Avatar";
 import { useSession } from "next-auth/react";
+import Loader from "../components/Loader";
+import { Product } from "@prisma/client";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMagnifyingGlass,
   faBars,
   faShoppingCart,
 } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Loader from "../components/Loader";
 
-const Navbar = () => {
+const Navbar: React.FC<Props> = (product: any) => {
   const [open, setOpen] = useState(false);
   const { data: session, status } = useSession();
 
@@ -47,6 +48,9 @@ const Navbar = () => {
         </div>
         <div className=" lg:hidden  sm:flex  items-center justify-center   w-[150px]">
           <div className=" indicator mr-6 ">
+            <span className="indicator-item indicator-middle indicator-center badge badge-error absolute top-0 left-0 text-superwhite">
+              {product.product.length}
+            </span>
             <Link href={"/checkout"}>
               <FontAwesomeIcon
                 icon={faShoppingCart}
@@ -94,6 +98,10 @@ const Navbar = () => {
       <SecondSidebar open={open} />
     </>
   );
+};
+
+type Props = {
+  product: Product[];
 };
 
 export default Navbar;
