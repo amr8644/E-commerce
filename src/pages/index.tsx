@@ -1,11 +1,9 @@
-import type { GetServerSideProps, NextPage } from "next";
+import type { NextPage } from "next";
 import Head from "next/head";
 import Footer from "./sections/Footer";
 import MainContent from "./sections/MainContent";
 import Navbar from "./sections/Navbar";
 import Sidebar from "./sections/Sidebar";
-import { prisma } from "../../lib/prisma";
-import { getSession } from "next-auth/react";
 
 const Home: NextPage = () => {
   return (

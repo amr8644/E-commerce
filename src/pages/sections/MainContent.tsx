@@ -10,8 +10,6 @@ import Loader from "../components/Loader";
 const MainContent = () => {
   const { data: session, status } = useSession();
 
-  console.log(session);
-
   if (status === "loading") {
     return <Loader />;
   }

@@ -35,23 +35,22 @@ const Navbar = () => {
         className={`bg-darkBlue fixed z-10  w-full h-[70px] flex flex-row justify-between px-3`}
       >
         <div className="relative flex items-center justify-start lg:ml-10">
-          <Image
-            src="/amazon-svgrepo-com (1).svg"
-            alt="Logo"
-            width={50}
-            height={50}
-            layout="intrinsic"
-          />
+          <Link href={"/"}>
+            <Image
+              src="/amazon-svgrepo-com (1).svg"
+              alt="Logo"
+              width={50}
+              height={50}
+              layout="intrinsic"
+            />
+          </Link>
         </div>
         <div className=" lg:hidden  sm:flex  items-center justify-center   w-[150px]">
           <div className=" indicator mr-6 ">
-            <span className="indicator-item indicator-middle indicator-center badge badge-error absolute top-0 left-0 text-superwhite">
-              8
-            </span>
             <Link href={"/checkout"}>
               <FontAwesomeIcon
                 icon={faShoppingCart}
-                className="text-white px-3 h-[42px] w-[42px] rounded-lg border-none cursor-pointer hover:bg-orange2 hover:text-darkBlue duration-500 "
+                className="text-white px-3 h-[22px] w-[22px] rounded-lg border-none cursor-pointer hover:bg-orange2 hover:text-darkBlue duration-500 "
               />
             </Link>
           </div>

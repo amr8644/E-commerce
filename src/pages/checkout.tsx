@@ -19,7 +19,6 @@ import axios, { AxiosRequestConfig } from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-
 const ShopingCart: React.FC<Props> = (props) => {
   const [cart, setCart] = useState(props.product);
   const success = (msg: any) => toast.success(msg);
@@ -34,23 +33,6 @@ const ShopingCart: React.FC<Props> = (props) => {
       return str;
     }
   }
-
-  // const handleDeleteAll = async () => {
-  //   const config: AxiosRequestConfig = {
-  //     url: "/api/deleteAllProductService",
-  //     method: "delete",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //   };
-  //   const res = await axios(config);
-  //   success("All products has been deleted");
-
-  //   if (!res) {
-  //     throw new Error("Error has occured");
-  //   }
-  //   return await res.config.data;
-  // };
 
   const handleDelete = async (e: any, product_id: any) => {
     const thispro = e.currentTarget;
@@ -191,17 +173,6 @@ const ShopingCart: React.FC<Props> = (props) => {
                       );
                     })}
 
-                    {/* {cart.length != 0 ? (
-                      <button
-                        onClick={handleDeleteAll}
-                        className="btn btn-error"
-                      >
-                        Remove all items
-                      </button>
-                    ) : (
-                      ""
-                    )} */}
-
                     <div className="flex justify-between items-center mt-6 pt-6 border-t">
                       <div className="flex items-center">
                         <Link href={"/"}>
@@ -264,6 +235,3 @@ type Props = {
 };
 
 export default ShopingCart;
-function handleDelete(e: any, product_id: any): void {
-  throw new Error("Function not implemented.");
-}
