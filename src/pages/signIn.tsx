@@ -30,6 +30,7 @@ const Sign = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+
     const config: AxiosRequestConfig = {
       url: "/api/registerService",
       data: formData,
