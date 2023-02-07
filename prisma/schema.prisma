@@ -1,12 +1,14 @@
-datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
-  shadowDatabaseUrl = env("SHADOW_DATABASE_URL") // Only needed when using a cloud provider that doesn't support the creation of new databases, like Heroku. Learn more: https://pris.ly/migrate-shadow
-}
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["referentialActions"] // You won't need this in Prisma 3.X or higher.
+    provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      =  env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
 model User {
@@ -21,13 +23,15 @@ model User {
 }
 
 model Products {
-     id            String    @id @default(cuid())
-     userId         String
-     name           String
-     image          String
-    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
+  id            String   @id
+  name          String?
+  image         String?
+  userId        String
 
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
 
 model Account {
   id                 String  @id @default(cuid())
@@ -46,6 +50,7 @@ model Account {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
+  @@index([userId])
 }
 
 model Session {
@@ -54,7 +59,10 @@ model Session {
   userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }
+
 
 model VerificationToken {
   identifier String
