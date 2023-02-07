@@ -1,70 +1,59 @@
-generator client {
-  provider = "prisma-client-js"
-   previewFeatures = ["referentialIntegrity"]
-}
-
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
-  referentialIntegrity = "prisma"
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL") // Only needed when using a cloud provider that doesn't support the creation of new databases, like Heroku. Learn more: https://pris.ly/migrate-shadow
+}
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialActions"] // You won't need this in Prisma 3.X or higher.
 }
 
 model User {
   id            String    @id @default(cuid())
-  name          String     @db.Text()
-  email         String    @unique
-  password      String?
-  emailVerified DateTime? @map("email_verified")
-  image         String?    @db.Text()
-  createdAt     DateTime  @default(now()) @map(name: "created_at")
-  updatedAt     DateTime  @updatedAt @map(name: "updated_at")
-  products      Product[]
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  products      Products[]
+  accounts      Account[]
   sessions      Session[]
-
-  Account   Account? @relation(fields: [accountId], references: [id])
-  accountId String?
-  @@map(name: "user")
 }
 
-model Product {
-  id          Int    @id @default(autoincrement())
-  name        String
-  description String @db.Text()
-  image       String
-  price       Float
-  quantity    Int
-  users        User[]
+model Products {
+     id            String    @id @default(cuid())
+     userId         String
+     name           String
+     image          String
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+
+model Account {
+  id                 String  @id @default(cuid())
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?  @db.Text
+  access_token       String?  @db.Text
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?  @db.Text
+  session_state      String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
 }
 
 model Session {
   id           String   @id @default(cuid())
-  sessionToken String   @unique @map("session_token")
-  userId       String   @map("user_id")
+  sessionToken String   @unique
+  userId       String
   expires      DateTime
-  user         User[] 
-
-  @@map("sessions")
-}
-
-model Account {
-  id                 String  @id @default(cuid())
-  userId             String  @map("users_id")
-  type               String 
-  provider           String
-  providerAccountId  String  @map("provider_account_id")
-  refresh_token      String?  
-  access_token       String?
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?
-  session_state      String?
-  oauth_token_secret String?
-  oauth_token        String?
-  users              User[]
-
-  @@unique([provider, providerAccountId])
-  @@map("accounts")
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model VerificationToken {
@@ -73,5 +62,4 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
-  @@map("verificationtokens")
 }
