@@ -15,6 +15,7 @@ import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import { BsCart2 } from "react-icons/bs";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import Logo from "./Logo";
 
 export default function Navigaton() {
    const { isOpen, onOpen, onClose } = useDisclosure();
@@ -33,7 +34,7 @@ export default function Navigaton() {
                   onClick={isOpen ? onClose : onOpen}
                />
                <HStack spacing={8} alignItems={"center"}>
-                  <Box>Logo</Box>
+                  <Logo />
                   <HStack
                      as={"nav"}
                      spacing={4}

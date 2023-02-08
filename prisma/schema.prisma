@@ -26,6 +26,7 @@ model Products {
   id            String   @id
   name          String?
   image         String?
+  description   String?
   userId        String
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
