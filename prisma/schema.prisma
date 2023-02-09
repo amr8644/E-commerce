@@ -23,10 +23,12 @@ model User {
 }
 
 model Products {
-  id            String   @id
-  name          String?
+  id            Int  @id
+  title          String
   image         String?
-  description   String?
+  description   String
+  quantity      Int
+  price         Float
   userId        String
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)

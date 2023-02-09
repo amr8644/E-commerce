@@ -5,7 +5,7 @@ import { Button, Center, Stack, Text } from "@chakra-ui/react";
 
 export default function Login() {
    return (
-      <Center p={8}>
+      <Center p={8} marginTop={"250px"}>
          <Stack spacing={2} align={"center"} maxW={"md"} w={"full"}>
             {/* Facebook */}
             <Button

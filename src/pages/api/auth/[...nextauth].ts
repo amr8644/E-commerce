@@ -4,6 +4,8 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import prisma from "../../../../lib/prisma";
 
 const {
+   FACEBOOK_CLIENT_ID = "",
+   FACEBOOK_CLIENT_SECRET = "",
    GOOGLE_CLIENT_ID = "",
    GOOGLE_CLIENT_SECRET = "",
    JWT_SECRET = "",

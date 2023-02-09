@@ -13,10 +13,64 @@ import {
    SimpleGrid,
    StackDivider,
    useColorModeValue,
+   NumberDecrementStepper,
+   NumberIncrementStepper,
+   NumberInput,
+   NumberInputField,
+   NumberInputStepper,
+   Slider,
+   SliderFilledTrack,
+   SliderThumb,
+   SliderTrack,
+   useToast,
 } from "@chakra-ui/react";
 import { GetServerSideProps } from "next";
+import React from "react";
 
 export default function ProductDetails({ data }: any) {
+   const [value, setValue] = React.useState(0);
+
+   const toast = useToast();
+   const handleChange = (value: any) => setValue(value);
+
+   const addProduct = async () => {
+      try {
+         const newData = { ...data, quantity: value };
+
+         const response = await fetch("http://localhost:3000/api/addProducts", {
+            method: "POST",
+            headers: {
+               "Content-Type": "application/json",
+            },
+
+            body: JSON.stringify(newData),
+         });
+
+         if (response.status == 200) {
+            toast({
+               title: "Product Added.",
+               status: "success",
+               isClosable: true,
+            });
+         }
+         if (response.status == 500) {
+            toast({
+               title: "Server error",
+               status: "error",
+               isClosable: true,
+            });
+         }
+         return response;
+      } catch (error: any) {
+         console.log(error);
+         toast({
+            title: error.message || "Server error",
+            status: "error",
+            isClosable: true,
+         });
+      }
+   };
+
    return (
       <>
          <Navigaton />
@@ -79,7 +133,39 @@ export default function ProductDetails({ data }: any) {
                      </VStack>
                   </Stack>
 
+                  <Flex>
+                     <NumberInput
+                        maxW="100px"
+                        mr="2rem"
+                        value={value}
+                        onChange={handleChange}
+                     >
+                        <NumberInputField />
+                        <NumberInputStepper>
+                           <NumberIncrementStepper />
+                           <NumberDecrementStepper />
+                        </NumberInputStepper>
+                     </NumberInput>
+                     <Slider
+                        flex="1"
+                        focusThumbOnChange={false}
+                        value={value}
+                        onChange={handleChange}
+                     >
+                        <SliderTrack>
+                           <SliderFilledTrack />
+                        </SliderTrack>
+                        <SliderThumb
+                           fontSize="sm"
+                           boxSize="32px"
+                           // eslint-disable-next-line react/no-children-prop
+                           children={value}
+                        />
+                     </Slider>
+                  </Flex>
+
                   <Button
+                     onClick={addProduct}
                      rounded={"none"}
                      w={"full"}
                      mt={8}
