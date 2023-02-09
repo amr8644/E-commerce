@@ -24,7 +24,7 @@ model User {
 
 model Products {
   id            Int  @id
-  title          String
+  title         String
   image         String?
   description   String
   quantity      Int

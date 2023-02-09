@@ -25,13 +25,15 @@ import {
    useToast,
 } from "@chakra-ui/react";
 import { GetServerSideProps } from "next";
+import { useRouter } from "next/router";
 import React from "react";
 
 export default function ProductDetails({ data }: any) {
    const [value, setValue] = React.useState(0);
+   const router = useRouter();
 
    const toast = useToast();
-   const handleChange = (value: any) => setValue(value);
+   const handleChange = (value: any) => setValue(parseInt(value));
 
    const addProduct = async () => {
       try {
@@ -50,6 +52,16 @@ export default function ProductDetails({ data }: any) {
             toast({
                title: "Product Added.",
                status: "success",
+               position: "top",
+               isClosable: true,
+            });
+         }
+         if (response.status == 401) {
+            router.push("/login");
+            toast({
+               title: "You need to login first",
+               status: "error",
+               position: "top",
                isClosable: true,
             });
          }
@@ -57,6 +69,7 @@ export default function ProductDetails({ data }: any) {
             toast({
                title: "Server error",
                status: "error",
+               position: "top",
                isClosable: true,
             });
          }
@@ -66,6 +79,7 @@ export default function ProductDetails({ data }: any) {
          toast({
             title: error.message || "Server error",
             status: "error",
+            position: "top",
             isClosable: true,
          });
       }

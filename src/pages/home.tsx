@@ -1,14 +1,16 @@
-import React from "react";
+import React, { use } from "react";
 import Banner from "@/components/Banner";
 import Navigation from "@/components/Navigation";
 import Row from "@/components/Row";
-import { GetServerSideProps } from "next";
 import Footer from "@/components/Footer";
+import { GetServerSideProps } from "next";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "../pages/api/auth/[...nextauth]";
 
-function Home({ hotOffers, electronics, jewelery }: any) {
+function Home({ hotOffers, electronics, jewelery, userItems }: any) {
    return (
       <>
-         <Navigation />
+         <Navigation userItems={userItems} />
          <Banner />
          <Row data={hotOffers} />
          <Row data={electronics} />
@@ -19,6 +21,26 @@ function Home({ hotOffers, electronics, jewelery }: any) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
+   const session = await getServerSession(
+      context.req,
+      context.res,
+      authOptions
+   );
+   const data = await prisma?.user.findUnique({
+      where: {
+         email: session?.user?.email !== null ? session?.user?.email : "",
+      },
+      select: {
+         products: {
+            select: {
+               title: true,
+               price: true,
+               quantity: true,
+               image: true,
+            },
+         },
+      },
+   });
    const hotOffersResponse = await fetch(
       "https://fakestoreapi.com/products?limit=10"
    );
@@ -35,6 +57,7 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
 
    return {
       props: {
+         userItems: data,
          hotOffers: hotOffers,
          jewelery: jewelery,
          electronics: electronics,

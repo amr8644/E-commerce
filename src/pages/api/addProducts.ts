@@ -10,7 +10,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
 
    // Check if user is logged in
    if (!session) {
-      return res.send("You need to login first");
+      return res.status(401).send("You need to login first");
    }
 
    // Check if product is in the cart
