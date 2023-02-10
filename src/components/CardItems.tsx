@@ -12,21 +12,19 @@ import {
 } from "@chakra-ui/react";
 import { BsTrash } from "react-icons/bs";
 import { useRouter } from "next/router";
+import { API_URL } from "@/pages/api/URL";
 
 const CardItems = ({ userItems: products }: any) => {
    const toast = useToast();
    const router = useRouter();
    const deleteProducts = async (id: any) => {
       try {
-         const response = await fetch(
-            `http://localhost:3000/api/products/${id}`,
-            {
-               method: "DELETE",
-               headers: {
-                  "Content-Type": "application/json",
-               },
-            }
-         );
+         const response = await fetch(`${API_URL}/api/products/${id}`, {
+            method: "DELETE",
+            headers: {
+               "Content-Type": "application/json",
+            },
+         });
          if (response.status == 200) {
             router.replace(router.asPath);
             toast({

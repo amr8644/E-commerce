@@ -1,6 +1,7 @@
 import Footer from "@/components/Footer";
 import Navigaton from "@/components/Navigation";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
+import { API_URL } from "@/pages/api/URL";
 import {
    Box,
    Container,
@@ -41,17 +42,14 @@ export default function ProductDetails({ data, userItems }: any) {
       try {
          const newData = { ...data, quantity: value };
 
-         const response = await fetch(
-            "http://localhost:3000/api/prdoucts/addProducts",
-            {
-               method: "POST",
-               headers: {
-                  "Content-Type": "application/json",
-               },
+         const response = await fetch(`${API_URL}/api/prdoucts/addProducts`, {
+            method: "POST",
+            headers: {
+               "Content-Type": "application/json",
+            },
 
-               body: JSON.stringify(newData),
-            }
-         );
+            body: JSON.stringify(newData),
+         });
 
          if (response.status == 200) {
             router.replace(router.asPath);
