@@ -1,4 +1,4 @@
-import React, { use } from "react";
+import React from "react";
 import Banner from "@/components/Banner";
 import Navigation from "@/components/Navigation";
 import Row from "@/components/Row";
