@@ -33,6 +33,7 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
       select: {
          products: {
             select: {
+               id: true,
                title: true,
                price: true,
                quantity: true,

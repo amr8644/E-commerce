@@ -1,5 +1,6 @@
 import Footer from "@/components/Footer";
 import Navigaton from "@/components/Navigation";
+import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import {
    Box,
    Container,
@@ -25,10 +26,11 @@ import {
    useToast,
 } from "@chakra-ui/react";
 import { GetServerSideProps } from "next";
+import { getServerSession } from "next-auth";
 import { useRouter } from "next/router";
 import React from "react";
 
-export default function ProductDetails({ data }: any) {
+export default function ProductDetails({ data, userItems }: any) {
    const [value, setValue] = React.useState(0);
    const router = useRouter();
 
@@ -39,16 +41,20 @@ export default function ProductDetails({ data }: any) {
       try {
          const newData = { ...data, quantity: value };
 
-         const response = await fetch("http://localhost:3000/api/addProducts", {
-            method: "POST",
-            headers: {
-               "Content-Type": "application/json",
-            },
+         const response = await fetch(
+            "http://localhost:3000/api/prdoucts/addProducts",
+            {
+               method: "POST",
+               headers: {
+                  "Content-Type": "application/json",
+               },
 
-            body: JSON.stringify(newData),
-         });
+               body: JSON.stringify(newData),
+            }
+         );
 
          if (response.status == 200) {
+            router.replace(router.asPath);
             toast({
                title: "Product Added.",
                status: "success",
@@ -87,7 +93,10 @@ export default function ProductDetails({ data }: any) {
 
    return (
       <>
-         <Navigaton />
+         <Navigaton userItems={userItems} />
+         <Button onClick={() => router.push("/home")} margin={"10px"}>
+            Go Back
+         </Button>
          <Container maxW={"7xl"}>
             <SimpleGrid
                columns={{ base: 1, lg: 2 }}
@@ -204,6 +213,27 @@ export default function ProductDetails({ data }: any) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
+   const session = await getServerSession(
+      context.req,
+      context.res,
+      authOptions
+   );
+   const userItems = await prisma?.user.findUnique({
+      where: {
+         email: session?.user?.email !== null ? session?.user?.email : "",
+      },
+      select: {
+         products: {
+            select: {
+               id: true,
+               title: true,
+               price: true,
+               quantity: true,
+               image: true,
+            },
+         },
+      },
+   });
    const response = await fetch(
       `https://fakestoreapi.com/products/${context.params.id}`
    );
@@ -211,6 +241,7 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
 
    return {
       props: {
+         userItems: userItems,
          data: data,
       },
    };

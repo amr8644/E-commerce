@@ -1,29 +1,76 @@
-import React, { useState } from "react";
+import React from "react";
 import {
    Card,
    CardBody,
    Stack,
    Heading,
-   Divider,
    CardFooter,
-   ButtonGroup,
    Button,
    Image,
-   Text,
    Box,
+   useToast,
 } from "@chakra-ui/react";
 import { BsTrash } from "react-icons/bs";
+import { useRouter } from "next/router";
 
-const CardItems = ({ userItems }: any) => {
+const CardItems = ({ userItems: products }: any) => {
+   const toast = useToast();
+   const router = useRouter();
+   const deleteProducts = async (id: any) => {
+      try {
+         const response = await fetch(
+            `http://localhost:3000/api/products/${id}`,
+            {
+               method: "DELETE",
+               headers: {
+                  "Content-Type": "application/json",
+               },
+            }
+         );
+         if (response.status == 200) {
+            router.replace(router.asPath);
+            toast({
+               title: "Product deleted.",
+               status: "success",
+               position: "top",
+               isClosable: true,
+            });
+         }
+         if (response.status == 401) {
+            router.push("/login");
+            toast({
+               title: "You need to login first",
+               status: "error",
+               position: "top",
+               isClosable: true,
+            });
+         }
+         if (response.status == 500) {
+            toast({
+               title: "Server error",
+               status: "error",
+               position: "top",
+               isClosable: true,
+            });
+         }
+         return response;
+      } catch (error: any) {
+         console.log(error);
+         toast({
+            title: error.message || "Server error",
+            status: "error",
+            position: "top",
+            isClosable: true,
+         });
+      }
+   };
    return (
       <>
-         {userItems?.map((e: any) => {
-            const { title, price, quantity, image } = e;
+         {products?.products?.map((e: any) => {
+            const { title, price, quantity, image, id } = e;
             return (
                <>
-                  <Box my={"10px"}>
-                     <Heading>Your Cart:</Heading>
-                  </Box>
+                  <Box my={"10px"}></Box>
                   <Card
                      width={"100%"}
                      display={"flex"}
@@ -56,6 +103,9 @@ const CardItems = ({ userItems }: any) => {
                               {price}
                            </Box>
                            <Button
+                              onClick={() => {
+                                 deleteProducts(id);
+                              }}
                               mx={"10px"}
                               variant="ghost"
                               colorScheme="red"
