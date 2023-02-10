@@ -6,7 +6,7 @@ E-commerce
 
 Live Preview
 
-[Live](https://social-media-amr8644.vercel.app/)
+[Live](https://amazon-clone-nine-amber.vercel.app/)
 
 ## Tech Stack
 
@@ -19,13 +19,13 @@ Live Preview
 Clone the project
 
 ```bash
-  git clone https://github.com/amr8644/Social-Media.git
+  git clone https://github.com/amr8644/E-commerce
 ```
 
 Go to the project directory
 
 ```bash
-  cd Social-Media
+  cd E-commerce
 ```
 
 Install dependencies
