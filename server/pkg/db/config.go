@@ -11,12 +11,12 @@ func ConnectToDB() (db *sql.DB) {
 
 	log.Println("Connecting to MySQL DB...")
 
-	DSN := "root:QoxVl6zxqlFEcOOKSK8E@tcp(containers-us-west-34.railway.app:6940)/railway"
+	dsn := "root:fDCsOsfNSduADQ6I5evG@tcp(containers-us-west-34.railway.app:6940)/railway"
 
-	db, err := sql.Open("mysql", DSN)
+	db, err := sql.Open("mysql", dsn)
 
 	if err != nil {
-		log.Fatalf("failed to connect: %v", err)
+		log.Fatalf("Failed to connect: %v", err)
 	}
 
 	if err := db.Ping(); err != nil {
