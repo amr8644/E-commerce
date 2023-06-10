@@ -27,6 +27,8 @@ type User struct {
 }
 
 type UserItem struct {
+	ID     int32         `json:"id"`
 	UserID sql.NullInt32 `json:"user_id"`
 	ItemID sql.NullInt32 `json:"item_id"`
+	Count  sql.NullInt32 `json:"count"`
 }

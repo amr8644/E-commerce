@@ -7,4 +7,7 @@ require (
 	github.com/go-sql-driver/mysql v1.7.1
 )
 
-require golang.org/x/crypto v0.9.0 // indirect
+require (
+	github.com/alexedwards/scs/v2 v2.5.1 // indirect
+	golang.org/x/crypto v0.9.0 // indirect
+)

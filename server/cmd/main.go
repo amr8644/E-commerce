@@ -9,22 +9,21 @@ import (
 )
 
 func main() {
+
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Hello World!"))
 	})
 
-    // Auth
+	// Auth
 	r.Post("/register", handlers.RegisterUser)
 	r.Post("/login", handlers.LoginUser)
 	r.Get("/logout", handlers.LogoutUser)
 
-    // Items
+	// Items
 
+	// Users
 
-    // Users
-
-
-	http.ListenAndServe(":8000", r)
+	http.ListenAndServe(":8000", handlers.Manager.LoadAndSave(r))
 }

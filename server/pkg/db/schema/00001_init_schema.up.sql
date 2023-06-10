@@ -17,10 +17,13 @@ CREATE TABLE `products` (
 );
 
 CREATE TABLE `user_item` (
+  `id` int PRIMARY KEY AUTO_INCREMENT,
   `user_id` int,
-  `item_id` int
+  `item_id` int,
+  `count` int
 );
 
 ALTER TABLE `user_item` ADD FOREIGN KEY (`item_id`) REFERENCES `products` (`id`);
 
 ALTER TABLE `user_item` ADD FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+
