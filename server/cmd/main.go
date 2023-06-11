@@ -11,7 +11,12 @@ import (
 func main() {
 
 	r := chi.NewRouter()
+
+	handlers.InitSessions()
+
 	r.Use(middleware.Logger)
+	r.Use(handlers.Authnticate)
+
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Hello World!"))
 	})
@@ -22,6 +27,7 @@ func main() {
 	r.Get("/logout", handlers.LogoutUser)
 
 	// Items
+	r.Post("/add-item",handlers.AddProduct)
 
 	// Users
 

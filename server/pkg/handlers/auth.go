@@ -45,8 +45,9 @@ func RegisterUser(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Error creating user"))
 		return
 	}
+
 	// Store a new key and value in the session data.
-	Manager.Put(r.Context(), u.Email.String, "Hello from a session!")
+	Manager.Put(r.Context(), u.Email.String, u.Name.String)
 
 	log.Println(user)
 }
@@ -85,13 +86,16 @@ func LoginUser(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Wrong Password"))
 		return
 	}
+
 	// Store a new key and value in the session data.
-	Manager.Put(r.Context(), u.Email.String, "Hello from a session!")
+	Manager.Put(r.Context(), u.Email.String, u.Name.String)
 
 	log.Println(user)
-
 }
-func LogoutUser(w http.ResponseWriter, r *http.Request) {}
+
+func LogoutUser(w http.ResponseWriter, r *http.Request) {
+	Manager.Destroy(r.Context())
+}
 
 //4llp4jgA3TkMkSqK
 //FQ03gaf7aQNVLY9xqHiHzg
