@@ -12,9 +12,9 @@ import (
 
 const createUser = `-- name: CreateUser :execresult
 INSERT INTO user (
-  name, email, password
+  name, email, password,picture
 ) VALUES (
-   ?, ?, ?
+   ?, ?, ?,?
 )
 `
 
@@ -22,10 +22,16 @@ type CreateUserParams struct {
 	Name     sql.NullString `json:"name"`
 	Email    sql.NullString `json:"email"`
 	Password sql.NullString `json:"password"`
+	Picture  sql.NullString `json:"picture"`
 }
 
 func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (sql.Result, error) {
-	return q.db.ExecContext(ctx, createUser, arg.Name, arg.Email, arg.Password)
+	return q.db.ExecContext(ctx, createUser,
+		arg.Name,
+		arg.Email,
+		arg.Password,
+		arg.Picture,
+	)
 }
 
 const loginUser = `-- name: LoginUser :one

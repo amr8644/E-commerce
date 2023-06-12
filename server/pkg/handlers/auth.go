@@ -4,7 +4,6 @@ import (
 	"context"
 	"database/sql"
 	"encoding/json"
-	"log"
 	"net/http"
 
 	conn "github.com/server/pkg/db"
@@ -12,7 +11,7 @@ import (
 	"github.com/server/pkg/utils"
 )
 
-func RegisterUser(w http.ResponseWriter, r *http.Request) {
+func RegisterUser(w http.ResponseWriter, r *http.Request) error {
 
 	// Create a new user struct
 	var u db.User
@@ -22,37 +21,35 @@ func RegisterUser(w http.ResponseWriter, r *http.Request) {
 	err := json.NewDecoder(r.Body).Decode(&u)
 
 	if err != nil {
-		w.WriteHeader(400)
-		log.Println("Error while parsing ")
+		return utils.WriteJSON(w, 400, err)
 	}
 
 	// Hash Password
 	hashed_password, err := utils.HashPassword(u.Password.String)
+
 	if err != nil {
-		log.Println("Error hashing password")
-		w.Write([]byte("Error hashing password"))
+		return utils.WriteJSON(w, 400, err)
 	}
 
 	// Add to database
 	user, err := q.CreateUser(context.Background(), db.CreateUserParams{
 		Name:     sql.NullString{String: u.Name.String, Valid: true},
 		Email:    sql.NullString{String: u.Email.String, Valid: true},
+		Picture:  sql.NullString{String: u.Picture.String, Valid: true},
 		Password: sql.NullString{String: hashed_password, Valid: true},
 	})
 
 	if err != nil {
-		w.WriteHeader(400)
-		w.Write([]byte("Error creating user"))
-		return
+		return utils.WriteJSON(w, 400, err)
 	}
 
 	// Store a new key and value in the session data.
-	Manager.Put(r.Context(), u.Email.String, u.Name.String)
+	Manager.Put(r.Context(), "name", u.Name.String)
 
-	log.Println(user)
+	return utils.WriteJSON(w, 200, user)
 }
 
-func LoginUser(w http.ResponseWriter, r *http.Request) {
+func LoginUser(w http.ResponseWriter, r *http.Request) error {
 
 	// Create a new user struct
 	var u db.User
@@ -62,39 +59,34 @@ func LoginUser(w http.ResponseWriter, r *http.Request) {
 	err := json.NewDecoder(r.Body).Decode(&u)
 
 	if err != nil {
-		w.WriteHeader(400)
-		log.Println("Error while parsing ")
-	}
-
-	if err != nil {
-		log.Println("Error hashing password")
-		w.Write([]byte("Error hashing password"))
+		return utils.WriteJSON(w, 400, err)
 	}
 
 	// Add to database
 	user, err := q.LoginUser(context.Background(), u.Email)
 
 	if err != nil {
-		w.WriteHeader(400)
-		w.Write([]byte("Error user not found"))
-		return
+		return utils.WriteJSON(w, 400, err)
 	}
 
+	//BUKmz7qnLzGFWS@
 	check := utils.CheckPasswordHash(u.Password.String, user.Password.String)
+
 	if !check {
-		w.WriteHeader(400)
-		w.Write([]byte("Wrong Password"))
-		return
+		return utils.WriteJSON(w, 400, "Wrong")
 	}
 
 	// Store a new key and value in the session data.
-	Manager.Put(r.Context(), u.Email.String, u.Name.String)
+	Manager.Put(r.Context(), "name", u.Name.String)
 
-	log.Println(user)
+	return utils.WriteJSON(w, 200, user)
+
 }
 
-func LogoutUser(w http.ResponseWriter, r *http.Request) {
+func LogoutUser(w http.ResponseWriter, r *http.Request) error {
 	Manager.Destroy(r.Context())
+
+	return utils.WriteJSON(w, 200, "Success")
 }
 
 //4llp4jgA3TkMkSqK

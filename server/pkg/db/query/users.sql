@@ -1,8 +1,8 @@
 -- name: CreateUser :execresult
 INSERT INTO user (
-  name, email, password
+  name, email, password,picture
 ) VALUES (
-   ?, ?, ?
+   ?, ?, ?,?
 );
 
 -- name: LoginUser :one

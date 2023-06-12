@@ -4,14 +4,14 @@ import (
 	"context"
 	"database/sql"
 	"encoding/json"
-	"log"
 	"net/http"
 
 	conn "github.com/server/pkg/db"
 	db "github.com/server/pkg/db/SQL"
+	"github.com/server/pkg/utils"
 )
 
-func AddProduct(w http.ResponseWriter, r *http.Request) {
+func AddProduct(w http.ResponseWriter, r *http.Request) error {
 
 	var p db.AddProductParams
 
@@ -20,9 +20,7 @@ func AddProduct(w http.ResponseWriter, r *http.Request) {
 	err := json.NewDecoder(r.Body).Decode(&p)
 
 	if err != nil {
-		w.WriteHeader(400)
-		w.Write([]byte("Error parsing"))
-		return
+		return utils.WriteJSON(w, 400, err)
 	}
 
 	item, err := q.AddProduct(context.Background(), db.AddProductParams{
@@ -31,10 +29,8 @@ func AddProduct(w http.ResponseWriter, r *http.Request) {
 	})
 
 	if err != nil {
-		w.WriteHeader(400)
-		w.Write([]byte("Error adding item"))
-		return
+		return utils.WriteJSON(w, 400, err)
 	}
 
-	log.Println(item)
+	return utils.WriteJSON(w, 200, item)
 }

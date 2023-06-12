@@ -15,19 +15,19 @@ func main() {
 	handlers.InitSessions()
 
 	r.Use(middleware.Logger)
-	r.Use(handlers.Authnticate)
+	r.Use(handlers.Authenticate)
 
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Hello World!"))
 	})
 
 	// Auth
-	r.Post("/register", handlers.RegisterUser)
-	r.Post("/login", handlers.LoginUser)
-	r.Get("/logout", handlers.LogoutUser)
+	r.Post("/register", handlers.HTTPHandler(handlers.RegisterUser))
+	r.Post("/login", handlers.HTTPHandler(handlers.LoginUser))
+	r.Get("/logout", handlers.HTTPHandler(handlers.LogoutUser))
 
 	// Items
-	r.Post("/add-item",handlers.AddProduct)
+	r.Post("/add-item", handlers.HTTPHandler(handlers.AddProduct))
 
 	// Users
 
