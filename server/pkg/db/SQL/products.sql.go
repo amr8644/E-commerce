@@ -27,3 +27,33 @@ type AddProductParams struct {
 func (q *Queries) AddProduct(ctx context.Context, arg AddProductParams) (sql.Result, error) {
 	return q.db.ExecContext(ctx, addProduct, arg.UserID, arg.ItemID, arg.Count)
 }
+
+const deleteProduct = `-- name: DeleteProduct :execresult
+DELETE FROM user_item WHERE id= ? and user_id = ?
+`
+
+type DeleteProductParams struct {
+	ID     int32         `json:"id"`
+	UserID sql.NullInt32 `json:"user_id"`
+}
+
+func (q *Queries) DeleteProduct(ctx context.Context, arg DeleteProductParams) (sql.Result, error) {
+	return q.db.ExecContext(ctx, deleteProduct, arg.ID, arg.UserID)
+}
+
+const getAllUserProducts = `-- name: GetAllUserProducts :one
+SELECT id, user_id, item_id, count FROM user_item 
+WHERE user_id = ?
+`
+
+func (q *Queries) GetAllUserProducts(ctx context.Context, userID sql.NullInt32) (UserItem, error) {
+	row := q.db.QueryRowContext(ctx, getAllUserProducts, userID)
+	var i UserItem
+	err := row.Scan(
+		&i.ID,
+		&i.UserID,
+		&i.ItemID,
+		&i.Count,
+	)
+	return i, err
+}
