@@ -28,8 +28,9 @@ func main() {
 
 	// Items
 	r.Post("/add-item", handlers.HTTPHandler(handlers.AddProduct))
+	r.Delete("/delete-item/{id}", handlers.HTTPHandler(handlers.DeleteProduct))
+	r.Get("/cart/{id}", handlers.HTTPHandler(handlers.GetAllUserProduct))
 
-	// Users
-
+	r.Put("/update", handlers.HTTPHandler(handlers.UpdateProduct))
 	http.ListenAndServe(":8000", handlers.Manager.LoadAndSave(r))
 }

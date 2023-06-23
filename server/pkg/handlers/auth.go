@@ -88,6 +88,3 @@ func LogoutUser(w http.ResponseWriter, r *http.Request) error {
 
 	return utils.WriteJSON(w, 200, "Success")
 }
-
-//4llp4jgA3TkMkSqK
-//FQ03gaf7aQNVLY9xqHiHzg

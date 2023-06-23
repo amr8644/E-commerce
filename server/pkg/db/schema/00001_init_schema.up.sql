@@ -7,23 +7,17 @@ CREATE TABLE `user` (
   `created_at` timestamp
 );
 
-CREATE TABLE `products` (
-  `id` int PRIMARY KEY AUTO_INCREMENT,
-  `count` varchar(255),
-  `name` varchar(255),
-  `price` float,
-  `desc` varchar(255),
-  `picture` varchar(255)
-);
-
 CREATE TABLE `user_item` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
   `user_id` int,
   `item_id` int,
-  `count` int
+  `count` int,
+  `name` varchar(255),
+  `price` float,
+  `about` varchar(255),
+  `picture` varchar(255)
 );
 
-ALTER TABLE `user_item` ADD FOREIGN KEY (`item_id`) REFERENCES `products` (`id`);
 
 ALTER TABLE `user_item` ADD FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 

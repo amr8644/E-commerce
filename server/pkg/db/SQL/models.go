@@ -8,15 +8,6 @@ import (
 	"database/sql"
 )
 
-type Products struct {
-	ID      int32           `json:"id"`
-	Count   sql.NullString  `json:"count"`
-	Name    sql.NullString  `json:"name"`
-	Price   sql.NullFloat64 `json:"price"`
-	Desc    sql.NullString  `json:"desc"`
-	Picture sql.NullString  `json:"picture"`
-}
-
 type User struct {
 	ID        int32          `json:"id"`
 	Email     sql.NullString `json:"email"`
@@ -27,8 +18,12 @@ type User struct {
 }
 
 type UserItem struct {
-	ID     int32         `json:"id"`
-	UserID sql.NullInt32 `json:"user_id"`
-	ItemID sql.NullInt32 `json:"item_id"`
-	Count  sql.NullInt32 `json:"count"`
+	ID      int32           `json:"id"`
+	UserID  sql.NullInt32   `json:"user_id"`
+	ItemID  sql.NullInt32   `json:"item_id"`
+	Count   sql.NullInt32   `json:"count"`
+	Name    sql.NullString  `json:"name"`
+	Price   sql.NullFloat64 `json:"price"`
+	About   sql.NullString  `json:"about"`
+	Picture sql.NullString  `json:"picture"`
 }
