@@ -1,1 +1,0 @@
-(define (square x) (define (sqrt x) (* x x)))
