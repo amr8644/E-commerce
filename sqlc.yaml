@@ -1,0 +1,10 @@
+version: "1"
+packages:
+   - engine: "mysql"
+     name: "db"
+     path: "./pkg/db/SQL"
+     queries: "./pkg/db/query"
+     schema: "./pkg/db/schema/00001_init_schema.up.sql"
+     emit_json_tags: true
+     emit_prepared_queries: false
+     emit_exact_table_names: true
