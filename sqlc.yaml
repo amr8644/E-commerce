@@ -1,6 +1,6 @@
 version: "1"
 packages:
-   - engine: "mysql"
+   - engine: "sqlite"
      name: "db"
      path: "./pkg/db/SQL"
      queries: "./pkg/db/query"

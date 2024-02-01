@@ -10,7 +10,7 @@
     <div class="flex h-screen items-center justify-center">
         <div class="bg-white p-8 rounded shadow-md w-96">
             <h2 class="text-2xl font-bold mb-8 text-center">Login</h2>
-            <form>
+            <form hx-post="/routelogin">
                 <div class="mb-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
                         Username
@@ -24,13 +24,42 @@
                     <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="Password">
                 </div>
                 <div class="flex items-center justify-between">
-                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
                         Sign In
                     </button>
                 </div>
             </form>
         </div>
     </div>
+
+<script>
+    async function handleSubmit() {
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+
+        const body = {
+            Username: { String: username, Valid: true },
+            Password: { String: password, Valid: true }
+        };
+
+        try {
+            const response = await fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json', // Specify content type if sending JSON
+                },
+                body: JSON.stringify(body),
+            });
+
+            const data = await response.json();
+            window.href = "/dashboard"
+            console.log(data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+</script>
+     <script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"></script>
 </body>
 </html>
 

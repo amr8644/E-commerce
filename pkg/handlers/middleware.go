@@ -9,7 +9,7 @@ import (
 func Authenticate(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
-		if r.URL.Path == "/login" || r.URL.Path == "/register" {
+		if r.URL.Path == "/login" || r.URL.Path == "/register" || r.URL.Path == "/rlogin" || r.URL.Path == "/signup"  {
 			next.ServeHTTP(w, r)
 		} else {
 			msg := Manager.Get(r.Context(), "name")

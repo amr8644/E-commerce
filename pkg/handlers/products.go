@@ -27,10 +27,10 @@ func AddProduct(w http.ResponseWriter, r *http.Request) error {
 	}
 
 	item, err := q.AddProduct(context.Background(), db.AddProductParams{
-		UserID:  sql.NullInt32{Int32: p.UserID.Int32, Valid: p.UserID.Valid},
-		ItemID:  sql.NullInt32{Int32: p.ItemID.Int32, Valid: p.ItemID.Valid},
+		UserID:  sql.NullInt64{Int64: p.UserID.Int64, Valid: p.UserID.Valid},
+		ItemID:  sql.NullInt64{Int64: p.ItemID.Int64, Valid: p.ItemID.Valid},
 		Name:    sql.NullString{String: p.Name.String, Valid: p.Name.Valid},
-		Count:   sql.NullInt32{Int32: p.Count.Int32, Valid: p.Count.Valid},
+		Count:   sql.NullInt64{Int64: p.Count.Int64, Valid: p.Count.Valid},
 		About:   sql.NullString{String: p.About.String, Valid: p.About.Valid},
 		Price:   sql.NullFloat64{Float64: p.Price.Float64, Valid: p.Picture.Valid},
 		Picture: sql.NullString{String: p.Picture.String, Valid: p.Picture.Valid},
@@ -57,8 +57,8 @@ func DeleteProduct(w http.ResponseWriter, r *http.Request) error {
 	q := db.New(conn.ConnectToDB())
 
 	item, err := q.DeleteProduct(context.Background(), db.DeleteProductParams{
-		UserID: sql.NullInt32{Int32: p.UserID.Int32, Valid: true},
-		ItemID: sql.NullInt32{Int32: p.ItemID.Int32, Valid: true},
+		UserID: sql.NullInt64{Int64: p.UserID.Int64, Valid: true},
+		ItemID: sql.NullInt64{Int64: p.ItemID.Int64, Valid: true},
 	})
 
 	if err != nil {
@@ -79,7 +79,7 @@ func GetAllUserProduct(w http.ResponseWriter, r *http.Request) error {
 		return utils.WriteJSON(w, 400, err)
 	}
 
-	items, err := q.GetAllUserProducts(context.Background(), sql.NullInt32{Int32: int32(id), Valid: true})
+	items, err := q.GetAllUserProducts(context.Background(), sql.NullInt64{Int64: int64(id), Valid: true})
 
 	if err != nil {
 		log.Println(err)
@@ -101,9 +101,9 @@ func UpdateProduct(w http.ResponseWriter, r *http.Request) error {
 	q := db.New(conn.ConnectToDB())
 
 	items, err := q.UpdateProduct(context.Background(), db.UpdateProductParams{
-		Count:  sql.NullInt32{Int32: p.Count.Int32, Valid: p.Count.Valid},
-		UserID: sql.NullInt32{Int32: p.UserID.Int32, Valid: p.UserID.Valid},
-		ItemID: sql.NullInt32{Int32: p.ItemID.Int32, Valid: p.ItemID.Valid},
+		Count:  sql.NullInt64{Int64: p.Count.Int64, Valid: p.Count.Valid},
+		UserID: sql.NullInt64{Int64: p.UserID.Int64, Valid: p.UserID.Valid},
+		ItemID: sql.NullInt64{Int64: p.ItemID.Int64, Valid: p.ItemID.Valid},
 	})
 
 	if err != nil {

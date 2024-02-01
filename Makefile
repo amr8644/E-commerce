@@ -1,14 +1,13 @@
-run:
+rn:
 	go run main.go
 
 build:
 	 go install main.go
-	
 migrateup:
-	migrate -path pkg/db/schema -database "mysql://root:fDCsOsfNSduADQ6I5evG@tcp(containers-us-west-34.railway.app:6940)/railway" -verbose up
+	./bin/migrate -path pkg/db/schema -database "mysql://root:32HAFf5EHde66f-AfG1eADb5E5hCe1eC@monorail.proxy.rlwy.net:13209/railway"  -verbose up
 
 migratedown:
-	migrate -path pkg/db/schema -database "mysql://root:fDCsOsfNSduADQ6I5evG@tcp(containers-us-west-34.railway.app:6940)/railway" -verbose drop 
+	./bin/migrate -path pkg/db/schema -database "mysql://root:32HAFf5EHde66f-AfG1eADb5E5hCe1eC@mysql.railway.internal:3306/railway" -verbose drop 
 
 generate:
-	.\sqlc.exe generate
+	sqlc generate

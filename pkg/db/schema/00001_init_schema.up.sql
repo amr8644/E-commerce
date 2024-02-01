@@ -1,23 +1,26 @@
-CREATE TABLE `user` (
-  `id` int PRIMARY KEY AUTO_INCREMENT,
-  `email` varchar(255),
-  `name` varchar(255),
-  `password` varchar(255),
-  `picture` varchar(255),
-  `created_at` timestamp
+-- Create the 'user' table
+CREATE TABLE user (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    email TEXT,
+    username TEXT,
+    password TEXT,
+    created_at TIMESTAMP
 );
 
-CREATE TABLE `user_item` (
-  `id` int PRIMARY KEY AUTO_INCREMENT,
-  `user_id` int,
-  `item_id` int,
-  `count` int,
-  `name` varchar(255),
-  `price` float,
-  `about` varchar(255),
-  `picture` varchar(255)
+-- Create the 'user_item' table
+CREATE TABLE user_item (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER,
+    item_id INTEGER,
+    count INTEGER,
+    name TEXT,
+    price REAL,
+    about TEXT,
+    picture TEXT
 );
 
-
-ALTER TABLE `user_item` ADD FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+-- Add foreign key constraint for 'user_item'
+ALTER TABLE user_item
+ADD FOREIGN KEY (user_id)
+REFERENCES user(id);
 

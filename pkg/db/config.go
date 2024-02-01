@@ -1,19 +1,34 @@
 package db
 
 import (
+	"context"
 	"database/sql"
+	_ "embed"
 	"log"
 
-	_ "github.com/go-sql-driver/mysql"
+	_ "github.com/mattn/go-sqlite3"
 )
+
+//go:embed schema/00001_init_schema.up.sql
+var ddl string
+
+func Run() error {
+	ctx := context.Background()
+
+	db, err := sql.Open("sqlite3", "man.db")
+	if err != nil {
+		return err
+	}
+	// create tables
+	if _, err := db.ExecContext(ctx, ddl); err != nil {
+		return err
+	}
+	return nil
+}
 
 func ConnectToDB() (db *sql.DB) {
 
-	log.Println("Connecting to MySQL DB...")
-
-	dsn := "root:fDCsOsfNSduADQ6I5evG@tcp(containers-us-west-34.railway.app:6940)/railway"
-
-	db, err := sql.Open("mysql", dsn)
+	db, err := sql.Open("sqlite3", "man.db")
 
 	if err != nil {
 		log.Fatalf("Failed to connect: %v", err)
