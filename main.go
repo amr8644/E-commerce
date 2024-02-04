@@ -35,7 +35,7 @@ func main() {
 		tmpl.ExecuteTemplate(w, "login.tmpl", nil)
 	})
 	r.Get("/dashboard", func(w http.ResponseWriter, r *http.Request) {
-		tmpl.ExecuteTemplate(w, "dashboard.tmpl", nil)
+		tmpl.ExecuteTemplate(w, "dashboard.html", nil)
 	})
 
 	// Auth
