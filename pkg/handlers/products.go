@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+	"fmt"
 	"strconv"
 
 	"github.com/go-chi/chi/v5"
@@ -25,6 +26,8 @@ func AddProduct(w http.ResponseWriter, r *http.Request) error {
 	if err != nil {
 		return utils.WriteJSON(w, 400, err)
 	}
+
+	fmt.Println(p.UserID)
 
 	item, err := q.AddProduct(context.Background(), db.AddProductParams{
 		UserID:  sql.NullInt64{Int64: p.UserID.Int64, Valid: p.UserID.Valid},
@@ -85,6 +88,7 @@ func GetAllUserProduct(w http.ResponseWriter, r *http.Request) error {
 		log.Println(err)
 		return utils.WriteJSON(w, 400, err)
 	}
+	fmt.Println(items)
 	return utils.WriteJSON(w, 200, items)
 }
 

@@ -8,17 +8,14 @@ CREATE TABLE user (
 );
 
 -- Create the 'user_item' table
-CREATE TABLE user_item (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_id INTEGER,
-    item_id INTEGER,
-    count INTEGER,
-    name TEXT,
-    price REAL,
-    about TEXT,
-    picture TEXT
-);
-
+CREATE TABLE IF NOT EXISTS user_item (
+        id INTEGER PRIMARY KEY,
+        title TEXT,
+        price TEXT,
+        category TEXT,
+        description TEXT,
+        image TEXT
+)
 -- Add foreign key constraint for 'user_item'
 ALTER TABLE user_item
 ADD FOREIGN KEY (user_id)

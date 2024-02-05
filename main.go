@@ -29,15 +29,18 @@ func main() {
 
 	// Static Routes
 	r.Get("/signup", func(w http.ResponseWriter, r *http.Request) {
-		tmpl.ExecuteTemplate(w, "index.tmpl", nil)
+		tmpl.ExecuteTemplate(w, "register.tmpl", nil)
 	})
 	r.Get("/login", func(w http.ResponseWriter, r *http.Request) {
 		tmpl.ExecuteTemplate(w, "login.tmpl", nil)
 	})
 	r.Get("/dashboard", func(w http.ResponseWriter, r *http.Request) {
-		tmpl.ExecuteTemplate(w, "dashboard.html", nil)
+		tmpl.ExecuteTemplate(w, "dashboard.tmpl", nil)
 	})
 
+	r.Get("/mycart", func(w http.ResponseWriter, r *http.Request) {
+		tmpl.ExecuteTemplate(w, "viewcart.tmpl", nil)
+	})
 	// Auth
 	r.Post("/register", handlers.HTTPHandler(handlers.RegisterUser))
 	r.Get("/logout", handlers.HTTPHandler(handlers.LogoutUser))
