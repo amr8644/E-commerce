@@ -27,11 +27,12 @@ func AddProduct(w http.ResponseWriter, r *http.Request) error {
 		return utils.WriteJSON(w, 400, err)
 	}
 
-	fmt.Println(p.UserID)
+	fmt.Println(p.UserID.Name)
 
 	item, err := q.AddProduct(context.Background(), db.AddProductParams{
-		UserID:  sql.NullInt64{Int64: p.UserID.Int64, Valid: p.UserID.Valid},
+	
 		ItemID:  sql.NullInt64{Int64: p.ItemID.Int64, Valid: p.ItemID.Valid},
+		UserID:  sql.NullInt64{Int64: int64(1), Valid: p.UserID.Valid},
 		Name:    sql.NullString{String: p.Name.String, Valid: p.Name.Valid},
 		Count:   sql.NullInt64{Int64: p.Count.Int64, Valid: p.Count.Valid},
 		About:   sql.NullString{String: p.About.String, Valid: p.About.Valid},
@@ -75,6 +76,7 @@ func DeleteProduct(w http.ResponseWriter, r *http.Request) error {
 
 func GetAllUserProduct(w http.ResponseWriter, r *http.Request) error {
 	id, err := strconv.Atoi(chi.URLParam(r, "id"))
+	id = 1
 
 	q := db.New(conn.ConnectToDB())
 	if err != nil {

@@ -3,6 +3,7 @@ package main
 import (
 	"html/template"
 	"net/http"
+	"log"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
@@ -19,7 +20,9 @@ func main() {
 	r.Use(middleware.Logger)
 	//r.Use(handlers.Authenticate)
 
-	db.Run().Error()
+	if err := db.Run(); err != nil {
+		log.Fatal(err)
+	}
 
 	tmpl := template.Must(template.ParseGlob("templates/*"))
 

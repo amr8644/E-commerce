@@ -25,6 +25,8 @@ func RegisterUser(w http.ResponseWriter, r *http.Request) error {
 		return utils.WriteJSON(w, 400, err)
 	}
 
+	fmt.Println(u.Username.String)
+
 	// Hash Password
 	hashed_password, err := utils.HashPassword(u.Password.String)
 
