@@ -19,11 +19,9 @@ type User struct {
 type UserItem struct {
 	ID      int64           `json:"id"`
 	UserID  sql.NullInt64   `json:"user_id"`
-	ItemID  sql.NullInt64   `json:"item_id"`
 	Count   sql.NullInt64   `json:"count"`
 	Name    sql.NullString  `json:"name"`
 	Price   sql.NullFloat64 `json:"price"`
 	About   sql.NullString  `json:"about"`
 	Picture sql.NullString  `json:"picture"`
-	FOREIGN interface{}     `json:"FOREIGN"`
 }

@@ -12,15 +12,14 @@ import (
 
 const addProduct = `-- name: AddProduct :execresult
 INSERT INTO user_item (
-    user_id, item_id, count, name, price, about, picture
+    user_id, count, name, price, about, picture
 ) VALUES (
-    ?, ?, ?, ?, ?, ?, ?
+    ?, ?, ?, ?, ?, ?
 )
 `
 
 type AddProductParams struct {
 	UserID  sql.NullInt64   `json:"user_id"`
-	ItemID  sql.NullInt64   `json:"item_id"`
 	Count   sql.NullInt64   `json:"count"`
 	Name    sql.NullString  `json:"name"`
 	Price   sql.NullFloat64 `json:"price"`
@@ -31,7 +30,6 @@ type AddProductParams struct {
 func (q *Queries) AddProduct(ctx context.Context, arg AddProductParams) (sql.Result, error) {
 	return q.db.ExecContext(ctx, addProduct,
 		arg.UserID,
-		arg.ItemID,
 		arg.Count,
 		arg.Name,
 		arg.Price,
@@ -41,20 +39,20 @@ func (q *Queries) AddProduct(ctx context.Context, arg AddProductParams) (sql.Res
 }
 
 const deleteProduct = `-- name: DeleteProduct :execresult
-DELETE FROM user_item WHERE item_id = ? AND user_id = ?
+DELETE FROM user_item WHERE id = ? AND user_id = ?
 `
 
 type DeleteProductParams struct {
-	ItemID sql.NullInt64 `json:"item_id"`
+	ID     int64         `json:"id"`
 	UserID sql.NullInt64 `json:"user_id"`
 }
 
 func (q *Queries) DeleteProduct(ctx context.Context, arg DeleteProductParams) (sql.Result, error) {
-	return q.db.ExecContext(ctx, deleteProduct, arg.ItemID, arg.UserID)
+	return q.db.ExecContext(ctx, deleteProduct, arg.ID, arg.UserID)
 }
 
 const getAllUserProducts = `-- name: GetAllUserProducts :many
-SELECT id, user_id, item_id, count, name, price, about, picture, "FOREIGN" FROM user_item
+SELECT id, user_id, count, name, price, about, picture FROM user_item
 WHERE user_id = ?
 `
 
@@ -70,13 +68,11 @@ func (q *Queries) GetAllUserProducts(ctx context.Context, userID sql.NullInt64) 
 		if err := rows.Scan(
 			&i.ID,
 			&i.UserID,
-			&i.ItemID,
 			&i.Count,
 			&i.Name,
 			&i.Price,
 			&i.About,
 			&i.Picture,
-			&i.FOREIGN,
 		); err != nil {
 			return nil, err
 		}
@@ -92,15 +88,15 @@ func (q *Queries) GetAllUserProducts(ctx context.Context, userID sql.NullInt64) 
 }
 
 const updateProduct = `-- name: UpdateProduct :execresult
-UPDATE user_item SET count = ? WHERE user_id = ? AND item_id = ?
+UPDATE user_item SET count = ? WHERE user_id = ? AND id = ?
 `
 
 type UpdateProductParams struct {
 	Count  sql.NullInt64 `json:"count"`
 	UserID sql.NullInt64 `json:"user_id"`
-	ItemID sql.NullInt64 `json:"item_id"`
+	ID     int64         `json:"id"`
 }
 
 func (q *Queries) UpdateProduct(ctx context.Context, arg UpdateProductParams) (sql.Result, error) {
-	return q.db.ExecContext(ctx, updateProduct, arg.Count, arg.UserID, arg.ItemID)
+	return q.db.ExecContext(ctx, updateProduct, arg.Count, arg.UserID, arg.ID)
 }

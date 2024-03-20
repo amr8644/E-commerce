@@ -11,12 +11,10 @@ CREATE TABLE IF NOT EXISTS user (
 CREATE TABLE IF NOT EXISTS user_item (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER,
-    item_id INTEGER,
     count INTEGER,
     name TEXT,
     price REAL,
     about TEXT,
-    picture TEXT,
-    FOREIGN KEY (user_id) REFERENCES user(id)
+    picture TEXT
 );
 

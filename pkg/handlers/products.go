@@ -27,12 +27,10 @@ func AddProduct(w http.ResponseWriter, r *http.Request) error {
 		return utils.WriteJSON(w, 400, err)
 	}
 
-	fmt.Println(p.UserID.Name)
+	p.UserID.Int64 = 1
 
-	item, err := q.AddProduct(context.Background(), db.AddProductParams{
-	
-		ItemID:  sql.NullInt64{Int64: p.ItemID.Int64, Valid: p.ItemID.Valid},
-		UserID:  sql.NullInt64{Int64: int64(1), Valid: p.UserID.Valid},
+	_, err = q.AddProduct(context.Background(), db.AddProductParams{
+		UserID:  sql.NullInt64{Int64: p.UserID.Int64, Valid: p.UserID.Valid},
 		Name:    sql.NullString{String: p.Name.String, Valid: p.Name.Valid},
 		Count:   sql.NullInt64{Int64: p.Count.Int64, Valid: p.Count.Valid},
 		About:   sql.NullString{String: p.About.String, Valid: p.About.Valid},
@@ -44,7 +42,7 @@ func AddProduct(w http.ResponseWriter, r *http.Request) error {
 		return utils.WriteJSON(w, 400, err)
 	}
 
-	return utils.WriteJSON(w, 200, item)
+	return utils.WriteJSON(w, 200, p)
 }
 
 func DeleteProduct(w http.ResponseWriter, r *http.Request) error {
@@ -61,8 +59,8 @@ func DeleteProduct(w http.ResponseWriter, r *http.Request) error {
 	q := db.New(conn.ConnectToDB())
 
 	item, err := q.DeleteProduct(context.Background(), db.DeleteProductParams{
+		ID: p.ID,
 		UserID: sql.NullInt64{Int64: p.UserID.Int64, Valid: true},
-		ItemID: sql.NullInt64{Int64: p.ItemID.Int64, Valid: true},
 	})
 
 	if err != nil {
@@ -76,8 +74,6 @@ func DeleteProduct(w http.ResponseWriter, r *http.Request) error {
 
 func GetAllUserProduct(w http.ResponseWriter, r *http.Request) error {
 	id, err := strconv.Atoi(chi.URLParam(r, "id"))
-	id = 1
-
 	q := db.New(conn.ConnectToDB())
 	if err != nil {
 		log.Println(err)
@@ -109,7 +105,7 @@ func UpdateProduct(w http.ResponseWriter, r *http.Request) error {
 	items, err := q.UpdateProduct(context.Background(), db.UpdateProductParams{
 		Count:  sql.NullInt64{Int64: p.Count.Int64, Valid: p.Count.Valid},
 		UserID: sql.NullInt64{Int64: p.UserID.Int64, Valid: p.UserID.Valid},
-		ItemID: sql.NullInt64{Int64: p.ItemID.Int64, Valid: p.ItemID.Valid},
+		ID: p.ID,
 	})
 
 	if err != nil {

@@ -34,9 +34,6 @@ func ConnectToDB() (db *sql.DB) {
 		log.Fatalf("Failed to connect: %v", err)
 	}
 
-	if err := db.Ping(); err != nil {
-		log.Fatalf("Failed to ping: %v", err)
-	}
 
 	if err != nil {
 		panic(err)
