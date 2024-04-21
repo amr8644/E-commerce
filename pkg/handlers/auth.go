@@ -55,21 +55,22 @@ func LoginUser(w http.ResponseWriter, r *http.Request) error {
 	// Create a new user struct
 	var u db.User
 
-
 	err := json.NewDecoder(r.Body).Decode(&u)
 
 	if err != nil {
 		return utils.WriteJSON(w, 400, err)
 	}
-    fmt.Println(u.Username.String)
 
-	// Add to database
+    fmt.Println(u.Username.String)
+	
+    // Add to database
 	q := db.New(conn.ConnectToDB())
 	user, err := q.LoginUser(context.Background(), u.Email)
 
 	if err != nil {
 		return utils.WriteJSON(w, 400, err)
 	}
+
 
 	check := utils.CheckPasswordHash(u.Password.String, user.Password.String)
 
@@ -78,7 +79,7 @@ func LoginUser(w http.ResponseWriter, r *http.Request) error {
 	}
 
 	Manager.Put(r.Context(), "name", u.Username.String)
-	return utils.WriteJSON(w, 200, user)
+	return utils.WriteJSON(w, 200, u)
 
 }
 

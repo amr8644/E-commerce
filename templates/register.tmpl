@@ -18,7 +18,7 @@
                         <h4 class="card-title text-center">Sign Up</h4>
                     </div>
                     <div class="card-body">
-                        <form hx-post="/register">
+                        <form  action="POST">
                             <div class="mb-3">
                                 <label for="username" class="form-label">Username</label>
                                 <input type="text" class="form-control" id="username" name="username" required>
@@ -34,8 +34,7 @@
                                 <input type="password" class="form-control" id="password" name="password" required>
                             </div>
 
-                            <button  onclick="handleData()" class="btn btn-primary w-100">Sign Up</button>
-                        </form>
+                            <button  onclick="handleData()" class="btn btn-primary w-100">Sign Up</button> </form>
                     </div>
                 </div>
             </div>
@@ -64,7 +63,6 @@
             })
             const d = await response.json();
             console.log(d);
-
             }catch(error){
                 console.log(error)
             }
