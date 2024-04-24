@@ -26,9 +26,6 @@ func AddProduct(w http.ResponseWriter, r *http.Request) error {
 	if err != nil {
 		return utils.WriteJSON(w, 400, err)
 	}
-
-	p.UserID.Int64 = 1
-
 	_, err = q.AddProduct(context.Background(), db.AddProductParams{
 		UserID:  sql.NullInt64{Int64: p.UserID.Int64, Valid: p.UserID.Valid},
 		Name:    sql.NullString{String: p.Name.String, Valid: p.Name.Valid},
@@ -74,6 +71,8 @@ func DeleteProduct(w http.ResponseWriter, r *http.Request) error {
 
 func GetAllUserProduct(w http.ResponseWriter, r *http.Request) error {
 	id, err := strconv.Atoi(chi.URLParam(r, "id"))
+	// id = 2
+	// fmt.Println(id)
 	q := db.New(conn.ConnectToDB())
 	if err != nil {
 		log.Println(err)

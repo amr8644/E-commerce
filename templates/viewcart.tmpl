@@ -68,15 +68,16 @@
     try {
         const response = await fetch(`/cart/${id}`);
         const data = await response.json();
-        data.forEach((product) => {
+        data.map((product) => {
+            console.log(product)
             d.innerHTML += `
             <div class="col">
                 <div class="card h-100">
-                    <img src="${product.image}" class="card-img-top" alt="Product 1">
+                    <img src="${product.picture.String}" class="card-img-top" alt="Product 1">
                     <div class="card-body">
-                        <h5 class="card-title">${product.title}</h5>
-                        <p class="card-text">${product.description}</p>
-                        <p class="card-text">$${product.price}</p>
+                        <h5 class="card-title">${product.name.String}</h5>
+                        //<p class="card-text">${product.about.String}</p>
+                        <p class="card-text">$${product.price.Float64}</p>
                     </div>
                 </div>
             </div>
