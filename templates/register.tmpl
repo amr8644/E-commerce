@@ -53,6 +53,7 @@
                 Email: { String: emailInput.value, Valid: true },
                 Password: { String: passwordInput.value, Valid: true }
             };
+
             try{
             const response = await fetch("/register", {
                 method: "POST",
@@ -61,8 +62,10 @@
             },
                 body: JSON.stringify(body),
             })
+
             const d = await response.json();
-            console.log(d);
+            window.localStorage.setItem("user", JSON.stringify(d));
+
             }catch(error){
                 console.log(error)
             }

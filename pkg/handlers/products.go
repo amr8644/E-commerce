@@ -71,8 +71,6 @@ func DeleteProduct(w http.ResponseWriter, r *http.Request) error {
 
 func GetAllUserProduct(w http.ResponseWriter, r *http.Request) error {
 	id, err := strconv.Atoi(chi.URLParam(r, "id"))
-	// id = 2
-	// fmt.Println(id)
 	q := db.New(conn.ConnectToDB())
 	if err != nil {
 		log.Println(err)
@@ -85,7 +83,6 @@ func GetAllUserProduct(w http.ResponseWriter, r *http.Request) error {
 		log.Println(err)
 		return utils.WriteJSON(w, 400, err)
 	}
-	fmt.Println(items)
 	return utils.WriteJSON(w, 200, items)
 }
 
@@ -99,6 +96,7 @@ func UpdateProduct(w http.ResponseWriter, r *http.Request) error {
 		return utils.WriteJSON(w, 400, err)
 	}
 
+    fmt.Println(p.Count.Int64)
 	q := db.New(conn.ConnectToDB())
 
 	items, err := q.UpdateProduct(context.Background(), db.UpdateProductParams{
@@ -108,7 +106,6 @@ func UpdateProduct(w http.ResponseWriter, r *http.Request) error {
 	})
 
 	if err != nil {
-		log.Println(err)
 		return utils.WriteJSON(w, 400, err)
 	}
 	return utils.WriteJSON(w, 200, items)
