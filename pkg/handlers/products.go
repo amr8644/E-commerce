@@ -97,6 +97,7 @@ func UpdateProduct(w http.ResponseWriter, r *http.Request) error {
 	}
 
     fmt.Println(p.Count.Int64)
+
 	q := db.New(conn.ConnectToDB())
 
 	items, err := q.UpdateProduct(context.Background(), db.UpdateProductParams{
@@ -105,8 +106,10 @@ func UpdateProduct(w http.ResponseWriter, r *http.Request) error {
 		ID: p.ID,
 	})
 
+
+    fmt.Println(items)
 	if err != nil {
 		return utils.WriteJSON(w, 400, err)
 	}
-	return utils.WriteJSON(w, 200, items)
+	return utils.WriteJSON(w, 200, p)
 }

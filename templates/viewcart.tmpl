@@ -12,21 +12,17 @@
 
 <body>
 
-       <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
             <a class="navbar-brand" href="#">ACME</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                   
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img src="https://via.placeholder.com/30" alt="User" class="rounded-circle me-2">
-                            My cart
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img src="https://via.placeholder.com/30" alt="User" class="rounded-circle me-2"> My cart
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="/mycart">Products</a>
@@ -39,109 +35,126 @@
         </div>
     </nav>
 
-    <div class="container mt-5">
+    <div id="main-con" class="container mt-5">
         <h2 class="text-center mb-4">Your Products</h2>
-
         <div id="con" class="row row-cols-1 row-cols-md-3 g-4">
-            <!-- Product 1 -->
-   <!--          <div class="col">
-                <div class="card h-100">
-                    <img src="https://via.placeholder.com/300" class="card-img-top" alt="Product 1">
-                    <div class="card-body">
-                        <h5 class="card-title">Your Product 1</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                        <p class="card-text">$19.99</p> -->
-                        <!-- Add more details or actions specific to the user's products
-                    </div>
-                </div>
-            </div> -->
-
-
         </div>
     </div>
 
+    <script>
 
-<script >
+    const userID = window.localStorage.getItem("user");
+        function del(){
+            const element = document.getElementById("con");
+            element.remove();
+            const para = document.createElement("div");
+            para.setAttribute("id", "con");
 
-    const d = document.getElementById("con");
+            para.setAttribute("class", "row row-cols-1 row-cols-md-3 g-4");
+            document.getElementById("main-con").appendChild(para);
 
-async function updateProduct(count, id) {
-    try {
-
-        const userID = window.localStorage.getItem("user");
-        const body = {
-            Count: {
-                Int64: count,
-                Valid: true
-            },
-            User_ID: {
-                Int64: parseInt(userID),
-                Valid: true
-            },
-
-            ID: id,
-
-        };
-
-        const response = await fetch('/update', {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(body),
-        });
-        const data = await response.json();
-        console.log(data)
-    } catch (error) {
-        console.error(error);
+            getProducts(parseInt(userID));
     }
 
-}
-async function getProducts(id) {
-    try {
-        const response = await fetch(`/cart/${id}`);
-        const data = await response.json();
-        data.map((product) => {
-            d.innerHTML += `
+ async function deleteProduct(id) {
+        try {
+           const body = {
+                User_ID: {
+                    Int64: parseInt(userID),
+                    Valid: true
+                },
+                ID: id,
+            };
+            const response = await fetch('/delete/${id}', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(body),
+            });
+            const data = await response.json();
+           del();
 
-            <div class="card mb-3" style="max-width: 540px;">
-  <div class="row g-0">
-    <div class="col-md-4">
-      <img src="${product && product.picture && product.picture.String}" class="card-img-top" alt="Product 1">
-    </div>
-    <div class="col-md-8">
-      <div class="card-body">
-        <h5 class="card-title">${product && product.name && product.name.String}</h5>
-        <p class="card-text">$${product && product.price && product.price.Float64}</p>
-        <button onClick="updateProduct(${(product.count.Int64 + 1)}, ${product.id.Int64})" class="btn btn-primary btn-sm">+</button>
-        <p>${product && product.count && product.count.Int64}</p>
-        <button onClick="updateProduct(${product && product.count && (product.count.Int64 - 1)}, ${product && product.id && product.id.Int64})" class="btn btn-primary btn-sm">-</button>
+        console.log(data)
+        } catch (error) {
+            console.error(error);
+        }
+    
+    }
+
+        async function updateProduct(count, id) {
+        try {
+            const body = {
+                Count: {
+                    Int64: count,
+                    Valid: true
+                },
+                User_ID: {
+                    Int64: parseInt(userID),
+                    Valid: true
+                },
+    
+                ID: id,
+    
+            };
+    
+
+    if(count != 0){
+            const response = await fetch('/update', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(body),
+            });
+            const data = await response.json();
+            del();
+    }
+
+        console.log(data)
+        } catch (error) {
+            console.error(error);
+        }
+    
+    }
+    async function getProducts(id) {
+ 
+        const d = document.getElementById("con");
+     try {
+            const response = await fetch(`/cart/${id}`);
+            const data = await response.json();
+            data.map((product) => {
+                d.innerHTML += `
+                <div id="toremove" class="card mb-3" style="max-width: 540px;">
+                <div class="row g-0">
+        <div class="col-md-4">
+          <img src="${product.picture.String}" class="card-img-top" alt="Product 1">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">${product.name.String}</h5>
+            <p class="card-text">$${product.price.Float64}</p>
+            <button onClick="updateProduct(${(product.count.Int64 + 1)}, ${product.id})" class="btn btn-primary btn-sm">+</button>
+            <p>${product.count.Int64}</p>
+            <button onClick="updateProduct(${(product.count.Int64 - 1)}, ${product.id})" class="btn btn-primary btn-sm">-</button>
+          <button onClick="deleteProduct(${product.id})" type="button" class="btn btn-dark">Delete</button>
+
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
+    
+                    `;
+            });
 
-                `;
-        });
-    } catch (error) {
-        console.error(error);
+        } catch (error) {
+            console.error(error);
+        }
     }
-}
-
-const userID = window.localStorage.getItem("user");
-getProducts(parseInt(userID));
-
-</script>
-</script>
-    <!-- Bootstrap JS and Popper.js (Optional) -->
+    getProducts(parseInt(userID));
+    </script>
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
-
-
-
-
-
-
-
