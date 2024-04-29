@@ -24,7 +24,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	tmpl := template.Must(template.ParseGlob("templates/*"))
+	templ := template.Must(template.ParseGlob("templates/*"))
 
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Hello World!"))
@@ -32,17 +32,18 @@ func main() {
 
 	// Static Routes
 	r.Get("/signup", func(w http.ResponseWriter, r *http.Request) {
-		tmpl.ExecuteTemplate(w, "register.tmpl", nil)
+		templ.ExecuteTemplate(w, "register.html", nil)
 	})
 	r.Get("/signin", func(w http.ResponseWriter, r *http.Request) {
-		tmpl.ExecuteTemplate(w, "login.tmpl", nil)
+		templ.ExecuteTemplate(w, "login.html", nil)
 	})
 	r.Get("/dashboard", func(w http.ResponseWriter, r *http.Request) {
-		tmpl.ExecuteTemplate(w, "dashboard.tmpl", nil)
+		w.Header().Set("Content-Type", "text/javascript")
+		templ.ExecuteTemplate(w, "dashboard.html", nil)
 	})
 
 	r.Get("/mycart", func(w http.ResponseWriter, r *http.Request) {
-		tmpl.ExecuteTemplate(w, "viewcart.tmpl", nil)
+		templ.ExecuteTemplate(w, "viewcart.html", nil)
 	})
 	// Auth
 	r.Post("/register", handlers.HTTPHandler(handlers.RegisterUser))
