@@ -37,14 +37,25 @@ func main() {
 	r.Get("/signin", func(w http.ResponseWriter, r *http.Request) {
 		templ.ExecuteTemplate(w, "login.html", nil)
 	})
+
+	// Serve JavaScript file with the correct MIME type
+	r.Get("/scripts/script.js", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/javascript")
+		http.ServeFile(w, r, "scripts/script.js")
+	})
+	r.Get("/scripts/auth.js", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/javascript")
+		http.ServeFile(w, r, "scripts/auth.js")
+	})
+
 	r.Get("/dashboard", func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Content-Type", "text/javascript")
 		templ.ExecuteTemplate(w, "dashboard.html", nil)
 	})
 
 	r.Get("/mycart", func(w http.ResponseWriter, r *http.Request) {
 		templ.ExecuteTemplate(w, "viewcart.html", nil)
 	})
+
 	// Auth
 	r.Post("/register", handlers.HTTPHandler(handlers.RegisterUser))
 	r.Get("/logout", handlers.HTTPHandler(handlers.LogoutUser))
