@@ -15,6 +15,7 @@ func (e APIError) Error() string {
 	return e.Err
 }
 
+
 type APIFunc func(http.ResponseWriter, *http.Request) error
 
 func HTTPHandler(f APIFunc) http.HandlerFunc {

@@ -106,8 +106,6 @@ func UpdateProduct(w http.ResponseWriter, r *http.Request) error {
 		ID: p.ID,
 	})
 
-
-    fmt.Println(items)
 	if err != nil {
 		return utils.WriteJSON(w, 400, err)
 	}
