@@ -105,6 +105,7 @@ func UpdateProduct(w http.ResponseWriter, r *http.Request) error {
 		UserID: sql.NullInt64{Int64: p.UserID.Int64, Valid: p.UserID.Valid},
 		ID: p.ID,
 	})
+	fmt.Println(items)
 
 	if err != nil {
 		return utils.WriteJSON(w, 400, err)

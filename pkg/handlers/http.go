@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"net/http"
-
 	"github.com/server/pkg/utils"
 )
 
@@ -29,3 +28,5 @@ func HTTPHandler(f APIFunc) http.HandlerFunc {
 		}
 	}
 }
+
+    
