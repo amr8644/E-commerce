@@ -24,13 +24,11 @@ func RegisterUser(w http.ResponseWriter, r *http.Request) error {
 	}
 
 	qq := db.New(conn.ConnectToDB())
-	user, err := qq.LoginUser(context.Background(), u.Email)
+_, err = qq.LoginUser(context.Background(), u.Email)
 
 	if err == nil {
 		return utils.WriteJSON(w, 400, "Email & Username taked...")
 	}
-
-
 
 	hashed_password, err := utils.HashPassword(u.Password.String)
 

@@ -39,9 +39,13 @@ func main() {
 	})
 
 	// Serve JavaScript file with the correct MIME type
-	r.Get("/scripts/script.js", func(w http.ResponseWriter, r *http.Request) {
+	r.Get("/scripts/products.js", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/javascript")
-		http.ServeFile(w, r, "scripts/script.js")
+		http.ServeFile(w, r, "scripts/products.js")
+	})
+	r.Get("/scripts/carts.js", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/javascript")
+		http.ServeFile(w, r, "scripts/carts.js")
 	})
 	r.Get("/scripts/auth.js", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/javascript")

@@ -5,8 +5,7 @@ const emailInput = document.getElementById("email");
 async function login() {
   const body = {
     Username: { String: usernameInput.value, Valid: true },
-    Email: { String: usernameInput.value, Valid: true },
-        Email: { String: usernameInput.value, Valid: true },
+       Password: { String: passwordInput.value, Valid: true },
   };
 
   try {
@@ -18,9 +17,11 @@ async function login() {
       body: JSON.stringify(body),
     });
  
-        const d = await response.json();
+     const d = await response.json();
+        
+    console.log(d)
     if (response.ok) {
-window.location.href = "/dashboard";
+        window.location.href = "/dashboard";
     }
 
     return d;
