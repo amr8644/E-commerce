@@ -3,15 +3,15 @@ const d = document.getElementById("con");
 
 function updateUI() {
   const element = document.getElementById("con");
-  const para = document.createElement("div");
+  element.remove()
 
-  element.remove();
+  const para = document.createElement("tbody");
   para.setAttribute("id", "con");
 
   para.setAttribute("class", "row row-cols-1 row-cols-md-3 g-4");
   document.getElementById("main-con").appendChild(para);
 
-  getProducts(parseInt(userID));
+  getAllUserProducts(parseInt(userID));
 }
 
 async function deleteProduct(id) {
@@ -73,11 +73,15 @@ async function updateProduct(count, id) {
 async function getAllUserProducts(id) {
   const d = document.getElementById("con");
   try {
+    let total = 0;
     const response = await fetch(`/cart/${id}`);
     const data = await response.json();
     data.map((product) => {
+      total += product.price.Float64
+      console.log(total)
       d.innerHTML += `
                            <tr
+                           id="${id}"
                             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                             <td class="p-4">
                                 <img src="${product.picture.String}
@@ -118,7 +122,7 @@ async function getAllUserProducts(id) {
                                 </div>
                             </td>
                             <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-                                $${product.price.Float64}
+                                $${product.price.Float64 * product.count.Int64}
                             </td>
                             <td class="px-6 py-4">
                                 <button onclick="deleteProduct(${product.id})" type="button"
