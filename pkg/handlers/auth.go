@@ -24,11 +24,16 @@ func RegisterUser(w http.ResponseWriter, r *http.Request) error {
 	}
 
 	qq := db.New(conn.ConnectToDB())
-_, err = qq.LoginUser(context.Background(), u.Email)
+    _, err = qq.LoginUser(context.Background(), u.Email)
 
 	if err == nil {
-		return utils.WriteJSON(w, 400, "Email & Username taked...")
+		return utils.WriteJSON(w, 400, "Email is taken...")
 	}
+	    _, err = qq.LoginUser(context.Background(), u.Username)
+if err == nil {
+		return utils.WriteJSON(w, 400, "Username is taken...")
+	}
+
 
 	hashed_password, err := utils.HashPassword(u.Password.String)
 
@@ -63,7 +68,7 @@ func LoginUser(w http.ResponseWriter, r *http.Request) error {
 	err := json.NewDecoder(r.Body).Decode(&u)
 
 	if err != nil {
-		return utils.WriteJSON(w, 400, err)
+		return utils.WriteJSON(w, 400, "Bad Request")
 	}
 
 	q := db.New(conn.ConnectToDB())
@@ -76,11 +81,11 @@ func LoginUser(w http.ResponseWriter, r *http.Request) error {
 	check := utils.CheckPasswordHash(u.Password.String, user.Password.String)
 
 	if !check {
-		return utils.WriteJSON(w, 400, "Wrong")
+		return utils.WriteJSON(w, 400, "Wrong Password")
 	}
 
 	Manager.Put(r.Context(), "name", u.Username.String)
-	return utils.WriteJSON(w, 200, u)
+	return utils.WriteJSON(w, 200, user)
 
 }
 

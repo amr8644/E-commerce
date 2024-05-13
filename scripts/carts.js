@@ -1,6 +1,8 @@
 const userID = window.localStorage.getItem("user");
 const d = document.getElementById("con");
 
+
+
 function updateUI() {
   const element = document.getElementById("con");
   element.remove()
