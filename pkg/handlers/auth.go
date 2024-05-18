@@ -13,27 +13,15 @@ import (
 
 func RegisterUser(w http.ResponseWriter, r *http.Request) error {
 
-	
 	var u db.User
 
-	q := db.New(conn.ConnectToDB())
 	err := json.NewDecoder(r.Body).Decode(&u)
 
 	if err != nil {
 		return utils.WriteJSON(w, 400, err)
 	}
 
-	qq := db.New(conn.ConnectToDB())
-    _, err = qq.LoginUser(context.Background(), u.Email)
-
-	if err == nil {
-		return utils.WriteJSON(w, 400, "Email is taken...")
-	}
-	    _, err = qq.LoginUser(context.Background(), u.Username)
-if err == nil {
-		return utils.WriteJSON(w, 400, "Username is taken...")
-	}
-
+	q := db.New(conn.ConnectToDB())
 
 	hashed_password, err := utils.HashPassword(u.Password.String)
 

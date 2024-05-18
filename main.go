@@ -11,6 +11,8 @@ import (
 	"github.com/server/pkg/handlers"
 )
 
+var url string = "https://e-commerce-l6wb.onrender.com"
+
 func main() {
 
 	r := chi.NewRouter()
@@ -31,10 +33,10 @@ func main() {
 	})
 
 	// Static Routes
-	r.Get("/signup", func(w http.ResponseWriter, r *http.Request) {
+	r.Get(url+"/signup", func(w http.ResponseWriter, r *http.Request) {
 		templ.ExecuteTemplate(w, "register.html", nil)
 	})
-	r.Get("/signin", func(w http.ResponseWriter, r *http.Request) {
+    r.Get(url+"/signin", func(w http.ResponseWriter, r *http.Request) {
 		templ.ExecuteTemplate(w, "login.html", nil)
 	})
 
@@ -52,24 +54,24 @@ func main() {
 		http.ServeFile(w, r, "scripts/auth.js")
 	})
 
-	r.Get("/dashboard", func(w http.ResponseWriter, r *http.Request) {
+	r.Get(url+"/dashboard", func(w http.ResponseWriter, r *http.Request) {
 		templ.ExecuteTemplate(w, "dashboard.html", nil)
 	})
 
-	r.Get("/mycart", func(w http.ResponseWriter, r *http.Request) {
+	r.Get(url+"/mycart", func(w http.ResponseWriter, r *http.Request) {
 		templ.ExecuteTemplate(w, "viewcart.html", nil)
 	})
 
 	// Auth
-	r.Post("/register", handlers.HTTPHandler(handlers.RegisterUser))
-	r.Get("/logout", handlers.HTTPHandler(handlers.LogoutUser))
-	r.Post("/login", handlers.HTTPHandler(handlers.LoginUser))
+	r.Post(url+"/register", handlers.HTTPHandler(handlers.RegisterUser))
+	r.Get(url+"/logout", handlers.HTTPHandler(handlers.LogoutUser))
+	r.Post(url+"/login", handlers.HTTPHandler(handlers.LoginUser))
 
 	// Items
-	r.Post("/add-item", handlers.HTTPHandler(handlers.AddProduct))
-	r.Delete("/delete/{id}", handlers.HTTPHandler(handlers.DeleteProduct))
-	r.Get("/cart/{id}", handlers.HTTPHandler(handlers.GetAllUserProduct))
-	r.Put("/update", handlers.HTTPHandler(handlers.UpdateProduct))
+	r.Post(url+"/add-item", handlers.HTTPHandler(handlers.AddProduct))
+	r.Delete(url+"/delete/{id}", handlers.HTTPHandler(handlers.DeleteProduct))
+	r.Get(url+"/cart/{id}", handlers.HTTPHandler(handlers.GetAllUserProduct))
+	r.Put(url+"/update", handlers.HTTPHandler(handlers.UpdateProduct))
 
 	http.ListenAndServe(":8000", handlers.Manager.LoadAndSave(r))
 }
