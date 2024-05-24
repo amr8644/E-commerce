@@ -2,10 +2,22 @@ package utils
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 
 	"golang.org/x/crypto/bcrypt"
 )
+
+func CheckIfThere(urls []string, path string) bool {
+
+	for _, v := range urls {
+        fmt.Println(v)
+		if v == path {
+			return true
+		}
+	}
+	return false
+}
 
 func HashPassword(password string) (string, error) {
 	bytes, err := bcrypt.GenerateFromPassword([]byte(password), 14)

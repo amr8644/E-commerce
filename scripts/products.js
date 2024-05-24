@@ -1,13 +1,7 @@
 const userID = window.localStorage.getItem("user");
 const d = document.getElementById("con");
 
-
-
-
-
 function toast() {
-  
-  
    d.innerHTML += ` <div id="toast-success" class="flex absolute items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
             <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
                 <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -22,10 +16,8 @@ function toast() {
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                 </svg>
             </button>
-        </div>` 
-   
+        </div>`
  }
- 
 
 async function addToCart(product) {
   try {
@@ -72,7 +64,7 @@ async function getProducts() {
                     </div>
         <div class="flex items-center justify-between">
             <span class="text-3xl font-bold text-gray-900 dark:text-white">$${product.price}</span>
-  
+
             <button type="button" onclick="addToCart(${product.id})" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add to cart</button>
 
             </div>

@@ -20,7 +20,7 @@ func main() {
 	handlers.InitSessions()
 
 	r.Use(middleware.Logger)
-	//r.Use(handlers.Authenticate)
+	r.Use(handlers.Authenticate)
 
 	if err := db.Run(); err != nil {
 		log.Fatal(err)

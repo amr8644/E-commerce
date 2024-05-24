@@ -8,8 +8,8 @@ import (
 
 func Authenticate(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-
-		if r.URL.Path == "/login" || r.URL.Path == "/register" || r.URL.Path == "/rlogin" || r.URL.Path == "/signup"  {
+		allowed_urls := []string{"/login", "/register", "/signin", "/signup", "/scripts/auth.js", "/scripts/cart.js", "/scripts/products.js"}
+		if utils.CheckIfThere(allowed_urls,r.URL.Path) {
 			next.ServeHTTP(w, r)
 		} else {
 			msg := Manager.Get(r.Context(), "name")
