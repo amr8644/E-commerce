@@ -21,7 +21,6 @@ function toast() {
 
 async function addToCart(product) {
   try {
-    const userID = window.localStorage.getItem("user");
     const d = await fetch(`https://fakestoreapi.com/products/${product}`);
     const r = await d.json();
 

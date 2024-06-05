@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"encoding/json"
+	"fmt"
 	"net/http"
 
 	conn "github.com/server/pkg/db"
@@ -18,6 +19,7 @@ func RegisterUser(w http.ResponseWriter, r *http.Request) error {
 	err := json.NewDecoder(r.Body).Decode(&u)
 
 	if err != nil {
+        fmt.Println(err)
 		return utils.WriteJSON(w, 400, err)
 	}
 
@@ -26,6 +28,7 @@ func RegisterUser(w http.ResponseWriter, r *http.Request) error {
 	hashed_password, err := utils.HashPassword(u.Password.String)
 
 	if err != nil {
+        fmt.Println(err)
 		return utils.WriteJSON(w, 400, err)
 	}
 
@@ -36,12 +39,14 @@ func RegisterUser(w http.ResponseWriter, r *http.Request) error {
 	})
 
 	if err != nil {
+        fmt.Println(err)
 		return utils.WriteJSON(w, 400, err)
 	}
 
 	id, err := user.LastInsertId()
 
 	if err != nil {
+        fmt.Println(err)
 		return utils.WriteJSON(w, 400, err)
 	}
 
@@ -54,16 +59,18 @@ func LoginUser(w http.ResponseWriter, r *http.Request) error {
 	var u db.User
 
 	err := json.NewDecoder(r.Body).Decode(&u)
+	
 
-	if err != nil {
-		return utils.WriteJSON(w, 400, "Bad Request")
+    if err != nil {
+		return utils.WriteJSON(w, 400, err)
 	}
 
+
 	q := db.New(conn.ConnectToDB())
-	user, err := q.LoginUser(context.Background(), u.Email)
+	user, err := q.LoginUser(context.Background(), u.Username)
 
 	if err != nil {
-		return utils.WriteJSON(w, 400, err)
+		return utils.WriteJSON(w, 400, "User not found")
 	}
 
 	check := utils.CheckPasswordHash(u.Password.String, user.Password.String)
@@ -73,7 +80,7 @@ func LoginUser(w http.ResponseWriter, r *http.Request) error {
 	}
 
 	Manager.Put(r.Context(), "name", u.Username.String)
-	return utils.WriteJSON(w, 200, user)
+	return utils.WriteJSON(w, 200, user.ID)
 
 }
 

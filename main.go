@@ -63,9 +63,10 @@ func main() {
 	})
 
 	// Auth
+
+	r.Post("/login", handlers.HTTPHandler(handlers.LoginUser))
 	r.Post("/register", handlers.HTTPHandler(handlers.RegisterUser))
 	r.Get("/logout", handlers.HTTPHandler(handlers.LogoutUser))
-	r.Post("/login", handlers.HTTPHandler(handlers.LoginUser))
 
 	// Items
 	r.Post("/add-item", handlers.HTTPHandler(handlers.AddProduct))

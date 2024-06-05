@@ -1,8 +1,6 @@
 const userID = window.localStorage.getItem("user");
 const d = document.getElementById("con");
 
-
-
 function updateUI() {
   const element = document.getElementById("con");
   element.remove()
@@ -78,6 +76,7 @@ async function getAllUserProducts(id) {
     let total = 0;
     const response = await fetch(`/cart/${id}`);
     const data = await response.json();
+      console.log(data)
     data.map((product) => {
       total += product.price.Float64
       console.log(total)

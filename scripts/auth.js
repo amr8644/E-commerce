@@ -5,6 +5,7 @@ const emailInput = document.getElementById("email");
 
 function toastWarning(params) {
  
+    console.log(params)
  let t = document.getElementById("con");
 
   t.innerHTML += `<div id="toast-warning" class="flex items-center w-full max-w-xs p-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
@@ -25,47 +26,10 @@ function toastWarning(params) {
   
 }
 
- function laa() {
 
-    console.log("HEE")
-}
-/*
-async function login() {
-
-  const body = {
-    Username: { String: usernameInput.value, Valid: true },
-       Password: { String: passwordInput.value, Valid: true },
-  };
-
-    console.log(body)
-
-  try {
-    const response = await fetch("/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    });
- 
- const d = await response.json();
-    if (response.ok) {
-        window.location.href = "/dashboard";
-    }else{
-      toastWarning(d)
-    }
-
-
-      console.log(d)
-    return d;
-  } catch (error) {
-    
-    console.log(error);
-  }
-}
-*/
 async function register() {
-  const body = {
+ 
+    const body = {
     Username: { String: usernameInput.value, Valid: true },
     Email: { String: emailInput.value, Valid: true },
     Password: { String: passwordInput.value, Valid: true },
@@ -82,7 +46,38 @@ async function register() {
 
     const d = await response.json();
   if (response.ok) {
-window.location.href = "/signin";
+
+    window.localStorage.setItem("user", d);
+      window.location.href = "/signin";
+      }else{
+      toastWarning(d)
+    }
+    return d;
+  } catch (error) {
+    alert(error)
+    console.log(error);
+  }
+}
+
+async function re() {
+ 
+    const body = {
+    Username: { String: usernameInput.value, Valid: true },
+    Password: { String: passwordInput.value, Valid: true },
+  };
+
+  try {
+    const response = await fetch("/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+
+    const d = await response.json();
+  if (response.ok) {
+      window.location.href = "/dashboard";
       }else{
       toastWarning(d)
     }
