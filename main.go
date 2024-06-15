@@ -45,6 +45,10 @@ func main() {
 		w.Header().Set("Content-Type", "application/javascript")
 		http.ServeFile(w, r, "scripts/products.js")
 	})
+	r.Get("/data/data.json", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		http.ServeFile(w, r, "data/data.json")
+	})
 	r.Get("/scripts/carts.js", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/javascript")
 		http.ServeFile(w, r, "scripts/carts.js")

@@ -1,0 +1,124 @@
+[
+    {
+        "id": 1,
+        "title": "Barbie Doll",
+        "price": 15.99,
+        "category": "Dolls",
+        "description": "A classic Barbie doll with long, curly hair and a variety of outfits.",
+        "image": "https://images.unsplash.com/photo-1549644444-5f9a5f5f4c3f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fHx8fHw%3D&auto=format&fit=crop&w=1350&q=80"
+    },
+    {
+        "id": 2,
+        "title": "Lego Star Wars Set",
+        "price": 49.99,
+        "category": "Building Sets",
+        "description": "A Lego set featuring characters and vehicles from the Star Wars franchise.",
+        "image": "https://images.unsplash.com/photo-1549644444-5f9a5f5f4c3f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fHx8fHw%3D&auto=format&fit=crop&w=1350&q=80"
+    },
+    {
+        "id": 3,
+        "title": "Nerf Blaster",
+        "price": 19.99,
+        "category": "Toys",
+        "description": "A fun and interactive Nerf blaster for kids to play with.",
+        "image": "https://images.unsplash.com/photo-1549644444-5f9a5f5f4c3f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fHx8fHw%3D&auto=format&fit=crop&w=1350&q=80"
+    },
+    {
+        "id": 4,
+        "title": "Play-Doh Set",
+        "price": 9.99,
+        "category": "Arts and Crafts",
+        "description": "A set of colorful Play-Doh modeling compounds and tools for kids to create and express themselves.",
+        "image": "https://images.unsplash.com/photo-1549644444-5f9a5f5f4c3f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fHx8fHw%3D&auto=format&fit=crop&w=1350&q=80"
+    },
+    {
+        "id": 5,
+        "title": "Hot Wheels Track Set",
+        "price": 29.99,
+        "category": "Racing and Stunt Toys",
+        "description": "A set of Hot Wheels tracks and cars for kids to build and race their own stunts.",
+        "image": "https://images.unsplash.com/photo-1549644444-5f9a5f5f4c3f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fHx8fHw%3D&auto=format&fit=crop&w=1350&q=80"
+    },
+
+       {
+        "id": 6,
+        "title": "Furby",
+        "price": 49.99,
+        "category": "Electronics",
+        "description": "A digital pet that interacts with you and learns your name.",
+        "image": "https://images.unsplash.com/photo-1549644444-5f9a5f5f4c3f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fHx8fHw%3D&auto=format&fit=crop&w=1350&q=80"
+    },
+    {
+        "id": 7,
+        "title": "Monopoly",
+        "price": 19.99,
+        "category": "Board Games",
+        "description": "A classic board game where players buy, sell, and trade properties.",
+        "image": "https://images.unsplash.com/photo-1549644444-5f9a5f5f4c3f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fHx8fHw%3D&auto=format&fit=crop&w=1350&q=80"
+    },
+    {
+        "id": 8,
+        "title": "Polly Pocket",
+        "price": 14.99,
+        "category": "Dolls",
+        "description": "A set of small, collectible dolls and accessories.",
+        "image": "https://images.unsplash.com/photo-1549644444-5f9a5f5f4c3f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fHx8fHw%3D&auto=format&fit=crop&w=1350&q=80"
+    },
+    {
+        "id": 9,
+        "title": "Lego Friends",
+        "price": 39.99,
+        "category": "Building Sets",
+        "description": "A Lego set featuring characters and buildings from the Friends franchise.",
+        "image": "https://images.unsplash.com/photo-1549644444-5f9a5f5f4c3f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fHx8fHw%3D&auto=format&fit=crop&w=1350&q=80"
+    },
+    {
+        "id": 10,
+        "title": "My Little Pony",
+        "price": 24.99,
+        "category": "Dolls",
+        "description": "A set of colorful, magical ponies with unique abilities.",
+        "image": "https://images.unsplash.com/photo-1549644444-5f9a5f5f4c3f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fHx8fHw%3D&auto=format&fit=crop&w=1350&q=80"
+    },
+    {
+        "id": 11,
+        "title": "Playmobil",
+        "price": 29.99,
+        "category": "Building Sets",
+        "description": "A set of building blocks and characters for kids to create their own stories.",
+        "image": "https://images.unsplash.com/photo-1549644444-5f9a5f5f4c3f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fHx8fHw%3D&auto=format&fit=crop&w=1350&q=80"
+    },
+    {
+        "id": 12,
+        "title": "Barbie Fashionistas",
+        "price": 19.99,
+        "category": "Dolls",
+        "description": "A set of Barbie dolls with diverse body types and fashion styles.",
+        "image": "https://images.unsplash.com/photo-1549644444-5f9a5f5f4c3f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fHx8fHw%3D&auto=format&fit=crop&w=1350&q=80"
+    },
+    {
+        "id": 13,
+        "title": "Lego Creator",
+        "price": 49.99,
+        "category": "Building Sets",
+        "description": "A set of Lego blocks and characters for kids to build and create their own stories.",
+        "image": "https://images.unsplash.com/photo-1549644444-5f9a5f5f4c3f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fHx8fHw%3D&auto=format&fit=crop&w=1350&q=80"
+    },
+    {
+        "id": 14,
+        "title": "Hot Wheels Track Builder",
+        "price": 29.99,
+        "category": "Racing and Stunt Toys",
+        "description": "A set of Hot Wheels tracks and cars for kids to build and race their own stunts.",
+        "image": "https://images.unsplash.com/photo-1549644444-5f9a5f5f4c3f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fHx8fHw%3D&auto=format&fit=crop&w=1350&q=80"
+    },
+    {
+        "id": 15,
+        "title": "Nerf N-Strike",
+        "price": 19.99,
+        "category": "Toys",
+        "description": "A set of Nerf blasters and darts for kids to play with.",
+        "image": "https://images.unsplash.com/photo-1549644444-5f9a5f5f4c3f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fHx8fHw%3D&auto=format&fit=crop&w=1350&q=80"
+    }
+]
+
