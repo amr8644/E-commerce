@@ -6,6 +6,6 @@ in
     packages = [
      pkgs.go
      pkgs.sqlite
+     pkgs.nodejs_22
 ];
   }
-
